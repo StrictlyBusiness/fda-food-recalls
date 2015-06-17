@@ -1,9 +1,9 @@
 import angular from 'angular';
 
-let apiKey = '4mETWN08eYj8aOvd4zixN3819mP3GUz7Ma64SxkX';
-let apiBaseUrl = 'https://api.fda.gov/food/enforcement.json';
+const apiKey = '4mETWN08eYj8aOvd4zixN3819mP3GUz7Ma64SxkX';
+const apiBaseUrl = 'https://api.fda.gov/food/enforcement.json';
 
-let apiInfo = {
+const apiInfo = {
   key: apiKey,
   baseUrl: apiBaseUrl,
   url: apiBaseUrl + '?api_key=' + apiKey
