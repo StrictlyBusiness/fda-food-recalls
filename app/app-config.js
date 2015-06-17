@@ -1,12 +1,8 @@
 import angular from 'angular';
 
-const apiKey = '4mETWN08eYj8aOvd4zixN3819mP3GUz7Ma64SxkX';
-const apiBaseUrl = 'https://api.fda.gov/food/enforcement.json';
-
 const apiInfo = {
-  key: apiKey,
-  baseUrl: apiBaseUrl,
-  url: apiBaseUrl + '?api_key=' + apiKey
+  key: '4mETWN08eYj8aOvd4zixN3819mP3GUz7Ma64SxkX',
+  url: 'https://api.fda.gov/food/enforcement.json'
 };
 
 export default angular.module('fdaFoodRecalls.config', [])
