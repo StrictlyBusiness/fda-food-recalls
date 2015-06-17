@@ -17,6 +17,7 @@ System.config({
   "map": {
     "angular": "github:angular/bower-angular@1.4.1",
     "angular-bootstrap": "github:angular-ui/bootstrap-bower@0.13.0",
+    "angular-mocks": "github:angular/bower-angular-mocks@1.4.1",
     "angular-ui-router": "github:angular-ui/ui-router@0.2.15",
     "babel": "npm:babel-core@5.5.8",
     "babel-runtime": "npm:babel-runtime@5.5.8",
@@ -26,6 +27,9 @@ System.config({
     "text": "github:systemjs/plugin-text@0.0.2",
     "twbs/bootstrap-sass": "github:twbs/bootstrap-sass@3.3.5",
     "github:angular-ui/ui-router@0.2.15": {
+      "angular": "github:angular/bower-angular@1.4.1"
+    },
+    "github:angular/bower-angular-mocks@1.4.1": {
       "angular": "github:angular/bower-angular@1.4.1"
     },
     "github:jspm/nodelibs-events@0.1.1": {

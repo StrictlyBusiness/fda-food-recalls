@@ -64,6 +64,7 @@
     "dependencies": {
       "angular": "github:angular/bower-angular@^1.4.1",
       "angular-bootstrap": "github:angular-ui/bootstrap-bower@^0.13.0",
+      "angular-mocks": "github:angular/bower-angular-mocks@^1.4.1",
       "angular-ui-router": "github:angular-ui/ui-router@^0.2.15",
       "bluebird": "npm:bluebird@^2.9.30",
       "fortawesome/font-awesome": "github:fortawesome/font-awesome@^4.3.0",
