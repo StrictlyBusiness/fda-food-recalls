@@ -7,7 +7,7 @@ let apiInfo = {
   key: apiKey,
   baseUrl: apiBaseUrl,
   url: apiBaseUrl + '?api_key=' + apiKey
-}
+};
 
 export default angular.module('fdaFoodRecalls.config', [])
   .constant('API_INFO', apiInfo);
