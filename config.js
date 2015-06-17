@@ -23,6 +23,7 @@ System.config({
     "babel-runtime": "npm:babel-runtime@5.5.8",
     "bluebird": "npm:bluebird@2.9.30",
     "core-js": "npm:core-js@0.9.17",
+    "d3": "github:mbostock/d3@3.5.5",
     "fortawesome/font-awesome": "github:fortawesome/font-awesome@4.3.0",
     "moment": "github:moment/moment@2.10.3",
     "text": "github:systemjs/plugin-text@0.0.2",
