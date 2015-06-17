@@ -1,3 +1,4 @@
+import angular from 'angular';
 import 'angular-ui-router';
 import 'angular-bootstrap';
 
@@ -16,7 +17,7 @@ let dependencies = [
   configModule.name,
   servicesModule.name,
   // Page based modules
-  homeModule.name,
+  homeModule.name
 ];
 
 export default angular.module('fdaFoodRecalls', dependencies)
@@ -53,7 +54,7 @@ export default angular.module('fdaFoodRecalls', dependencies)
       '\n  fromParams: ', fromParams,
       '\n  error: ', error);
 
-    debugger;
+    debugger; // eslint-disable-line no-debugger
   });
 
   $rootScope.$on('$stateChangeSuccess', (event, toState, toParams, fromState, fromParams) => {

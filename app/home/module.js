@@ -1,3 +1,4 @@
+import angular from 'angular';
 import homeRoutes from './routes';
 import mapRoutes from './map/routes';
 

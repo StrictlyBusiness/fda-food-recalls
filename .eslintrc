@@ -1,0 +1,15 @@
+{
+  "env": {
+    "browser": true
+  },
+  "ecmaFeatures": {
+    "arrowFunctions": true,
+    "blockBindings": true,
+    "classes": true,
+    "defaultParams": true,
+    "modules": true
+  },
+  "rules": {
+    "quotes": [2, "single"]
+  }
+}

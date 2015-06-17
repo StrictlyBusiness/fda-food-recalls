@@ -169,15 +169,15 @@ gulp.task('clean', function (cb) {
 });
 
 /**
- * The 'jshint' task defines the rules of our hinter as well as which files
+ * The 'eslint' task defines the rules of our hinter as well as which files
  * we should check. It helps to detect errors and potential problems in our
  * JavaScript code.
  */
-gulp.task('jshint', function () {
-    return gulp.src(paths.app.scripts.concat(paths.gulpfile))
-        .pipe(plugins.jshint('.jshintrc'))
-        .pipe(plugins.jshint.reporter('jshint-stylish'))
-        //.pipe(plugins.jshint.reporter('fail'))
+gulp.task('eslint', function () {
+    return gulp.src(paths.app.scripts)
+        .pipe(plugins.eslint())
+        .pipe(plugins.eslint.format())
+        .pipe(plugins.eslint.failOnError())
         ;
 });
 
@@ -256,7 +256,7 @@ gulp.task('images', function () {
 /**
  * Create JS production bundle.
  */
-gulp.task('bundle', ['jshint'], plugins.shell.task([
+gulp.task('bundle', ['eslint'], plugins.shell.task([
     'jspm bundle-sfx app/app-bootstrap ' + paths.tmp.scripts + 'build.js'
   ])
 );
@@ -319,7 +319,7 @@ gulp.task('watch', function () {
     gulp.watch(paths.app.styles.scss, ['styles']);
 
     // Watch js files
-    gulp.watch([paths.app.scripts, paths.gulpfile], ['jshint', browserSync.reload]);
+    gulp.watch([paths.app.scripts, paths.gulpfile], ['eslint', browserSync.reload]);
 
     // Watch html files
     gulp.watch([paths.app.html, paths.app.templates], ['htmlhint', browserSync.reload]);

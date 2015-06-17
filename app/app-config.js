@@ -1,3 +1,5 @@
+import angular from 'angular';
+
 let apiKey = '4mETWN08eYj8aOvd4zixN3819mP3GUz7Ma64SxkX';
 let apiBaseUrl = 'https://api.fda.gov/food/enforcement.json';
 
