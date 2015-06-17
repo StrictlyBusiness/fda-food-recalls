@@ -25,6 +25,7 @@ export default class OpenFdaService {
     return this.$http
       .get(this.api.url, config)
       .then((results) => results.data);
+
   }
 
 }

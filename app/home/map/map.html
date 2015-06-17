@@ -1,5 +1,5 @@
-<ul class="list-group" ng-repeat="recall in ctrl.recalls">
+<ul class="list-group" ng-repeat="state in ctrl.recallsByState">
   <li class="list-group-item">
-    {{ recall.recall_number }}
+    {{ state.state.name }}: {{ state.count }}
   </li>
 </ul>
