@@ -334,7 +334,7 @@ gulp.task('watch', function () {
 /**
  * The 'serve' task serve the dev environment.
  */
-gulp.task('serve', ['styles', 'images', 'fonts', 'watch'], function() {
+gulp.task('serve', ['eslint', 'htmlhint', 'styles', 'images', 'fonts', 'watch'], function() {
     return browserSync.init([
       paths.tmp.styles,
       paths.app.scripts,
