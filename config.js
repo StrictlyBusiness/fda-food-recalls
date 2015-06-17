@@ -24,6 +24,7 @@ System.config({
     "bluebird": "npm:bluebird@2.9.30",
     "core-js": "npm:core-js@0.9.17",
     "fortawesome/font-awesome": "github:fortawesome/font-awesome@4.3.0",
+    "moment": "github:moment/moment@2.10.3",
     "text": "github:systemjs/plugin-text@0.0.2",
     "twbs/bootstrap-sass": "github:twbs/bootstrap-sass@3.3.5",
     "github:angular-ui/ui-router@0.2.15": {
