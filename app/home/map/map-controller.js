@@ -1,9 +1,9 @@
 export default class MapController {
 
-  static get $inject() { return ['$scope']; }
+  static get $inject() { return ['recallResults']; }
 
-  constructor($scope) {
-    this.$scope = $scope;
+  constructor(recallResults) {
+    this.recalls = recallResults.results;
   }
 
 }

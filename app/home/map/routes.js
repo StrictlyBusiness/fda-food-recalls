@@ -8,7 +8,15 @@ export default function routes($stateProvider) {
       url: '/map',
       template: mapTemplate,
       controller: mapController,
-      controllerAs: 'ctrl'
+      controllerAs: 'ctrl',
+      resolve: {
+        recallResults: ['openFdaService', (openFdaService) =>
+          openFdaService.query({
+            search: 'report_date:[20150101 TO 20150131]',
+            limit: 100
+          })
+        ]
+      }
     });
 }
 

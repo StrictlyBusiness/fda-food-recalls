@@ -7,4 +7,15 @@ export default class OpenFdaService {
     this.$http = $http;
   }
 
+  query(params) {
+
+    let config = {
+      params: params
+    };
+
+    return this.$http
+      .get(this.api.url, config)
+      .then((results) => results.data);
+  }
+
 }
