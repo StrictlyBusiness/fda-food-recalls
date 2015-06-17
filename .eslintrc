@@ -7,9 +7,15 @@
     "blockBindings": true,
     "classes": true,
     "defaultParams": true,
-    "modules": true
+    "modules": true,
+    "objectLiteralComputedProperties": true,
+    "objectLiteralDuplicateProperties": true,
+    "objectLiteralShorthandMethods": true,
+    "objectLiteralShorthandProperties": true
   },
   "rules": {
+    "no-console": 1,
+    "no-unused-vars": [1, {"vars": "all", "args": "after-used"}],
     "quotes": [2, "single"]
   }
 }
