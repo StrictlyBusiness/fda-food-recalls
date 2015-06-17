@@ -1,0 +1,35 @@
+<!doctype html>
+<html class="no-js">
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>FDA Food Recalls</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+
+    <!-- build:css(tmp) styles/main.min.css -->
+    <link href="../tmp/styles/main.css" rel="stylesheet">
+    <!-- endbuild -->
+
+</head>
+
+<body>
+    <ui-view></ui-view>
+
+    <!-- build:js(.) scripts/main.min.js -->
+    <!-- inject:build:js --><!-- endinject -->
+    <!-- endbuild -->
+
+    <!-- build:remove -->
+    <script src="../jspm_packages/system.js"></script>
+    <script src="../config.js"></script>
+    <script>
+        System.import('app/app-bootstrap')
+            .catch(console.error.bind(console)); // make sure any errors are print to console
+    </script>
+    <!-- endbuild -->
+
+</body>
+</html>
