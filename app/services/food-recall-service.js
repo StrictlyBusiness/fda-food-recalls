@@ -45,15 +45,33 @@ export default class FoodRecallService {
   // Basic function to check if a recall applies to a state. This will be
   // updated to apply more sophisticated matching.
   appliesToState(state, recall) {
+
     if (recall.distribution_pattern) {
-      if (recall.distribution_pattern.indexOf(state.abbr) !== -1) {
+
+      // Check the state name
+      let nameExpression = new RegExp(`\\b${state.name.replace(' ', '\\s')}\\b`, 'gi');
+      // Do a special check for Virginia since west virginia also includes virginia
+      if (state.abbr === 'VA') {
+        nameExpression = new RegExp(`^(West)\\b${state.name.replace(' ', '\\s')}\\b`, 'gi');
+      }
+      if (recall.distribution_pattern.match(nameExpression) !== null) {
         return true;
-      } else if (recall.distribution_pattern.indexOf(state.name) !== -1) {
+      }
+
+      // Check for the state abbreviation
+      let abbrExpression = new RegExp(`\\b${state.abbr}\\b`, 'gi');
+      if (recall.distribution_pattern.match(abbrExpression) !== null) {
         return true;
-      } else if (recall.distribution_pattern.indexOf('Nationwide') !== -1) {
+      }
+
+      // Check for the string nationwide (for all states)
+      let nationwideExpression = new RegExp(`\\bnationwide\\b`, 'gi');
+      if (recall.distribution_pattern.match(nationwideExpression) !== null) {
         return true;
       }
     }
+
+    // Assume it doesn't match
     return false;
   }
 
