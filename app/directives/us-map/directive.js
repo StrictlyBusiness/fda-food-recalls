@@ -1,9 +1,9 @@
 import d3 from 'd3';
 
-import template from './state-map.html!text';
-import stateShapes from './state-shapes.json!';
+import template from './template.html!text';
+import stateShapes from './shapes.json!';
 
-export default class StateMap {
+export default class USMap {
 
   constructor() {
     this.restrict = 'E';
@@ -49,9 +49,9 @@ export default class StateMap {
   };
 
   static directiveFactory() {
-    StateMap.instance = new StateMap();
-    return StateMap.instance;
+    USMap.instance = new USMap();
+    return USMap.instance;
   }
 
-  static get directiveName() { return 'stateMap'; }
+  static get directiveName() { return 'usMap'; }
 }
