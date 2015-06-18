@@ -4,6 +4,9 @@ export default class FoodRecallService {
 
   constructor(openFdaService) {
     this.openFdaService = openFdaService;
+
+    // The key and state name/abbr for unmatched recalls
+    this.UNMATCHED = 'Unmatched';
   }
 
   // startDate and endDate should be moment objects
@@ -24,19 +27,29 @@ export default class FoodRecallService {
 
   processRecallsByState(data) {
 
-    // Create a map by state
+    // create a map by state
     let results = this.createResultsMap();
 
-    let states = this.createStateList();
-
-    // Loop over all the recalls passed in
+    // loop over all the recalls passed in
     data.results.forEach((recall) => {
-      // For each state
-      states.forEach((state) => {
+
+      let isMatched = false;
+
+      // for each state, see if it matches
+      this.createStateList().forEach((state) => {
         if (this.appliesToState(state, recall)) {
+          isMatched = true;
           results[state.abbr].count++;
+          results[state.abbr].recalls.push(recall);
         }
       });
+
+      // if we didn't match a state, add it to unmatched item
+      if (!isMatched) {
+        results[this.UNMATCHED].count++;
+        results[this.UNMATCHED].recalls.push(recall);
+      }
+
     });
 
     return results;
@@ -77,10 +90,25 @@ export default class FoodRecallService {
 
   createResultsMap() {
 
-    let map = {};
+    let map = { };
 
+    // add a map entry for unmatched entries
+    map[this.UNMATCHED] = {
+      state: {
+        name: this.UNMATCHED,
+        abbr: this.UNMATCHED
+      },
+      count: 0,
+      recalls: []
+    };
+
+    // Add a map entry for each state
     this.createStateList().forEach((state) => {
-      map[state.abbr] = { state: state, count: 0 };
+      map[state.abbr] = {
+        state: state,
+        count: 0,
+        recalls: []
+      };
     });
 
     return map;
