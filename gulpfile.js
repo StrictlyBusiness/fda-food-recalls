@@ -177,7 +177,7 @@ gulp.task('eslint', function () {
     return gulp.src(paths.app.scripts)
         .pipe(plugins.eslint())
         .pipe(plugins.eslint.format())
-        .pipe(plugins.eslint.failOnError())
+        //.pipe(plugins.eslint.failOnError())
         ;
 });
 
@@ -217,7 +217,7 @@ gulp.task('sass', function() {
           endtag: '/* end-imports */',
           relative: true,
           transform: function (filepath, file, i, length) {
-            return "@import '" + filepath + "'";
+            return "@import '" + filepath + "';";
           }
         }))
         .pipe(plugins.sass({
