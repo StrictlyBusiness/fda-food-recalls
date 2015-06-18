@@ -1,4 +1,10 @@
 us-map {
+
+  svg {
+    display: block;
+    margin: 0 auto;
+  }
+
   .state {
     stroke: #555;
     transition: all .3s;
