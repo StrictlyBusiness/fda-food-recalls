@@ -43,7 +43,7 @@ export default class StateMap {
           .on('mousemove', function(d) {
             d3.select(tooltipElement)
               .style('left', `${d3.event.pageX + 30}px`)
-              .style('top', `${d3.event.pageY - 30}px`)
+              .style('top', `${d3.event.pageY - 30}px`);
           })
           .on('mouseout', function(d) {
               d3.select(this);
