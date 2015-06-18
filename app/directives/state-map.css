@@ -1,0 +1,17 @@
+state-map path.state {
+  stroke: #555;
+  transition: all .3s;
+  transform-origin: 50% 50%;
+}
+
+state-map path.state:hover {
+  stroke: #000;
+  opacity: .6;
+  /*transform: scale(.8);*/
+}
+
+state-map .tooltip {
+  padding: 10px;
+  background-color: rgba(255, 255, 255, .8);
+  border: 1px solid #999;
+}

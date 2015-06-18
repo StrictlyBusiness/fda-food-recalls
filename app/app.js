@@ -5,17 +5,21 @@ import 'angular-bootstrap';
 import Promise from 'bluebird';
 
 import configModule from './app-config';
+import directivesModule from './directives/module';
+import servicesModule from './services/module';
 
 import homeModule from './home/module';
-import servicesModule from './services/module';
 
 let dependencies = [
   // Third party modules
   'ui.router',
   'ui.bootstrap',
+
   // Project based code services
   configModule.name,
+  directivesModule.name,
   servicesModule.name,
+
   // Page based modules
   homeModule.name
 ];
