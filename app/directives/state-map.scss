@@ -1,0 +1,19 @@
+state-map {
+  .state {
+    stroke: #555;
+    transition: all .3s;
+    transform-origin: 50% 50%;
+
+    &:hover {
+      /*transform: scale(.8);*/
+      fill-opacity: .6;
+    }
+  }
+
+  .tooltip {
+    padding: 10px;
+    background-color: rgba(255, 255, 255, .8);
+    border: 1px solid #555;
+    font-size: 1.1em;
+  }
+}

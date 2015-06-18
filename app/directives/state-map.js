@@ -2,7 +2,6 @@ import d3 from 'd3';
 
 import template from './state-map.html!text';
 import stateShapes from './state-shapes.json!';
-import './state-map.css!';
 
 export default class StateMap {
 

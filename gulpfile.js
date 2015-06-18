@@ -212,6 +212,14 @@ gulp.task('styles', ['sass'], function() {
 gulp.task('sass', function() {
     return gulp.src(paths.app.styles.main)
         .pipe(plugins.sourcemaps.init())
+        .pipe(plugins.inject(gulp.src(['./app/**/*.scss'], {read: false}), {
+          starttag: '/* start-imports */',
+          endtag: '/* end-imports */',
+          relative: true,
+          transform: function (filepath, file, i, length) {
+            return "@import '" + filepath + "'";
+          }
+        }))
         .pipe(plugins.sass({
             includePaths: paths.app.styles.include,
             errLogToConsole: true
