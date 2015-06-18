@@ -1,3 +1,28 @@
+
+
+<div class="text-center">
+  <div class="btn-group" role="group">
+    <button ng-repeat="month in ctrl.months"
+      ng-disabled="!ctrl.isValidMonth(month)"
+      class="btn"
+      ng-class="{ 'btn-default': !ctrl.isMonthSelected(month), 'btn-primary': ctrl.isMonthSelected(month) }"
+      ng-click="ctrl.selectMonth(month)">
+      {{ month.name }}
+    </button>
+  </div>
+</div>
+<div class="text-center">
+  <div class="btn-group" role="group">
+    <button ng-repeat="year in ctrl.years"
+      ng-disabled="!ctrl.isValidYear(year)"
+      class="btn"
+      ng-class="{ 'btn-default': !ctrl.isYearSelected(year), 'btn-primary': ctrl.isYearSelected(year) }"
+      ng-click="ctrl.selectYear(year)">
+      {{ year }}
+    </button>
+  </div>
+</div>
+
 <state-map data="ctrl.recallsByState"></state-map>
 
 <ul class="list-group" ng-repeat="state in ctrl.recallsByState">
