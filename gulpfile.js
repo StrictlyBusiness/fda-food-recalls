@@ -193,6 +193,8 @@ gulp.task('htmlhint', function () {
         .pipe(plugins.htmlhint.failReporter());
 });
 
+gulp.task('lint', ['eslint', 'htmlhint']);
+
 /**
  * Build and copy all styles
 */
@@ -342,7 +344,7 @@ gulp.task('watch', function () {
 /**
  * The 'serve' task serve the dev environment.
  */
-gulp.task('serve', ['eslint', 'htmlhint', 'styles', 'images', 'fonts', 'watch'], function() {
+gulp.task('serve', ['lint', 'styles', 'images', 'fonts', 'watch'], function() {
     return browserSync.init([
       paths.tmp.styles,
       paths.app.scripts,
