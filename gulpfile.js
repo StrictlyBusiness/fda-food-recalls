@@ -55,7 +55,7 @@ var paths = {
                           'jspm_packages/**/*.{eot,svg,ttf,woff,woff2}'
                         ],
         styles: {
-            scss:       'styles/**/*.scss',
+            scss:       ['styles/**/*.scss', 'app/directives/**/*.scss'],
             main:       'styles/main.scss',
             concat:     [
                         ],
@@ -325,7 +325,7 @@ gulp.task('watch', function () {
     // Watch images and fonts files
     gulp.watch([paths.app.images, paths.app.fonts], [browserSync.reload]);
 
-    // Watch css files
+    // Watch scss files
     gulp.watch(paths.app.styles.scss, ['styles']);
 
     // Watch js files
