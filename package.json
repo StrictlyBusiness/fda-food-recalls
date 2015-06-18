@@ -4,7 +4,8 @@
   "description": "FDA Food Recalls",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "gulp serve",
+    "test": "gulp lint && gulp test:unit"
   },
   "repository": {
     "type": "git",

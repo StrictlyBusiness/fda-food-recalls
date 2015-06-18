@@ -55,7 +55,7 @@ var paths = {
                           'jspm_packages/**/*.{eot,svg,ttf,woff,woff2}'
                         ],
         styles: {
-            scss:       'styles/**/*.scss',
+            scss:       ['styles/**/*.scss', 'app/directives/**/*.scss'],
             main:       'styles/main.scss',
             concat:     [
                         ],
@@ -193,6 +193,8 @@ gulp.task('htmlhint', function () {
         .pipe(plugins.htmlhint.failReporter());
 });
 
+gulp.task('lint', ['eslint', 'htmlhint']);
+
 /**
  * Build and copy all styles
 */
@@ -323,7 +325,7 @@ gulp.task('watch', function () {
     // Watch images and fonts files
     gulp.watch([paths.app.images, paths.app.fonts], [browserSync.reload]);
 
-    // Watch css files
+    // Watch scss files
     gulp.watch(paths.app.styles.scss, ['styles']);
 
     // Watch js files
@@ -342,7 +344,7 @@ gulp.task('watch', function () {
 /**
  * The 'serve' task serve the dev environment.
  */
-gulp.task('serve', ['eslint', 'htmlhint', 'styles', 'images', 'fonts', 'watch'], function() {
+gulp.task('serve', ['lint', 'styles', 'images', 'fonts', 'watch'], function() {
     return browserSync.init([
       paths.tmp.styles,
       paths.app.scripts,

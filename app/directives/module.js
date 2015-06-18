@@ -1,5 +1,5 @@
 import angular from 'angular';
-import stateMap from './state-map';
+import usMap from './us-map/directive';
 
 export default angular.module('fdaFoodRecalls.directives', [])
-  .directive(stateMap.directiveName, stateMap.directiveFactory);
+  .directive(usMap.directiveName, usMap.directiveFactory);
