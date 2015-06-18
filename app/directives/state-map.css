@@ -5,13 +5,13 @@ state-map path.state {
 }
 
 state-map path.state:hover {
-  stroke: #000;
-  opacity: .6;
+  fill-opacity: .6;
   /*transform: scale(.8);*/
 }
 
 state-map .tooltip {
   padding: 10px;
   background-color: rgba(255, 255, 255, .8);
-  border: 1px solid #999;
+  border: 1px solid #555;
+  font-size: 1.1em;
 }
