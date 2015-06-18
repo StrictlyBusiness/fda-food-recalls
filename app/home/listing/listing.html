@@ -1,0 +1,80 @@
+
+
+<div class="text-center">
+  <div class="btn-group" role="group">
+    <button ng-repeat="month in ctrl.months"
+      ng-disabled="!ctrl.isValidMonth(month)"
+      class="btn"
+      ng-class="{ 'btn-default': !ctrl.isMonthSelected(month), 'btn-primary': ctrl.isMonthSelected(month) }"
+      ng-click="ctrl.selectMonth(month)">
+      {{ month.name }}
+    </button>
+  </div>
+</div>
+<div class="text-center">
+  <div class="btn-group" role="group">
+    <button ng-repeat="year in ctrl.years"
+      ng-disabled="!ctrl.isValidYear(year)"
+      class="btn"
+      ng-class="{ 'btn-default': !ctrl.isYearSelected(year), 'btn-primary': ctrl.isYearSelected(year) }"
+      ng-click="ctrl.selectYear(year)">
+      {{ year }}
+    </button>
+  </div>
+</div>
+<div class="text-center">
+  <div class="btn-group" role="group">
+    <button ng-repeat="state in ctrl.states"
+      class="btn"
+      ng-class="{ 'btn-default': !ctrl.isStateSelected(state), 'btn-primary': ctrl.isStateSelected(state) }"
+      ng-click="ctrl.selectState(state)">
+      {{ state.name }}
+    </button>
+  </div>
+</div>
+
+<br>
+
+<div class="container-fluid">
+  <div class="row">
+
+    <div class="col-md-6 col-lg-4" ng-repeat="recall in ctrl.recallsByState[ctrl.criteria.state].recalls">
+      <div class="card">
+          <div>
+            <h5>{{ recall.product_type }}: {{ recall.event_id }}</h5>
+            <h4>
+              {{ recall.recalling_firm }}
+              ({{ recall.city }}, {{ recall.state }} {{ recall.country }})
+              <span class="label label-{{ ctrl.getClassificationStyle(recall.classification) }}" tooltip-html-unsafe="{{ ctrl.getClassificationDescription(recall.classification) }}">{{ recall.classification }}</span>
+              <span class="label label-{{ ctrl.getStatusStyle(recall.status) }}" tooltip-html-unsafe="{{ ctrl.getStatusDescription(recall.status) }}">{{ recall.status }}</span>
+            </h4>
+          </div>
+
+          <div>
+            <h4>Reason</h4>
+            <div>{{ recall.reason_for_recall }}</div>
+          </div>
+
+          <div>
+            <h4>Product</h4>
+            <div>{{ recall.product_description }}</div>
+            <div>{{ recall.product_quantity }}</div>
+            <div>{{ recall.code_info }}</div>
+          </div>
+
+          <div>
+            <h4>Distribution</h4>
+            <div>{{ recall.distribution_pattern }}</div>
+          </div>
+
+          <div>
+            <h4>Recall Date and Notification</h4>
+            <div>{{ recall.recall_initiation_date }}</div>
+            <div>{{ recall.voluntary_mandated }}</div>
+            <div>{{ recall.report_date }}: {{ recall.initial_firm_notification }}</div>
+          </div>
+        </div>
+    </div>
+
+  </div>
+</div>
