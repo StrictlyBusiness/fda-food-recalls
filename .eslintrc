@@ -7,15 +7,20 @@
     "blockBindings": true,
     "classes": true,
     "defaultParams": true,
+    "destructuring": true,
+    "forOf": true,
     "modules": true,
     "objectLiteralComputedProperties": true,
     "objectLiteralDuplicateProperties": true,
     "objectLiteralShorthandMethods": true,
-    "objectLiteralShorthandProperties": true
+    "objectLiteralShorthandProperties": true,
+    "restParams": true,
+    "spread": true,
+    "templateStrings": true
   },
   "rules": {
     "no-console": 1,
-    "no-unused-vars": [1, {"vars": "all", "args": "after-used"}],
+    "no-unused-vars": [1, {"vars": "all", "args": "none"}],
     "quotes": [2, "single"]
   }
 }
