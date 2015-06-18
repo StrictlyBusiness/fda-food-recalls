@@ -2,12 +2,13 @@ import moment from 'moment';
 
 export default class MapController {
 
-  static get $inject() { return ['recallsByState', '$state', '$stateParams']; }
+  static get $inject() { return ['recallsByState', '$state', '$stateParams', 'API_INFO']; }
 
-  constructor(recallsByState, $state, $stateParams) {
+  constructor(recallsByState, $state, $stateParams, API_INFO) {
 
     this.recallsByState = recallsByState;
     this.$state = $state;
+    this.API_INFO = API_INFO;
 
     this.selectedPeriod = {
       month: parseInt($stateParams.month, 10),
@@ -56,12 +57,13 @@ export default class MapController {
 
   isValidMonth(month) {
     let period = moment({ year: this.selectedPeriod.year, month: month.month - 1, day: 1 });
-    return period.isBefore(moment());
+    return period.isBetween(this.API_INFO.dataset.periodStart, this.API_INFO.dataset.periodEnd);
   }
 
   isValidYear(year) {
     let period = moment({ year: year, month: this.selectedPeriod.month - 1, day: 1 });
-    return period.isBefore(moment());
+    return period.isAfter(this.API_INFO.dataset.periodStart)
+      && period.isBefore(this.API_INFO.dataset.periodEnd);
   }
 
 }

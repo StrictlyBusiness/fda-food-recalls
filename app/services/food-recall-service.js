@@ -1,3 +1,5 @@
+import Promise from 'bluebird';
+
 export default class FoodRecallService {
 
   static get $inject() { return ['openFdaService']; }
@@ -22,7 +24,14 @@ export default class FoodRecallService {
         search: 'report_date:[' + start + ' TO ' + end + ']',
         limit: 100
       })
-      .then((results) => this.processRecallsByState(results));
+      .then(
+        (results) => this.processRecallsByState(results),
+        (error) => {
+          if (error.status === 404) {
+            return this.processRecallsByState({ results: [] });
+          }
+          return Promise.reject(error);
+        });
   }
 
   processRecallsByState(data) {
