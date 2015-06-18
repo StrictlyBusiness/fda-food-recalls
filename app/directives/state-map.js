@@ -30,7 +30,7 @@ export default class StateMap {
           .append('path')
           .attr('class', 'state')
           .attr('d', d => d.path)
-          .style('fill', d => d3.interpolate('#FFEB3B', '#F44336')(d.count / 50))
+          .style('fill', d => d3.interpolate('#FFEB3B', '#F44336')(d.count / 100))
           .on('mouseover', function(d) {
               d3.select(this);
                 // .style({'stroke-width': '2px', 'stroke': '#555'});
