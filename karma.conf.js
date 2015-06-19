@@ -125,6 +125,10 @@ module.exports = function(config) {
       sauceLabs: {
         build: buildLabel,
         testName: 'FDA Food Recalls tests',
+        connectOptions: {
+          port: 5757,
+          logfile: 'sauce_connect.log'
+        }
         // startConnect: false,
         // recordScreenshots: true,
         // recordVideo: true,
