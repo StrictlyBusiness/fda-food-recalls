@@ -38,7 +38,7 @@
 <div class="container-fluid">
   <div class="row">
 
-    <div class="col-sm-6 col-lg-4" ng-repeat-start="recall in ctrl.recallsByState[ctrl.criteria.state].recalls">
+    <div class="col-sm-6 col-lg-4" ng-repeat-start="recall in ctrl.recalls | isRecallForState:ctrl.criteria.state">
       <div class="card">
           <div>
             <h5>{{ recall.product_type }}: {{ recall.event_id }}</h5>

@@ -15,7 +15,7 @@ export default function routes($stateProvider) {
       params: {
         month: '' + moment().month(),
         year: '' + moment().year(),
-        listing: null
+        state: null
       },
       resolve: {
         startDate: ['$stateParams',
@@ -27,14 +27,9 @@ export default function routes($stateProvider) {
           (startDate) => startDate.clone()
             .endOf('month')
         ],
-        recallsByState: ['foodRecallService', 'startDate', 'endDate',
+        recalls: ['foodRecallService', 'startDate', 'endDate',
           (foodRecallService, startDate, endDate) => {
             return foodRecallService.getRecallsByState(startDate, endDate);
-          }
-        ],
-        states: ['foodRecallService',
-          (foodRecallService) => {
-            return foodRecallService.createStateList();
           }
         ]
       }

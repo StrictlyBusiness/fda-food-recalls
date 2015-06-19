@@ -1,13 +1,15 @@
 import moment from 'moment';
 
+import statesDataset from '../../data/states.json!';
+
 export default class ListingController {
 
-  static get $inject() { return ['recallsByState', 'states', '$state', '$stateParams', 'API_INFO']; }
+  static get $inject() { return ['recalls', '$state', '$stateParams', 'API_INFO']; }
 
-  constructor(recallsByState, states, $state, $stateParams, API_INFO) {
+  constructor(recalls, $state, $stateParams, API_INFO) {
 
-    this.recallsByState = recallsByState;
-    this.states = states;
+    this.recalls = recalls;
+
     this.$state = $state;
     this.API_INFO = API_INFO;
 
@@ -32,6 +34,9 @@ export default class ListingController {
     for(let year = 2012; year <= moment().year(); year++) {
       this.years.push(year);
     }
+
+    // The list of states
+    this.states = statesDataset;
 
   }
 

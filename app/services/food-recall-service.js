@@ -1,5 +1,7 @@
 import Promise from 'bluebird';
 
+import statesDataset from '../data/states.json!';
+
 export default class FoodRecallService {
 
   static get $inject() { return ['openFdaService']; }
@@ -25,43 +27,33 @@ export default class FoodRecallService {
         limit: 100
       })
       .then(
-        (results) => this.processRecallsByState(results),
+        (results) => this.processStatesForRecalls(results.results),
         (error) => {
           if (error.status === 404) {
-            return this.processRecallsByState({ results: [] });
+            return this.processStatesForRecalls([]);
           }
           return Promise.reject(error);
         });
   }
 
-  processRecallsByState(data) {
-
-    // create a map by state
-    let results = this.createResultsMap();
+  // for each recall, add a states array and set the states based on processing
+  // the distribution pattern
+  processStatesForRecalls(data) {
 
     // loop over all the recalls passed in
-    data.results.forEach((recall) => {
-
-      let isMatched = false;
-
+    data.forEach((recall) => {
+      // add an array to store the states
+      recall.states = [];
       // for each state, see if it matches
-      this.createStateList().forEach((state) => {
+      statesDataset.forEach((state) => {
         if (this.appliesToState(state, recall)) {
-          isMatched = true;
-          results[state.abbr].count++;
-          results[state.abbr].recalls.push(recall);
+          // if it does, add it to the recall list
+          recall.states.push(state.abbr);
         }
       });
-
-      // if we didn't match a state, add it to unmatched item
-      if (!isMatched) {
-        results[this.UNMATCHED].count++;
-        results[this.UNMATCHED].recalls.push(recall);
-      }
-
     });
 
-    return results;
+    return data;
   }
 
   // Basic function to check if a recall applies to a state. This will be
@@ -112,7 +104,7 @@ export default class FoodRecallService {
     };
 
     // Add a map entry for each state
-    this.createStateList().forEach((state) => {
+    statesDataset.forEach((state) => {
       map[state.abbr] = {
         state: state,
         count: 0,
@@ -123,60 +115,4 @@ export default class FoodRecallService {
     return map;
   }
 
-  createStateList() {
-    return [
-      { name: 'Alabama', abbr: 'AL' },
-      { name: 'Alaska', abbr: 'AK' },
-      { name: 'Arizona', abbr: 'AZ' },
-      { name: 'Arkansas', abbr: 'AR' },
-      { name: 'Colorado', abbr: 'CO' },
-      { name: 'California', abbr: 'CA' },
-      { name: 'Connecticut', abbr: 'CT' },
-      { name: 'Delaware', abbr: 'DE' },
-      { name: 'District of Columbia', abbr: 'DC' },
-      { name: 'Florida', abbr: 'FL' },
-      { name: 'Georgia', abbr: 'GA' },
-      { name: 'Hawaii', abbr: 'HI' },
-      { name: 'Idaho', abbr: 'ID' },
-      { name: 'Illinois', abbr: 'IL' },
-      { name: 'Indiana', abbr: 'IN' },
-      { name: 'Iowa', abbr: 'IA' },
-      { name: 'Kansas', abbr: 'KS' },
-      { name: 'Kentucky', abbr: 'KY' },
-      { name: 'Louisiana', abbr: 'LA' },
-      { name: 'Maine', abbr: 'ME' },
-      { name: 'Maryland', abbr: 'MD' },
-      { name: 'Massachusetts', abbr: 'MA' },
-      { name: 'Michigan', abbr: 'MI' },
-      { name: 'Minnesota', abbr: 'MN' },
-      { name: 'Mississippi', abbr: 'MS' },
-      { name: 'Missouri', abbr: 'MO' },
-      { name: 'Montana', abbr: 'MT' },
-      { name: 'Nebraska', abbr: 'NE' },
-      { name: 'Nevada', abbr: 'NV' },
-      { name: 'New Hampshire', abbr: 'NH' },
-      { name: 'New Jersey', abbr: 'NJ' },
-      { name: 'New Mexico', abbr: 'NM' },
-      { name: 'New York', abbr: 'NY' },
-      { name: 'North Carolina', abbr: 'NC' },
-      { name: 'North Dakota', abbr: 'ND' },
-      { name: 'Ohio', abbr: 'OH' },
-      { name: 'Oklahoma', abbr: 'OK' },
-      { name: 'Oregon', abbr: 'OR' },
-      { name: 'Pennsylvania', abbr: 'PA' },
-      { name: 'Rhode Island', abbr: 'RI' },
-      { name: 'South Carolina', abbr: 'SC' },
-      { name: 'South Dakota', abbr: 'SD' },
-      { name: 'Tennessee', abbr: 'TN' },
-      { name: 'Texas', abbr: 'TX' },
-      { name: 'Utah', abbr: 'UT' },
-      { name: 'Vermont', abbr: 'VT' },
-      { name: 'Virginia', abbr: 'VA' },
-      { name: 'Washington', abbr: 'WA' },
-      { name: 'West Virginia', abbr: 'WV' },
-      { name: 'Wisconsin', abbr: 'WI' },
-      { name: 'Wyoming', abbr: 'WY' }
-    ];
-
-  }
 }
