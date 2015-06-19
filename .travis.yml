@@ -8,5 +8,5 @@ env:
 
 before_script:
   - npm install -g jspm
-  - jspm config endpoints.github.auth $JSPM_AUTH
+  - jspm config registries.github.auth $JSPM_AUTH
   - jspm install
