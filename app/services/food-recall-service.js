@@ -8,13 +8,10 @@ export default class FoodRecallService {
 
   constructor(openFdaService) {
     this.openFdaService = openFdaService;
-
-    // The key and state name/abbr for unmatched recalls
-    this.UNMATCHED = 'Unmatched';
   }
 
   // startDate and endDate should be moment objects
-  getRecallsByState(startDate, endDate) {
+  getRecallsForPeriod(startDate, endDate) {
 
     // prepare the search criteria dates
     let start = startDate.format('YYYYMMDD');
@@ -23,8 +20,7 @@ export default class FoodRecallService {
     // get the data from the service and process it and return the results
     return this.openFdaService
       .query({
-        search: 'report_date:[' + start + ' TO ' + end + ']',
-        limit: 100
+        search: 'report_date:[' + start + ' TO ' + end + ']'
       })
       .then(
         (results) => this.processStatesForRecalls(results.results),
