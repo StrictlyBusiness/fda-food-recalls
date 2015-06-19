@@ -111,6 +111,12 @@ module.exports = function(config) {
       tunnelIdentifier = process.env.TRAVIS_JOB_NUMBER;
     }
 
+    console.log('SAUCE ENV:', process.env.SAUCE_USERNAME, process.env.SAUCE_ACCESS_KEY);
+    if (!process.env.SAUCE_USERNAME || !process.env.SAUCE_ACCESS_KEY) {
+      console.log('Make sure the SAUCE_USERNAME and SAUCE_ACCESS_KEY environment variables are set.');
+      process.exit(1);
+    }
+
     config.set({
       browsers: Object.keys(sauceLabsLaunchers),
       reporters: ['dots', 'saucelabs'],
