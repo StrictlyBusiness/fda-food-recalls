@@ -27,6 +27,7 @@ export default class OpenFdaService {
         let pages = Math.floor((totalResults - 1) / OpenFdaService.maxResultsLimit) + 1;
 
         let queryPromises = [];
+        /*eslint-disable no-loop-func */
         for(let i = 2; i <= pages; i++) {
           queryPromises.push(
             Promise.delay(
@@ -40,6 +41,7 @@ export default class OpenFdaService {
             )
           );
         }
+        /*eslint-enable no-loop-func */
 
         return Promise.all(queryPromises)
           .then(() => results); // return the results structure
@@ -56,11 +58,11 @@ export default class OpenFdaService {
 
     // Perform the query and return the results
     this.$log.debug(`OpenFdaService querying page ${page}: ${JSON.stringify(criteria)}`);
-    let startTime = performance.now();
+    let startTime = window.performance.now();
     return this.$http
       .get(this.api.url, config)
       .then((response) => {
-        this.$log.debug(`OpenFdaService completed page ${page} ${performance.now() - startTime}ms: ${JSON.stringify(criteria)}`);
+        this.$log.debug(`OpenFdaService completed page ${page} ${window.performance.now() - startTime}ms: ${JSON.stringify(criteria)}`);
         return response.data;
       });
 
