@@ -1,6 +1,11 @@
 language: node_js
 node_js:
-  - "0.12"
+  - '0.12'
+
+env:
+  global:
+    secure: c761LnJULD8JYkuZWwN6zWKGt/4FY8RZKE1/xpeEDE95STrc4JGrvKimBDhtHGuvduBvJNUD457TP/NKCeT58wWv7uu7P879dDLy3oLeZUOmxisf/JHYQ2kXMmuxsyo5cU8D6fTLMAkR2RO+fWQTa1mKHHUlqgJpM322TnyvP6XhXl/bapYDiWWq9Vsk73twVt0U58Sln+qvVPtfRImhCbG6+c80s46k/V29nh129XvgeGqMt/d0IyQOPj68GLVa2JlnH5YeUHLSSLceWEv7tLCbfLCW0SbX3xq2PzDbKD4xL0yoAX1DBEGWPg4YSFnX3ogzAuq582oUircelN9y1pvavpLkToB0bx7UWiZR+Rll0WGmWXxkSljjkja85Jm+0ZGDjyc/1MEnVBd11DmqiVLrDrpXIOajVTG0FbwsKuJ7bHoXzustjTYcUIv0qdPDVE1WDoyvNm6WH1EHFGMUMFObbF53vkD/vgKbeev+C0gVGAJSARAFzi7szGz0rDG0yIEkNDJnfPJ+dka21OOCyFXjWDOyIkZoQHDgUOd/SFuyXPFvm+QydKcLMqbu7oBH8QEQkFuYZu0LcKYWt6EtiMycQbgfLwr9TGe9HGLdARFPVtMciZ2al4sODQC0kPR8MU84qD0XIeYk910dYtC7uDY5lTydGY17TQQX7PVjdfM=
+
 before_script:
   - npm install -g jspm
   - jspm config endpoints.github.auth $JSPM_AUTH
