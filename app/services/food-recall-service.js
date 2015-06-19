@@ -21,9 +21,9 @@ export default class FoodRecallService {
     // See if the data is cached
     let queryCacheType = 'getRecallsForPeriod';
     let queryCacheKey = `${start}-${end}`;
-    let results = this.cacheService.fetch(queryCacheType, queryCacheKey);
-    if (results) {
-      return Promise.resolve(results);
+    let cachedResults = this.cacheService.fetch(queryCacheType, queryCacheKey);
+    if (cachedResults) {
+      return Promise.resolve(cachedResults);
     }
 
     // Since it wasn't cached, query for it and process the results
@@ -34,10 +34,10 @@ export default class FoodRecallService {
       .then(
         (results) => {
           // Process the results
-          let result = this.processStatesForRecalls(results.results);
+          let processedResults = this.processStatesForRecalls(results.results);
           // Cache the results
-          this.cacheService.store(queryCacheType, queryCacheKey, result);
-          return result;
+          this.cacheService.store(queryCacheType, queryCacheKey, processedResults);
+          return processedResults;
         },
         (error) => {
           if (error.status === 404) {
