@@ -19,28 +19,26 @@ module.exports = function(config) {
     //],
 
     jspm: {
-        config: 'config.js',
-        loadFiles:  [ // Test Files
-            'app/**/*.test.js'
-        ],
-        serveFiles: [ // Non-test Files
-            'app/**/!(*.test).js',
-            'app/**/*.json',
-            'app/**/*.html',
-            'app/**/*.map'
-        ]
+      config: 'config.js',
+      loadFiles: [ // Test Files
+        'app/**/*.test.js'
+      ],
+      serveFiles: [ // Non-test Files
+        'app/**/!(*.test).js',
+        'app/**/*.json',
+        'app/**/*.html',
+        'app/**/*.map' // Include maps for debugging
+      ]
     },
 
 
     // list of files to exclude
-    exclude: [
-    ],
+    exclude: [],
 
 
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
-    preprocessors: {
-    },
+    preprocessors: {},
 
 
     // test results reporter to use
