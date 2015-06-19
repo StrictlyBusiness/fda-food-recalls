@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "gulp serve",
-    "test": "gulp lint && gulp test:unit"
+    "test": "gulp lint && gulp test:unit --browsers=PhantomJS"
   },
   "repository": {
     "type": "git",
