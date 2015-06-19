@@ -1,4 +1,5 @@
 ﻿'use strict';
+/*eslint-env node */
 
 // Based on
 // https://github.com/martinmicunda/employee-scheduling-ui/blob/master/gulpfile.js
@@ -32,7 +33,7 @@ var paths = {
     /**
      * The 'gulpfile' file is where our run tasks are hold.
      */
-    gulpfile:   'gulpfile.js',
+    gulpfile: 'gulpfile.js',
     /**
      * This is a collection of file patterns that refer to our app code (the
      * stuff in `app/`). These file paths are used in the configuration of
@@ -122,14 +123,14 @@ var paths = {
 //            UTILS FUNCTIONS
 //=============================================
 function formatPercent(num, precision){
-    return (num*100).toFixed(precision);
+    return (num * 100).toFixed(precision);
 }
 
 function bytediffFormatter(data) {
     var difference = (data.savings > 0) ? ' smaller.' : ' larger.';
     return COLORS.yellow(data.fileName + ' went from ' +
     (data.startSize / 1000).toFixed(2) + ' kB to ' + (data.endSize / 1000).toFixed(2) + ' kB' +
-    ' and is ' + formatPercent(1-data.percent, 2) + '%' + difference);
+    ' and is ' + formatPercent(1 - data.percent, 2) + '%' + difference);
 }
 
 //=============================================
