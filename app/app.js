@@ -7,6 +7,7 @@ import Promise from 'bluebird';
 import configModule from './app-config';
 import directivesModule from './directives/module';
 import servicesModule from './services/module';
+import filtersModule from './filters/module';
 
 import homeModule from './home/module';
 
@@ -19,6 +20,7 @@ let dependencies = [
   configModule.name,
   directivesModule.name,
   servicesModule.name,
+  filtersModule.name,
 
   // Page based modules
   homeModule.name
