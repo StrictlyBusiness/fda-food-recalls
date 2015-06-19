@@ -105,10 +105,8 @@ module.exports = function(config) {
 
   if (process.env.CI) {
     var buildLabel = 'Local development';
-    var tunnelIdentifier = 'local';
     if (process.env.TRAVIS) {
       buildLabel = 'TRAVIS #' + process.env.TRAVIS_BUILD_NUMBER + ' (' + process.env.TRAVIS_BUILD_ID + ')';
-      tunnelIdentifier = process.env.TRAVIS_JOB_NUMBER;
     }
 
     console.log('SAUCE ENV:', process.env.SAUCE_USERNAME, process.env.SAUCE_ACCESS_KEY);
@@ -127,7 +125,6 @@ module.exports = function(config) {
       sauceLabs: {
         build: buildLabel,
         testName: 'FDA Food Recalls tests',
-        tunnelIdentifier: tunnelIdentifier
         // startConnect: false,
         // recordScreenshots: true,
         // recordVideo: true,
