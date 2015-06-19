@@ -22,9 +22,6 @@ var pkg           = require('./package.json');
 var log                  = plugins.util.log;
 var argv                 = plugins.util.env;
 var COLORS               = plugins.util.colors;
-var WATCH                = !!argv.watch ? argv.watch : false;
-var BROWSERS             = !!argv.browsers ? argv.browsers : 'Chrome';
-var REPORTERS            = !!argv.reporters ? argv.reporters : 'mocha';
 
 
 //=============================================
@@ -374,23 +371,33 @@ gulp.task('default', ['serve']);
  * The 'test:unit' task to run karma unit tests
  */
 gulp.task('test:unit', function (cb) {
-    // run the karma test
-    karma.start({
-        configFile: path.join(__dirname, paths.test.config.karma),
-        browsers: [BROWSERS],
-        reporters: [REPORTERS],
-        singleRun: !WATCH,
-        autoWatch: WATCH
-    }, function(code) {
-        // make sure failed karma tests cause gulp to exit non-zero
-        if(code === 1) {
-            log(COLORS.red('Error: unit test failed '));
-            return process.exit(1);
-        }
-        cb();
-    });
-});
+    var options = { configFile: path.join(__dirname, paths.test.config.karma) };
 
+    if (argv.browsers) {
+      options.browsers = [argv.browsers];
+    }
+
+    if (argv.reporters) {
+      options.reporters = [argv.reporters];
+    }
+
+    if (argv.watch) {
+      var watch = !!argv.watch;
+      options.autoWatch = watch;
+      options.singleRun = !watch;
+    }
+
+    karma.start(options,
+      function(code) {
+          // make sure failed karma tests cause gulp to exit non-zero
+          if(code === 1) {
+              log(COLORS.red('Error: unit test failed'));
+              return process.exit(1);
+          }
+          cb();
+      }
+    );
+});
 
 
 //---------------------------------------------

@@ -1,16 +1,42 @@
-// Karma configuration
-
+/*eslint-env node */
 module.exports = function(config) {
+  var sauceLabsLaunchers = {
+    sl_chrome: {
+      base: 'SauceLabs',
+      browserName: 'chrome'
+    },
+    sl_firefox: {
+      base: 'SauceLabs',
+      browserName: 'firefox'
+    },
+    sl_ie_9: {
+      base: 'SauceLabs',
+      platform: 'Windows 7',
+      browserName: 'internet explorer',
+      version: '9'
+    },
+    sl_ie_10: {
+      base: 'SauceLabs',
+      platform: 'Windows 7',
+      browserName: 'internet explorer',
+      version: '10'
+    },
+    sl_ie_11: {
+      base: 'SauceLabs',
+      platform: 'Windows 7',
+      browserName: 'internet explorer',
+      version: '11'
+    },
+  };
+
   config.set({
 
     // base path that will be used to resolve all patterns (eg. files, exclude)
     basePath: '',
 
-
     // frameworks to use
     // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
     frameworks: ['jspm', 'mocha', 'sinon-chai'],
-
 
     // list of files / patterns to load in the browser
     //files: [
@@ -31,15 +57,12 @@ module.exports = function(config) {
       ]
     },
 
-
     // list of files to exclude
     exclude: [],
-
 
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {},
-
 
     // test results reporter to use
     // possible values: 'dots', 'progress'
@@ -55,29 +78,54 @@ module.exports = function(config) {
     // web server port
     port: 9876,
 
-    // teamcity server seems to be slow at getting the tests running so we extend the timeout from 10 seconds to 60
-    browserNoActivityTimeout: 60000,
+    // Karma (with socket.io 1.x) buffers by 50 and 50 tests can take a long time on IEs;-)
+    browserNoActivityTimeout: 120000,
 
     // enable / disable colors in the output (reporters and logs)
     colors: true,
-
 
     // level of logging
     // possible values: config.LOG_DISABLE || config.LOG_ERROR || config.LOG_WARN || config.LOG_INFO || config.LOG_DEBUG
     logLevel: config.LOG_INFO,
 
-
-    // enable / disable watching file and executing tests whenever any file changes
-    autoWatch: true,
-
+    // Make available the SauchLab browers
+    customLaunchers: sauceLabsLaunchers,
 
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
     browsers: ['Chrome'],
 
-
     // Continuous Integration mode
     // if true, Karma captures browsers, runs the tests and exits
-    singleRun: false
+    singleRun: true
+
+    // enable / disable watching file and executing tests whenever any file changes
+    // autoWatch: true
   });
+
+  if (process.env.CI) {
+    var buildLabel = 'Local development';
+    var tunnelIdentifier = 'local';
+    if (process.env.TRAVIS) {
+      buildLabel = 'TRAVIS #' + process.env.TRAVIS_BUILD_NUMBER + ' (' + process.env.TRAVIS_BUILD_ID + ')';
+      tunnelIdentifier = process.env.TRAVIS_JOB_NUMBER;
+    }
+
+    config.set({
+      browsers: Object.keys(sauceLabsLaunchers),
+      reporters: ['dots', 'saucelabs'],
+      // logLevel = config.LOG_DEBUG,
+      singleRun: true,
+      autoWatch: false,
+
+      sauceLabs: {
+        build: buildLabel,
+        testName: 'FDA Food Recalls tests',
+        tunnelIdentifier: tunnelIdentifier
+        // startConnect: false,
+        // recordScreenshots: true,
+        // recordVideo: true,
+      }
+    });
+  }
 };

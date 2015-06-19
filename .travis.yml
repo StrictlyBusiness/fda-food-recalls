@@ -19,7 +19,5 @@ before_script:
   - jspm config registries.github.auth $JSPM_AUTH
   - jspm install
 
-script: npm run test-ci
-
 addons:
   sauce_connect: true
