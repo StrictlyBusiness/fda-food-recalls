@@ -4,10 +4,11 @@ import statesDataset from '../data/states.json!';
 
 export default class FoodRecallService {
 
-  static get $inject() { return ['openFdaService']; }
+  static get $inject() { return ['openFdaService', 'cacheService']; }
 
-  constructor(openFdaService) {
+  constructor(openFdaService, cacheService) {
     this.openFdaService = openFdaService;
+    this.cacheService = cacheService;
   }
 
   // startDate and endDate should be moment objects
@@ -17,13 +18,27 @@ export default class FoodRecallService {
     let start = startDate.format('YYYYMMDD');
     let end = endDate.format('YYYYMMDD');
 
-    // get the data from the service and process it and return the results
+    // See if the data is cached
+    let queryCacheType = 'getRecallsForPeriod';
+    let queryCacheKey = `${start}-${end}`;
+    let results = this.cacheService.fetch(queryCacheType, queryCacheKey);
+    if (results) {
+      return Promise.resolve(results);
+    }
+
+    // Since it wasn't cached, query for it and process the results
     return this.openFdaService
       .query({
         search: 'report_date:[' + start + ' TO ' + end + ']'
       })
       .then(
-        (results) => this.processStatesForRecalls(results.results),
+        (results) => {
+          // Process the results
+          let result = this.processStatesForRecalls(results.results);
+          // Cache the results
+          this.cacheService.store(queryCacheType, queryCacheKey, result);
+          return result;
+        },
         (error) => {
           if (error.status === 404) {
             return this.processStatesForRecalls([]);
