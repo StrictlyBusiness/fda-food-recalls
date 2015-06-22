@@ -415,3 +415,17 @@ gulp.task('build', function (cb) {
         cb
     );
 });
+
+/**
+ * The 'deploy' task will push to Github pages using either:
+ *   - OAuth token if `GH_TOKEN` is set in an environment variable (ex. Travis)
+ *   - SSH key if `GH_TOKEN` is not set as an environment variable (ex. local dev)
+ */
+gulp.task('deploy', ['build'], plugins.shell.task([
+    'git init',
+    'git add .',
+    'git commit -m "Deployed to Github Pages"',
+    'if [ $GH_TOKEN ];    then echo "Deploying with OAuth token"; git push --force "https://$GH_TOKEN@github.com/StrictlyBusiness/fda-food-recalls" master:gh-pages; fi',
+    'if [ -z $GH_TOKEN ]; then echo "Deploying with SSH key";     git push --force "git@github.com:StrictlyBusiness/fda-food-recalls.git" master:gh-pages; fi',
+  ], { cwd: paths.build.dist.basePath })
+);

@@ -28,3 +28,8 @@
 - `gulp test:unit --browsers=sl_ie_9 --reporters=saucelabs`
   - Run units tests with IE9 on Sauce Labs
   - See `sauceLabsLaunchers` variable in [`karma.conf.js`]('karma'conf.js') for all available Sauce Labs configured browsers
+
+# Deploying
+Travis CI is configured to automatically deploy to Github Pages ([gh-pages](tree/gh-pages) branch) on all success commits to the `master` branch.  Travis CI will use the environment variable `GH_TOKEN` to push to Github Pages (configured as a secure environment variable).
+
+If you would like to push a deployment from your local build, you can run `gulp deploy` locally.  You must be using SSH keys for with Github for authentication.
