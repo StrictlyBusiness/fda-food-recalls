@@ -212,7 +212,9 @@ gulp.task('styles', ['sass'], function() {
 gulp.task('sass', function() {
     return gulp.src(paths.app.styles.main)
         .pipe(plugins.sourcemaps.init())
-        .pipe(plugins.inject(gulp.src(['./app/**/*.scss'], {read: false}), {
+
+        // Include all directive styles
+        .pipe(plugins.inject(gulp.src(['./app/directives/**/*.scss'], {read: false}), {
           starttag: '/* start-imports */',
           endtag: '/* end-imports */',
           relative: true,
@@ -220,6 +222,7 @@ gulp.task('sass', function() {
             return "@import '" + filepath + "';";
           }
         }))
+
         .pipe(plugins.sass({
             includePaths: paths.app.styles.include,
             errLogToConsole: true
@@ -355,7 +358,7 @@ gulp.task('serve', ['lint', 'styles', 'images', 'fonts', 'watch'], function() {
 });
 
 /**
- * The 'default' task serve the dev environment.
+ * The 'default' task to serve the dev environment.
  */
 gulp.task('default', ['serve']);
 
