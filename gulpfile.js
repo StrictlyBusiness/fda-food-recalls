@@ -232,6 +232,7 @@ gulp.task('sass', function() {
         .on('error', log)
         .pipe(plugins.sourcemaps.write('.'))
         .pipe(gulp.dest(paths.tmp.styles))
+        .pipe(browserSync.stream({match: '**/*.css'}))
         .on('error', log);
 });
 
@@ -343,12 +344,7 @@ gulp.task('watch', function () {
  * The 'serve' task serve the dev environment.
  */
 gulp.task('serve', ['lint', 'styles', 'images', 'fonts', 'watch'], function() {
-    return browserSync.init([
-      paths.tmp.styles,
-      paths.app.scripts,
-      paths.app.html,
-      paths.app.templates
-    ], {
+    return browserSync.init({
       notify: false,
       port: 8000,
       browser: [],
