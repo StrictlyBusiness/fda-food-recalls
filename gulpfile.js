@@ -423,6 +423,8 @@ gulp.task('build', function (cb) {
  */
 gulp.task('deploy', ['build'], plugins.shell.task([
     'git init',
+    'git config --global user.email "github@sbcs.com"',
+    'git config --global user.name "SBCS Build"',
     'git add .',
     'git commit -m "Deployed to Github Pages"',
     'if [ $GH_TOKEN ];    then echo "Deploying with OAuth token"; git push --force "https://$GH_TOKEN@github.com/StrictlyBusiness/fda-food-recalls" master:gh-pages; fi',
