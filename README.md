@@ -5,8 +5,6 @@
 ## Development
 - Install [Node](https://nodejs.org/)
 - `npm install`
-- `npm install -g jspm`
-- `jspm install`
 - `npm start`
 - Open browser to `http://localhost:8000`
 
