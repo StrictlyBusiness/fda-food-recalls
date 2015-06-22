@@ -3,9 +3,12 @@
 [![Sauce Test Status](https://saucelabs.com/browser-matrix/techniq.svg)](https://saucelabs.com/u/techniq)
 
 ## Development
+- Install [Node](https://nodejs.org/)
 - `npm install`
+- `npm install -g jspm`
 - `jspm install`
 - `npm start`
+- Open browser to `http://localhost:8000`
 
 
 ## Testing
@@ -26,4 +29,4 @@
   - Under Windows, you'll need to set the environment variable manually `set CI=true`
 - `gulp test:unit --browsers=sl_ie_9 --reporters=saucelabs`
   - Run units tests with IE9 on Sauce Labs
-  - See `sauceLabsLaunchers` variable in [`karma.conf.js`]('karma'conf.js') for all available Sauce Lab configured browsers
+  - See `sauceLabsLaunchers` variable in [`karma.conf.js`]('karma'conf.js') for all available Sauce Labs configured browsers
