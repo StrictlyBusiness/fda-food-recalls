@@ -1,8 +1,8 @@
 import moment from 'moment';
 
-import statesDataset from '../../data/states.json!';
-import recallClassificationsDataset from '../../data/recall-classifications.json!';
-import recallStatusesDataset from '../../data/recall-statuses.json!';
+import statesDataset from 'app/data/states.json!';
+import recallClassificationsDataset from 'app/data/recall-classifications.json!';
+import recallStatusesDataset from 'app/data/recall-statuses.json!';
 
 export default class ListingController {
 
