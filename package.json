@@ -6,7 +6,6 @@
   "scripts": {
     "start": "gulp serve",
     "test": "gulp lint && gulp test:unit",
-    "test-ci": "gulp lint && gulp test:unit --browsers=PhantomJS",
     "postinstall": "jspm install"
   },
   "repository": {
