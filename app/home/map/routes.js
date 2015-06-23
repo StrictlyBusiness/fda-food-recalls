@@ -26,7 +26,7 @@ export default function routes($stateProvider) {
           (startDate) => startDate.clone()
             .endOf('month')
         ],
-        recallsByState: ['foodRecallService', 'startDate', 'endDate',
+        recalls: ['foodRecallService', 'startDate', 'endDate',
           (foodRecallService, startDate, endDate) => {
             return foodRecallService.getRecallsForPeriod(startDate, endDate);
           }

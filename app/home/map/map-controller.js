@@ -1,12 +1,31 @@
 import moment from 'moment';
 
+import stateShapes from './shapes.json!';
+
 export default class MapController {
 
-  static get $inject() { return ['recallsByState', '$state', '$stateParams', 'API_INFO']; }
+  static get $inject() { return ['recalls', '$state', '$stateParams', 'API_INFO']; }
 
-  constructor(recallsByState, $state, $stateParams, API_INFO) {
+  constructor(recalls, $state, $stateParams, API_INFO) {
 
-    this.recallsByState = recallsByState;
+    var recallsByState = recalls.reduce((prev, item) => {
+      if (item.state in prev) {
+        prev[item.state].push(item);
+      } else {
+        prev[item.state] = [item];
+      }
+      return prev;
+    }, {});
+
+    // Convert object to array for d3.data() and associate state shape/path
+    this.recallsByState = Object.keys(stateShapes).map(s => {
+      return {
+        name: s,
+        recalls: recallsByState[s] || [],
+        path: stateShapes[s]
+      };
+    });
+
     this.$state = $state;
     this.API_INFO = API_INFO;
 

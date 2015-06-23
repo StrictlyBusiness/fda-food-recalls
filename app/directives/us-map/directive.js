@@ -1,7 +1,6 @@
 import d3 from 'd3';
 
 import template from './template.html!text';
-import stateShapes from './shapes.json!';
 
 export default class USMap {
 
@@ -15,25 +14,19 @@ export default class USMap {
   }
 
   link(scope, element, attrs) {
-    // Append path data and convert object to array for d3.data()
-    var data = Object.keys(scope.data).map(s => {
-      scope.data[s].name = s;
-      scope.data[s].path = stateShapes[s];
-      return scope.data[s];
-    });
 
-    var svgElement = element[0].querySelector('svg');
-    var tooltipElement = element[0].querySelector('.tooltip');
+    let svgElement = element[0].querySelector('svg');
+    let tooltipElement = element[0].querySelector('.tooltip');
 
     d3.select(svgElement).selectAll('.state')
-      .data(data).enter()
+      .data(scope.data).enter()
         .append('path')
         .attr('class', 'state')
         .attr('d', d => d.path)
-        .style('fill', d => d3.interpolate('#FFEB3B', '#F44336')(d.count / 100))
+        .style('fill', d => d3.interpolate('#FFEB3B', '#F44336')(d.recalls.length / 100))
         .on('mouseover', function(d) {
             d3.select(tooltipElement)
-              .html(`${d.name} (${d.count})`)
+              .html(`${d.name} (${d.recalls.length})`)
               .transition().duration(200).style('opacity', 1);
         })
         .on('mousemove', function(d) {
