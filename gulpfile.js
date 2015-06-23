@@ -346,7 +346,7 @@ gulp.task('watch', function () {
 /**
  * The 'serve' task serve the dev environment.
  */
-gulp.task('serve', ['lint', 'styles', 'images', 'fonts', 'watch'], function() {
+gulp.task('serve', ['styles', 'images', 'fonts', 'watch'], function() {
     return browserSync.init({
       notify: false,
       port: 8000,
@@ -370,7 +370,7 @@ gulp.task('default', ['serve']);
 /**
  * The 'test:unit' task to run karma unit tests
  */
-gulp.task('test:unit', function (cb) {
+gulp.task('test:unit', ['lint'], function (cb) {
     var options = { configFile: path.join(__dirname, paths.test.config.karma) };
 
     if (argv.browsers) {

@@ -1,0 +1,22 @@
+# Version Control
+.git
+.gitignore
+
+# Docker
+docker-compose.yml
+
+# Packages
+jspm_packages
+node_modules
+
+# Build
+tmp
+dist
+docs
+
+# Tests
+test
+karma.conf.js
+
+# Misc
+.travis.yml
