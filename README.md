@@ -5,7 +5,9 @@
 ## Development
 - Install [Node](https://nodejs.org/)
 - `npm install`
+  - Install all npm and jspm dependencies
 - `npm start`
+  - Starts Browsersync and continuously monitors for changes and inject the styles or reload the browser
 - Open browser to `http://localhost:8000`
 
 ## Testing
