@@ -1,5 +1,8 @@
 import d3 from 'd3';
+import topojson from 'mbostock/topojson';
 
+import us from './us.json!';
+import usStateNames from './us-state-names.tsv!text';
 import template from './template.html!text';
 
 export default class USMap {
@@ -9,25 +12,68 @@ export default class USMap {
     this.replace = false;
     this.template = template;
     this.scope = {
-      data: '='
+      recallsByState: '='
     };
   }
 
   link(scope, element, attrs) {
+    let projection = d3.geo.albersUsa()
+        .scale(1100);
+
+    let path = d3.geo.path()
+        .projection(projection);
 
     let svgElement = element[0].querySelector('svg');
     let tooltipElement = element[0].querySelector('.tooltip');
 
-    d3.select(svgElement).selectAll('.state')
-      .data(scope.data).enter()
-        .append('path')
+    let svg = d3.select(svgElement);
+
+    svg.append('rect')
+        .attr('class', 'background')
+        .attr('width', '100%')
+        .attr('height', '100%')
+        .on('click', onClick);
+
+    let map = svg.append('g');
+
+    let statesNamesById = d3.tsv.parse(usStateNames);
+    let stateFeatures = topojson.feature(us, us.objects.states).features;
+
+    // Append "metadata" (abbreviation, name, and recalls) to each state
+    stateFeatures.forEach(f => {
+      let stateName = statesNamesById.filter(s => parseInt(s.id) === f.id);
+      if (stateName.length) {
+        f.metadata = {
+          abbreviation: stateName[0].code,
+          name: stateName[0].name
+        };
+
+        if (stateName[0].code in scope.recallsByState) {
+          f.metadata.recalls = scope.recallsByState[stateName[0].code].recalls;
+        }
+      }
+    });
+
+    let states = map.append('g')
+        .attr('class', 'states')
+      .selectAll('path')
+        .data(stateFeatures)
+      .enter().append('path')
         .attr('class', 'state')
-        .attr('d', d => d.path)
-        .style('fill', d => d3.interpolate('#FFEB3B', '#F44336')(d.recalls.length / 100))
+        .attr('d', path)
+        .style('fill', d => {
+          if (d.metadata && d.metadata.recalls) {
+            let value = d.metadata.recalls.length / 100;
+            return d3.interpolate('#FFEB3B', '#F44336')(value);
+          }
+        })
+        .on('click', onClick)
         .on('mouseover', function(d) {
+          if (d.metadata && d.metadata.recalls) {
             d3.select(tooltipElement)
-              .html(`${d.name} (${d.recalls.length})`)
-              .transition().duration(200).style('opacity', 1);
+                .html(`${d.metadata.name} (${d.metadata.recalls.length})`)
+                .transition().duration(200).style('opacity', 1);
+          }
         })
         .on('mousemove', function(d) {
           d3.select(tooltipElement)
@@ -37,9 +83,53 @@ export default class USMap {
         .on('mouseout', function(d) {
             d3.select(tooltipElement)
               .transition().duration(200).style('opacity', 0);
-        })
-      ;
-  };
+        });
+
+    map.append('path')
+      .datum(topojson.mesh(us, us.objects.states, (a, b) => a !== b ))
+      .attr('class', 'state-borders')
+      .attr('d', path);
+
+    map.append('path')
+      .datum(topojson.feature(us, us.objects.land))
+      .attr('class', 'country-border')
+      .attr('d', path);
+
+    map.selectAll('text')
+        .data(stateFeatures)
+      .enter().append('svg:text')
+        .text(d => d.metadata.abbreviation)
+        .attr('class', 'state-labels')
+        .attr('x', d => path.centroid(d)[0])
+        .attr('y', d => path.centroid(d)[1]);
+
+    var selected;
+    function onClick(d) {
+      let x, y, k;
+
+      let width = svgElement.getBoundingClientRect().width;
+      let height = svgElement.getBoundingClientRect().height;
+
+      if (d && d !== selected) {
+        var centroid = path.centroid(d);
+        x = centroid[0];
+        y = centroid[1];
+        k = 2.5;
+        selected = d;
+      } else {
+        x = width / 2;
+        y = height / 2;
+        k = 1;
+        selected = null;
+      }
+
+      states.classed('selected', selected && (d2 => d2 === selected));
+
+      map.transition()
+          .duration(750)
+          .attr('transform', `translate(${width / 2}, ${height / 2}) scale(${k}) translate(${-x}, ${-y})`);
+    }
+  }
 
   static directiveFactory() {
     USMap.instance = new USMap();

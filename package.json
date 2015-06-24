@@ -72,6 +72,7 @@
       "d3": "github:mbostock/d3@^3.5.5",
       "fortawesome/font-awesome": "github:fortawesome/font-awesome@^4.3.0",
       "json": "github:systemjs/plugin-json@^0.1.0",
+      "mbostock/topojson": "github:mbostock/topojson@^1.6.19",
       "moment": "github:moment/moment@^2.10.3",
       "text": "github:systemjs/plugin-text@^0.0.2",
       "twbs/bootstrap-sass": "github:twbs/bootstrap-sass@^3.3.5"
