@@ -32,7 +32,7 @@ export default class USMap {
         .attr('class', 'background')
         .attr('width', '100%')
         .attr('height', '100%')
-        .on('click', onClick);
+        .on('click', onClick); // eslint-disable-line no-use-before-define
 
     let map = svg.append('g');
 
@@ -67,7 +67,7 @@ export default class USMap {
             return d3.interpolate('#FFEB3B', '#F44336')(value);
           }
         })
-        .on('click', onClick)
+        .on('click', onClick) // eslint-disable-line no-use-before-define
         .on('mouseover', function(d) {
           if (d.metadata && d.metadata.recalls) {
             d3.select(tooltipElement)
