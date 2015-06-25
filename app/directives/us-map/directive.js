@@ -39,18 +39,19 @@ export default class USMap {
     let statesNamesById = d3.tsv.parse(usStateNames);
     let stateFeatures = topojson.feature(us, us.objects.states).features;
 
+    // Omit any states that do not fit on the projection (ex. Puerto Rico and Virgin Islands)
+    stateFeatures = stateFeatures.filter(f => (path.centroid(f)[0]));
+
     // Append "metadata" (abbreviation, name, and recalls) to each state
     stateFeatures.forEach(f => {
       let stateName = statesNamesById.filter(s => parseInt(s.id) === f.id);
       if (stateName.length) {
+        var abbr = stateName[0].code;
         f.metadata = {
-          abbreviation: stateName[0].code,
-          name: stateName[0].name
+          abbreviation: abbr,
+          name: stateName[0].name,
+          recalls: (abbr in scope.recallsByState) ? scope.recallsByState[abbr].recalls : []
         };
-
-        if (stateName[0].code in scope.recallsByState) {
-          f.metadata.recalls = scope.recallsByState[stateName[0].code].recalls;
-        }
       }
     });
 
@@ -62,18 +63,14 @@ export default class USMap {
         .attr('class', 'state')
         .attr('d', path)
         .style('fill', d => {
-          if (d.metadata && d.metadata.recalls) {
-            let value = d.metadata.recalls.length / 100;
-            return d3.interpolate('#FFEB3B', '#F44336')(value);
-          }
+          let value = d.metadata.recalls.length / 100;
+          return d3.interpolate('#FFEB3B', '#F44336')(value);
         })
         .on('click', onClick) // eslint-disable-line no-use-before-define
         .on('mouseover', function(d) {
-          if (d.metadata && d.metadata.recalls) {
-            d3.select(tooltipElement)
-                .html(`${d.metadata.name} (${d.metadata.recalls.length})`)
-                .transition().duration(200).style('opacity', 1);
-          }
+          d3.select(tooltipElement)
+              .html(`${d.metadata.name} (${d.metadata.recalls.length})`)
+              .transition().duration(200).style('opacity', 1);
         })
         .on('mousemove', function(d) {
           d3.select(tooltipElement)
