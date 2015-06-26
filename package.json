@@ -38,7 +38,7 @@
     "gulp-minify-html": "1.0.3",
     "gulp-rename": "1.2.2",
     "gulp-rev": "4.0.0",
-    "gulp-sass": "2.0.1",
+    "gulp-sass": "2.0.2",
     "gulp-shell": "0.4.2",
     "gulp-size": "1.2.1",
     "gulp-sourcemaps": "1.5.2",
