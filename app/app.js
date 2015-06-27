@@ -1,3 +1,5 @@
+import './polyfills/perfnow';
+
 import angular from 'angular';
 import 'angular-ui-router';
 import 'angular-bootstrap';
