@@ -27,6 +27,26 @@ module.exports = function(config) {
       browserName: 'internet explorer',
       version: '11'
     },
+    sl_iphone_safari_7: {
+      base: 'SauceLabs',
+      browserName: 'iphone',
+      version: '7.1'
+    },
+    sl_iphone_safari_8: {
+      base: 'SauceLabs',
+      browserName: 'iphone',
+      version: '8.2'
+    },
+    sl_ipad_safari_7: {
+      base: 'SauceLabs',
+      browserName: 'ipad',
+      version: '7.1'
+    },
+    sl_ipad_safari_8: {
+      base: 'SauceLabs',
+      browserName: 'ipad',
+      version: '8.2'
+    }
   };
 
   config.set({
