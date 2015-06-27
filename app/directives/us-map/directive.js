@@ -7,18 +7,22 @@ import template from './template.html!text';
 
 export default class USMap {
 
+  static get directiveName() { return 'usMap'; }
+
   constructor() {
     this.restrict = 'E';
     this.replace = false;
     this.template = template;
     this.scope = {
-      recallsByState: '='
+      recallsByState: '=',
+      selected: '='
     };
   }
 
   link(scope, element, attrs) {
+
     let projection = d3.geo.albersUsa()
-        .scale(1100);
+        .scale(1000);
 
     let path = d3.geo.path()
         .projection(projection);
@@ -100,27 +104,26 @@ export default class USMap {
         .attr('x', d => path.centroid(d)[0])
         .attr('y', d => path.centroid(d)[1]);
 
-    var selected;
     function onClick(d) {
       let x, y, k;
 
       let width = svgElement.getBoundingClientRect().width;
       let height = svgElement.getBoundingClientRect().height;
 
-      if (d && d !== selected) {
+      if (d && d !== scope.selected) {
         var centroid = path.centroid(d);
-        x = centroid[0];
-        y = centroid[1];
+        [x, y] = centroid;
         k = 2.5;
-        selected = d;
+        scope.selected = d.metadata;
       } else {
         x = width / 2;
         y = height / 2;
         k = 1;
-        selected = null;
+        scope.selected = null;
       }
+      scope.$apply();
 
-      states.classed('selected', selected && (d2 => d2 === selected));
+      states.classed('selected', scope.selected && (d2 => d2.metadata === scope.selected));
 
       map.transition()
           .duration(750)
@@ -132,6 +135,4 @@ export default class USMap {
     USMap.instance = new USMap();
     return USMap.instance;
   }
-
-  static get directiveName() { return 'usMap'; }
 }
