@@ -19,10 +19,10 @@ System.config({
     "angular-bootstrap": "github:angular-ui/bootstrap-bower@0.13.0",
     "angular-mocks": "github:angular/bower-angular-mocks@1.4.1",
     "angular-ui-router": "github:angular-ui/ui-router@0.2.15",
-    "babel": "npm:babel-core@5.5.8",
-    "babel-runtime": "npm:babel-runtime@5.5.8",
+    "babel": "npm:babel-core@5.6.11",
+    "babel-runtime": "npm:babel-runtime@5.6.11",
     "bluebird": "npm:bluebird@2.9.30",
-    "core-js": "npm:core-js@0.9.17",
+    "core-js": "npm:core-js@0.9.18",
     "d3": "github:mbostock/d3@3.5.5",
     "fortawesome/font-awesome": "github:fortawesome/font-awesome@4.3.0",
     "json": "github:systemjs/plugin-json@0.1.0",
@@ -45,11 +45,19 @@ System.config({
     "npm:babel-runtime@5.5.8": {
       "process": "github:jspm/nodelibs-process@0.1.1"
     },
+    "npm:babel-runtime@5.6.11": {
+      "process": "github:jspm/nodelibs-process@0.1.1"
+    },
     "npm:bluebird@2.9.30": {
       "events": "github:jspm/nodelibs-events@0.1.1",
       "process": "github:jspm/nodelibs-process@0.1.1"
     },
     "npm:core-js@0.9.17": {
+      "fs": "github:jspm/nodelibs-fs@0.1.2",
+      "process": "github:jspm/nodelibs-process@0.1.1",
+      "systemjs-json": "github:systemjs/plugin-json@0.1.0"
+    },
+    "npm:core-js@0.9.18": {
       "fs": "github:jspm/nodelibs-fs@0.1.2",
       "process": "github:jspm/nodelibs-process@0.1.1",
       "systemjs-json": "github:systemjs/plugin-json@0.1.0"
