@@ -34,11 +34,17 @@
   - See `sauceLabsLaunchers` variable in [`karma.conf.js`]('karma'conf.js') for all available Sauce Labs configured browsers
 
 ## Docker
+
 ### Setup
 - Install Docker Engine ([Mac](https://docs.docker.com/machine/install-machine/) / [Windows](https://docs.docker.com/installation/windows/))
   - Follow instructions to install Boot2Docker, which includes VirtualBox, Docker Client, Git, and the boot2docker Linux ISO
-- (optional) Install [Docker Machine](https://docs.docker.com/machine/install-machine/)
+- Install [Docker Machine](https://docs.docker.com/machine/install-machine/) (optional)
   - Create `dev` machine: `docker-machie create -d virtualbox dev`
+
+### Run from Docker Registry
+An automated build repository is [available](https://registry.hub.docker.com/u/strictlybusiness/fda-food-recalls/)
+- `docker run -p 8000:8000 strictlybusiness/fda-food-recalls`
+- Open browser to `http://$(docker-machine ip dev):8000` or replace `$(docker-machine ip dev)` with your docker virtual machine's IP if not using docker-machine
 
 ### Build and run manually
 - `docker build -t fda-food-recalls .`
@@ -50,7 +56,9 @@
 - Run `docker-compose up` from project root to build and run
 - Open browser to `http://$(docker-machine ip dev):8000` or replace `$(docker-machine ip dev)` with your docker virtual machine's IP if not using docker-machine
 
+
+
 ## Deploying
 Travis CI is configured to automatically deploy to Github Pages ([gh-pages](tree/gh-pages) branch) on all success commits to the `master` branch.  Travis CI will use the environment variable `GH_TOKEN` to push to Github Pages (configured as a secure environment variable).
 
-If you would like to push a deployment from your local build, you can run `gulp deploy` locally.  You must be using SSH keys for with Github for authentication.
+If you would like to deploy directly from your local build, you can run `gulp deploy`.  You must be using SSH keys for with Github for authentication.
