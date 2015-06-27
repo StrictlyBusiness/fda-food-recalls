@@ -6,8 +6,11 @@
 - Install [Node](https://nodejs.org/)
 - `npm install`
   - Install all npm and jspm dependencies
-- `npm start`
+- `npm run develop` (or `gulp serve`)
   - Starts Browsersync and continuously monitors for changes and inject the styles or reload the browser
+  - `gulp serve` requires  gulp to be installed globally (`npm install -g gulp`)
+- `npm start`
+  - Starts Browsersync and serves the production (concatenated/minified) assets
 - Open browser to `http://localhost:8000`
 
 ## Testing

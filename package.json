@@ -4,7 +4,8 @@
   "description": "FDA Food Recalls",
   "main": "index.js",
   "scripts": {
-    "start": "gulp serve",
+    "start": "gulp serve:dist",
+    "develop": "gulp serve",
     "test": "gulp lint && gulp test:unit",
     "postinstall": "jspm install"
   },
