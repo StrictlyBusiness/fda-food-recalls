@@ -354,14 +354,20 @@ gulp.task('serve', ['styles', 'images', 'fonts', 'watch'], function() {
       tunnel: false,
       server: true
     });
-
 });
 
 /**
- * The 'default' task to serve the dev environment.
+ * The 'serve:dist' task serve the production environment.
  */
-gulp.task('default', ['serve']);
-
+gulp.task('serve:dist', ['build'], function() {
+    return browserSync.init({
+      notify: false,
+      port: 8000,
+      browser: [],
+      tunnel: false,
+      server: 'dist'
+    });
+});
 
 //---------------------------------------------
 //               TEST TASKS
@@ -431,3 +437,7 @@ gulp.task('deploy', ['build'], plugins.shell.task([
     'if [ -z $GH_TOKEN ]; then echo "Deploying with SSH key";     git push --force "git@github.com:StrictlyBusiness/fda-food-recalls.git" master:gh-pages; fi',
   ], { cwd: paths.build.dist.basePath })
 );
+/**
+ * The 'default' task to serve the dev environment.
+ */
+gulp.task('default', ['serve']);
