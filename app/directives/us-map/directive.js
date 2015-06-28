@@ -108,17 +108,23 @@ export default class USMap {
         .attr('y', d => path.centroid(d)[1]);
 
     function onClick(d) {
-      let x, y, k;
+      let translate, scale;
 
-      if (d && d !== scope.selected) {
-        var centroid = path.centroid(d);
-        [x, y] = centroid;
-        k = 2.5;
+      if (d && d.metadata !== scope.selected) {
+        let [leftTop, rightBottom] = path.bounds(d);
+        let [left, top] = leftTop;
+        let [right, bottom] = rightBottom;
+        let dx = right - left;
+        let dy = bottom - top;
+        let x = (left + right) / 2;
+        let y = (top + bottom) / 2;
+
+        scale = .9 / Math.max(dx / width, dy / height);
+        translate = [width / 2 - scale * x, height / 2 - scale * y];
         scope.selected = d.metadata;
       } else {
-        x = width / 2;
-        y = height / 2;
-        k = 1;
+        translate = 0;
+        scale = 1;
         scope.selected = null;
       }
       scope.$apply();
@@ -126,8 +132,9 @@ export default class USMap {
       states.classed('selected', scope.selected && (d2 => d2.metadata === scope.selected));
 
       map.transition()
-          .duration(750)
-          .attr('transform', `translate(${width / 2}, ${height / 2}) scale(${k}) translate(${-x}, ${-y})`);
+        .duration(750)
+        .style('stroke-width', 1.5 / scale + 'px')
+        .attr('transform', `translate(${translate}) scale(${scale})`);
     }
   }
 
