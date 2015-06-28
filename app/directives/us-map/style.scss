@@ -9,8 +9,11 @@ us-map {
   }
 
   .background {
+    // fill: red;
     fill: none;
     pointer-events: all;
+    width: 100%;
+    height: 100%;
   }
 
   .states {

@@ -37,8 +37,6 @@ export default class USMap {
 
     svg.append('rect')
         .attr('class', 'background')
-        .attr('width', '100%')
-        .attr('height', '100%')
         .on('click', onClick); // eslint-disable-line no-use-before-define
 
     let map = svg.append('g');
