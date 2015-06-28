@@ -2,10 +2,12 @@ us-map {
 
   svg {
     display: block;
-    margin: 40px 20px;;
-    width: calc(100% - 40px);
+    margin: 40px 0px;;
+    width: 100%;
     max-height: 500px;
-    border: 1px solid #999;
+    border-top: 1px solid #999;
+    border-bottom: 1px solid #999;
+    background-color: #fafafa;
   }
 
   .background {
