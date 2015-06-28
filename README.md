@@ -61,4 +61,4 @@ An automated build repository is [available](https://registry.hub.docker.com/u/s
 ## Deploying
 Travis CI is configured to automatically deploy to Github Pages ([gh-pages](tree/gh-pages) branch) on all success commits to the `master` branch.  Travis CI will use the environment variable `GH_TOKEN` to push to Github Pages (configured as a secure environment variable).
 
-If you would like to deploy directly from your local build, you can run `gulp deploy`.  You must be using SSH keys for with Github for authentication.
+If you would like to deploy directly from your local build, you can run `gulp deploy`.  You must be using SSH keys for git/Github authentication.
