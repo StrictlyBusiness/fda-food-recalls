@@ -30,6 +30,9 @@ export default class USMap {
     let svgElement = element[0].querySelector('svg');
     let tooltipElement = element[0].querySelector('.tooltip');
 
+    let width = svgElement.viewBox.baseVal.width;
+    let height = svgElement.viewBox.baseVal.height;
+
     let svg = d3.select(svgElement);
 
     svg.append('rect')
@@ -106,9 +109,6 @@ export default class USMap {
 
     function onClick(d) {
       let x, y, k;
-
-      let width = svgElement.getBoundingClientRect().width;
-      let height = svgElement.getBoundingClientRect().height;
 
       if (d && d !== scope.selected) {
         var centroid = path.centroid(d);
