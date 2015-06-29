@@ -1,4 +1,5 @@
 us-map {
+  // position: relative;
 
   svg {
     display: block;
@@ -73,7 +74,41 @@ us-map {
     pointer-events: none;
   }
 
+  .back {
+    position: absolute;
+    // top: 0;
+    // left: 0;
+    margin: 10px;
+    padding: 10px;
+    background-color: rgba(255, 255, 255, .8);
+    border: 1px solid #FFF;
+    border-radius: 10px;
+    cursor: pointer;
+
+    &.ng-enter {
+      // easeOutBack
+      transition: all cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.5s;
+    }
+    &.ng-leave {
+      // easeInBack
+      transition: all cubic-bezier(0.6, -0.28, 0.735, 0.045) 0.5s;
+    }
+
+    &.ng-enter,
+    &.ng-leave.ng-leave-active {
+      opacity: 0;
+      transform: translateX(-100%);
+    }
+
+    &.ng-leave,
+    &.ng-enter.ng-enter-active {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
   .tooltip {
+    // position: absolute;
     padding: 10px;
     background-color: rgba(255, 255, 255, .8);
     border: 1px solid #555;

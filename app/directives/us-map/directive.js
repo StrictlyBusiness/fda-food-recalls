@@ -37,7 +37,7 @@ export default class USMap {
 
     svg.append('rect')
         .attr('class', 'background')
-        .on('click', onClick); // eslint-disable-line no-use-before-define
+        .on('click', d => scope.$apply(() => scope.selected = null));
 
     let map = svg.append('g');
 
@@ -72,7 +72,11 @@ export default class USMap {
           let value = d.metadata.recalls.length / 100;
           return d3.interpolate('#FFEB3B', '#F44336')(value);
         })
-        .on('click', onClick) // eslint-disable-line no-use-before-define
+        .on('click', d => {
+          // Unselect state if already selected, else update selection
+          scope.selected = (d === scope.selected) ? null : d;
+          scope.$apply();
+        })
         .on('mouseover', function(d) {
           d3.select(tooltipElement)
               .html(`${d.metadata.name} (${d.metadata.recalls.length})`)
@@ -106,11 +110,13 @@ export default class USMap {
         .attr('x', d => path.centroid(d)[0])
         .attr('y', d => path.centroid(d)[1]);
 
-    function onClick(d) {
+    scope.clearSelection = () => scope.selected = null;
+
+    scope.$watch('selected', selected => {
       let translate, scale;
 
-      if (d && d.metadata !== scope.selected) {
-        let [leftTop, rightBottom] = path.bounds(d);
+      if (selected) {
+        let [leftTop, rightBottom] = path.bounds(selected);
         let [left, top] = leftTop;
         let [right, bottom] = rightBottom;
         let dx = right - left;
@@ -118,26 +124,24 @@ export default class USMap {
         let x = (left + right) / 2;
         let y = (top + bottom) / 2;
 
-        scale = .8 / Math.max(dx / width, dy / height);
+        scale = 0.8 / Math.max(dx / width, dy / height);
         translate = [width / 2 - scale * x, height / 2 - scale * y];
-        scope.selected = d.metadata;
         statesGroup.classed('selected', true);
       } else {
-        translate = 0;
         scale = 1;
-        scope.selected = null;
+        translate = 0;
         statesGroup.classed('selected', false);
       }
-      scope.$apply();
 
-      states.classed('selected', scope.selected && (s => s.metadata === scope.selected));
-      stateLabels.classed('selected', scope.selected && (l => l.metadata === scope.selected));
+      states.classed('selected', selected && (s => s.metadata === selected.metadata));
+      stateLabels.classed('selected', selected && (l => l.metadata === selected.metadata));
 
       map.transition()
         .duration(750)
         .style('stroke-width', 1.5 / scale + 'px')
         .attr('transform', `translate(${translate}) scale(${scale})`);
-    }
+    });
+
   }
 
   static directiveFactory() {
