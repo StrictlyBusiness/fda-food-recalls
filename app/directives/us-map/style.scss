@@ -110,8 +110,12 @@ us-map {
   .tooltip {
     // position: absolute;
     padding: 10px;
-    background-color: rgba(255, 255, 255, .8);
+    background-color: rgba(255, 255, 255, .9);
     border: 1px solid #555;
-    font-size: 1.1em;
+
+    .name {
+      font-size: 1.5em;
+      font-style: bold;
+    }
   }
 }

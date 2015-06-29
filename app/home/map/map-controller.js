@@ -14,7 +14,8 @@ export default class MapController {
           prev[item.abbr] = {
               abbreviation: item.abbr,
               name: item.name,
-              recalls: []
+              recalls: [],
+              productCount: 0
           };
         }
         return prev;
@@ -22,14 +23,16 @@ export default class MapController {
 
     // Add recalls to each state (or "unknown" state)
     recalls.forEach(r => {
-      var stateName = r.state || 'unknown';
+      let stateName = r.state || 'unknown';
       if (stateName in this.recallsByState) {
         this.recallsByState[stateName].recalls.push(r);
+        this.recallsByState[stateName].productCount += r.products.length;
       } else {
         this.recallsByState[stateName] = {
           name: 'name',
           abbreviation: 'unknown',
-          recalls: [r]
+          recalls: [r],
+          productCount: r.products.length
         };
       }
     });

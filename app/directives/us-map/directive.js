@@ -52,11 +52,7 @@ export default class USMap {
       let stateName = statesNamesById.filter(s => parseInt(s.id) === f.id);
       if (stateName.length) {
         var abbr = stateName[0].code;
-        f.metadata = {
-          abbreviation: abbr,
-          name: stateName[0].name,
-          recalls: (abbr in scope.recallsByState) ? scope.recallsByState[abbr].recalls : []
-        };
+        f.metadata = scope.recallsByState[abbr];
       }
     });
 
@@ -69,7 +65,7 @@ export default class USMap {
         .attr('class', 'state')
         .attr('d', path)
         .style('fill', d => {
-          let value = d.metadata.recalls.length / 100;
+          let value = d.metadata.recalls.length / 10;
           return d3.interpolate('#FFEB3B', '#F44336')(value);
         })
         .on('click', d => {
@@ -79,7 +75,11 @@ export default class USMap {
         })
         .on('mouseover', function(d) {
           d3.select(tooltipElement)
-              .html(`${d.metadata.name} (${d.metadata.recalls.length})`)
+              .html(`
+                <div class="name">${d.metadata.name}</div>
+                <div>Recalls: ${d.metadata.recalls.length}</div>
+                <div>Recalled Products: ${d.metadata.productCount }</div>
+              `)
               .transition().duration(200).style('opacity', 1);
         })
         .on('mousemove', function(d) {
