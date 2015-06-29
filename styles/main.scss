@@ -18,3 +18,12 @@ body {
   border-radius: 3px;
   margin-bottom: 20px;
 }
+
+[ng-click] {
+  cursor: pointer;
+}
+
+.clickable {
+  cursor: pointer;
+  color: $link-color;
+}
