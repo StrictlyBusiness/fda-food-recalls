@@ -1,8 +1,10 @@
 import './polyfills/perfnow';
 
 import angular from 'angular';
+import 'angular-animate';
 import 'angular-ui-router';
 import 'angular-bootstrap';
+import 'angular-loading-bar';
 
 import Promise from 'bluebird';
 
@@ -15,8 +17,10 @@ import homeModule from './home/module';
 
 let dependencies = [
   // Third party modules
+  'ngAnimate',
   'ui.router',
   'ui.bootstrap',
+  'angular-loading-bar',
 
   // Project based code services
   configModule.name,
@@ -32,6 +36,10 @@ export default angular.module('fdaFoodRecalls', dependencies)
 
 .config(['$compileProvider', ($compileProvider) => {
   $compileProvider.debugInfoEnabled(true);
+}])
+
+.config(['cfpLoadingBarProvider', function(cfpLoadingBarProvider) {
+  cfpLoadingBarProvider.latencyThreshold = 50;
 }])
 
 .run(['$rootScope', ($rootScope) => {
