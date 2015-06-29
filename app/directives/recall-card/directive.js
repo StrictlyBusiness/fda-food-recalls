@@ -3,20 +3,35 @@ import template from './template.html!text';
 import recallClassificationsDataset from 'app/data/recall-classifications.json!';
 import recallStatusesDataset from 'app/data/recall-statuses.json!';
 
-export default class RecallsList {
+export default class RecallCard {
 
-  static get directiveName() { return 'recallsList'; }
+  static get directiveName() { return 'recallCard'; }
 
   constructor() {
     this.restrict = 'E';
     this.replace = false;
     this.template = template;
     this.scope = {
-      recalls: '='
+      recall: '='
     };
   }
 
   link(scope, element, attrs) {
+
+    scope.defaultProductsToDisplay = 3;
+    scope.productsToDisplay = scope.defaultProductsToDisplay;
+    scope.showAllProducts = function() {
+      scope.productsToDisplay = 999;
+    };
+    scope.showLessProducts = function() {
+      scope.productsToDisplay = scope.defaultProductsToDisplay;
+    };
+
+    scope.showRecallDetails = false;
+    scope.toggleRecallDetails = function() {
+      scope.showRecallDetails = !scope.showRecallDetails;
+    };
+
     /**
      * Class I = Dangerous or defective products that predictably could cause
      *   serious health problems or death. Examples include: food found to contain
@@ -62,7 +77,7 @@ export default class RecallsList {
   }
 
   static directiveFactory() {
-    RecallsList.instance = new RecallsList();
-    return RecallsList.instance;
+    RecallCard.instance = new RecallCard();
+    return RecallCard.instance;
   }
 }

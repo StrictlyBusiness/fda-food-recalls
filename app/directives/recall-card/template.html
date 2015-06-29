@@ -1,0 +1,64 @@
+  <div class="card">
+    <div>
+      <h5 class="text-muted">{{ recall.recall_number }}</h5>
+      <h4>
+        {{ recall.recalling_firm }}
+        ({{ recall.city }}, {{ recall.state }} {{ recall.country }})
+      </h4>
+      <div>
+        <span class="label label-{{ getClassificationStyle(recall.classification) }}"
+          tooltip-html-unsafe="{{ getClassificationDescription(recall.classification) }}">{{ recall.classification }}</span>
+        <span class="label label-{{ getStatusStyle(recall.status) }}"
+          tooltip-html-unsafe="{{ getStatusDescription(recall.status) }}">{{ recall.status }}</span>
+      </div>
+    </div>
+
+    <div>
+      <h4>Reason</h4>
+      <div>{{ recall.reason_for_recall }}</div>
+    </div>
+
+    <div>
+      <h4>Products ({{ recall.products.length }})
+        <small>
+          <span class="clickable" ng-if="recall.products.length > productsToDisplay" ng-click="showAllProducts()">Show All</span>
+          <span class="clickable" ng-if="productsToDisplay == 999" ng-click="showLessProducts()">Show Less</span>
+        </small>
+      </h4>
+      <ul class="list-unstyled">
+        <li ng-repeat="product in recall.products | limitTo:productsToDisplay" ng-init="showProductDetails = false">
+          <div>
+            <span class="clickable" ng-click="showProductDetails = !showProductDetails">
+              <i ng-if="!showProductDetails" class="fa fa-fw fa-chevron-right" title="Show additional details for this product"></i>
+              <i ng-if="showProductDetails" class="fa fa-fw fa-chevron-down" title="Hide additional details for this product"></i>
+            </span>
+            <span class="product-description" ng-class="{collapsed: !showProductDetails}">
+              {{ product.product_description }}
+            </span>
+          </div>
+          <div ng-if="showProductDetails" style="margin-left: 24px;"><span class="card-label">Quantity:</span> {{ product.product_quantity }}</div>
+          <div ng-if="showProductDetails" style="margin-left: 24px;"><span class="card-label">Codes:</span> {{ product.code_info }}</div>
+          <div>
+        </li>
+      </ul>
+
+    </div>
+
+    <div>
+      <h4>Distribution</h4>
+      <div>{{ recall.distribution_pattern }}</div>
+    </div>
+
+    <div style="margin-top: 20px; padding-top: 10px; border-top: 1px solid #efefef">
+      <span class="clickable" ng-if="!showRecallDetails" ng-click="toggleRecallDetails()" title="Show additional details about this recall">Show Details</span>
+      <span class="clickable" ng-if="showRecallDetails" ng-click="toggleRecallDetails()" title="Hide additional details about this recall">Hide Details</span>
+
+      <div style="margin-top: 12px;" ng-if="showRecallDetails">
+        <div><span class="card-label">Event #</span>: {{ recall.event_id }}</div>
+        <div><span class="card-label">Reported On</span>: {{ recall.report_date }}</div>
+        <div><span class="card-label">Initiated On</span>: {{ recall.recall_initiation_date }}</div>
+        <div><span class="card-label">Voluntary Or Mandatory:</span> {{ recall.voluntary_mandated }}</div>
+        <div><span class="card-label">Report Method:</span> {{ recall.initial_firm_notification }}</div>
+      </div>
+    </div>
+  </div>

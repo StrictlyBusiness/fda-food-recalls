@@ -9,47 +9,8 @@
       <div class="alert alert-info">No recalls</div>
     </div>
 
-    <div class="col-sm-6 col-lg-4" ng-repeat-start="recall in recalls" filter="isRecallForState:ctrl.criteria.state">
-      <div class="card">
-          <div>
-            <h5>Event #{{ recall.event_id }} ({{ recall.product_type }})</h5>
-            <h4>
-              {{ recall.recalling_firm }}
-              ({{ recall.city }}, {{ recall.state }} {{ recall.country }})
-            </h4>
-            <div>
-              <span class="label label-{{ getClassificationStyle(recall.classification) }}"
-                tooltip-html-unsafe="{{ getClassificationDescription(recall.classification) }}">{{ recall.classification }}</span>
-              <span class="label label-{{ getStatusStyle(recall.status) }}"
-                tooltip-html-unsafe="{{ getStatusDescription(recall.status) }}">{{ recall.status }}</span>
-            </div>
-          </div>
-
-          <div>
-            <h4>Reason</h4>
-            <div>{{ recall.reason_for_recall }}</div>
-          </div>
-
-          <div>
-            <h4>Product</h4>
-            <div>{{ recall.product_description }}</div>
-            <div>{{ recall.product_quantity }}</div>
-            <div>{{ recall.code_info }}</div>
-          </div>
-
-          <div>
-            <h4>Distribution</h4>
-            <div>{{ recall.distribution_pattern }}</div>
-          </div>
-
-          <div>
-            <h4>Recall Date and Notification</h4>
-            <div>Initiated: {{ recall.recall_initiation_date }}</div>
-            <div>{{ recall.voluntary_mandated }}</div>
-            <div>{{ recall.report_date }}: {{ recall.initial_firm_notification }}</div>
-          </div>
-        </div>
-
+    <div class="col-sm-6 col-lg-4" ng-repeat-start="recall in recalls">
+      <recall-card recall="recall"></recall-card>
     </div>
 
     <!-- Add the extra clearfix for only the required viewport -->
