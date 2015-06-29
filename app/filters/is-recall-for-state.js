@@ -8,7 +8,7 @@ export default function IsRecallForStateFilterProvider() {
 
     let matches = [];
     recalls.forEach((recall) => {
-      if (recall.states.indexOf(state) !== -1) {
+      if (recall.distribution_states.indexOf(state) !== -1) {
         matches.push(recall);
       }
     });
