@@ -20,6 +20,14 @@ us-map {
 
   .states {
     fill: #aaa;
+
+    &.selected .state:not(.selected) {
+      fill-opacity: .3;
+    }
+
+    &.selected .state-labels:not(.selected) {
+      fill-opacity: .3;
+    }
   }
 
   .state {
@@ -28,13 +36,13 @@ us-map {
 
     &.selected {
       stroke: #555;
-      stroke-width: 2px;
+      stroke-width: 1.2px;
       // fill-opacity: .8;
       // transform: scale(.8);
     }
 
     &:hover {
-      fill-opacity: .6;
+      // fill-opacity: .6;
     }
   }
 
@@ -52,6 +60,7 @@ us-map {
     text-anchor: middle;
     font-size: '10pt';
     pointer-events: none;
+    transition: all .3s;
   }
 
   .country-border {

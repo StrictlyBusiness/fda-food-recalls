@@ -60,9 +60,10 @@ export default class USMap {
       }
     });
 
-    let states = map.append('g')
-        .attr('class', 'states')
-      .selectAll('path')
+    let statesGroup = map.append('g')
+        .attr('class', 'states');
+
+    let states = statesGroup.selectAll('path')
         .data(stateFeatures)
       .enter().append('path')
         .attr('class', 'state')
@@ -97,7 +98,7 @@ export default class USMap {
       .attr('class', 'country-border')
       .attr('d', path);
 
-    map.selectAll('text')
+    let stateLabels = statesGroup.selectAll('text')
         .data(stateFeatures)
       .enter().append('svg:text')
         .text(d => d.metadata.abbreviation)
@@ -120,14 +121,17 @@ export default class USMap {
         scale = .9 / Math.max(dx / width, dy / height);
         translate = [width / 2 - scale * x, height / 2 - scale * y];
         scope.selected = d.metadata;
+        statesGroup.classed('selected', true);
       } else {
         translate = 0;
         scale = 1;
         scope.selected = null;
+        statesGroup.classed('selected', false);
       }
       scope.$apply();
 
-      states.classed('selected', scope.selected && (d2 => d2.metadata === scope.selected));
+      states.classed('selected', scope.selected && (s => s.metadata === scope.selected));
+      stateLabels.classed('selected', scope.selected && (l => l.metadata === scope.selected));
 
       map.transition()
         .duration(750)
