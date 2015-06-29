@@ -32,6 +32,7 @@ us-map {
 
   .state {
     transition: all .3s;
+    cursor: pointer;
     // transform-origin: 50% 50%;
 
     &.selected {
