@@ -118,7 +118,7 @@ export default class USMap {
         let x = (left + right) / 2;
         let y = (top + bottom) / 2;
 
-        scale = .9 / Math.max(dx / width, dy / height);
+        scale = .8 / Math.max(dx / width, dy / height);
         translate = [width / 2 - scale * x, height / 2 - scale * y];
         scope.selected = d.metadata;
         statesGroup.classed('selected', true);
