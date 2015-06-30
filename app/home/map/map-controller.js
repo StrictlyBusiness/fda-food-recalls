@@ -12,23 +12,33 @@ export default class MapController {
 
     this.recalls = recalls;
     this.productCount = recalls.reduce((prev, recall) => prev += recall.products.length, 0);
-    this.groupBy = 'origination';
-    this.countBy = 'recalls';
-
-    $scope.$watch(() => this.groupBy, (groupBy) => {
-      this.recallsByState = this.getRecallsByState(this.recalls, groupBy);
-    });
-    this.recallsByState = this.getRecallsByState(this.recalls, this.groupBy);
-
-    this.$state = $state;
-    this.API_INFO = API_INFO;
 
     this.criteria = {
       month: parseInt($stateParams.month, 10),
       year: parseInt($stateParams.year, 10),
       classification: $stateParams.classification,
-      status: $stateParams.status
+      status: $stateParams.status,
+      groupBy: $stateParams.groupBy,
+      countBy: $stateParams.countBy,
+      selectedState: $stateParams.state
     };
+
+    $scope.$watch(() => this.criteria.groupBy, (groupBy) => {
+      this.recallsByState = this.getRecallsByState(this.recalls, groupBy);
+      this.selectedState = this.recallsByState[this.criteria.selectedState];
+    });
+    this.recallsByState = this.getRecallsByState(this.recalls, this.criteria.groupBy);
+
+    let ctrl = this; // Need as $scope.$on does not bind to correct context even with an arrow function
+    this.selectedState = $stateParams.state ? this.recallsByState[$stateParams.state] : null;
+    $scope.$on('selectedState', (e, selectedStateAbbr) => {
+      ctrl.criteria.selectedState = selectedStateAbbr;
+      ctrl.selectedState = ctrl.recallsByState[selectedStateAbbr];
+      $state.go('.', {state: selectedStateAbbr});
+    });
+
+    this.$state = $state;
+    this.API_INFO = API_INFO;
 
     // Build a structure for the momths
     this.months = [];
@@ -51,7 +61,6 @@ export default class MapController {
 
     // Build a structure for the statuses
     this.statuses = Object.keys(recallStatusesDataset);
-
   }
 
   getRecallsByState(recalls, groupBy) {
@@ -96,47 +105,13 @@ export default class MapController {
     return recallsByState;
   }
 
-  selectMonth(month) {
-    return this.$state.go('home.map', {
-      month: month
-    });
+  setFilter(name, value, reload = false) {
+    this.criteria[name] = value;
+    return this.$state.go('.', { [name]: value }, { reload: reload });
   }
 
-  selectYear(year) {
-    return this.$state.go('home.map', {
-      year: year
-    });
-  }
-
-  selectClassification(classification) {
-    return this.$state.go('home.map', {
-      classification: classification
-    });
-  }
-
-  selectStatus(status) {
-    return this.$state.go('home.map', {
-      status: status
-    });
-  }
-
-  isMonthSelected(month) {
-    return month.month === this.criteria.month;
-  }
-
-  isYearSelected(year) {
-    return year === this.criteria.year;
-  }
-
-  isValidMonth(month) {
-    let period = moment({ year: this.criteria.year, month: month.month - 1, day: 1 });
-    return period.isBetween(this.API_INFO.dataset.periodStart, this.API_INFO.dataset.periodEnd);
-  }
-
-  isValidYear(year) {
-    let period = moment({ year: year, month: this.criteria.month - 1, day: 1 });
-    return period.isAfter(this.API_INFO.dataset.periodStart)
-      && period.isBefore(this.API_INFO.dataset.periodEnd);
+  isFilterActive(name, value) {
+    return this.criteria[name] === value;
   }
 
 }

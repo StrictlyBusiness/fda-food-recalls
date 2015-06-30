@@ -35,7 +35,7 @@ export default class USMap {
     let height = svgElement.viewBox.baseVal.height;
 
     let svg = d3.select(svgElement)
-      .on('click', d => scope.$apply(() => scope.selected = null));
+      .on('click', d => scope.$apply(() => scope.$emit('selectedState', null)));
 
     let map = svg.append('g');
 
@@ -55,10 +55,10 @@ export default class USMap {
     let statesNamesById = d3.tsv.parse(usStateNames);
     let states = null;
     let stateLabels = null;
+    let stateFeatures = topojson.feature(us, us.objects.states).features;
 
     let update = (stateGroups) => {
       // console.log('update');
-      let stateFeatures = topojson.feature(us, us.objects.states).features;
 
       // Omit any states that do not fit on the projection (ex. Puerto Rico and Virgin Islands)
       stateFeatures = stateFeatures.filter(f => (path.centroid(f)[0]));
@@ -89,9 +89,11 @@ export default class USMap {
             return d3.interpolate('#FFEB3B', '#F44336')(value);
           })
           .on('click', d => {
-            // Unselect state if already selected, else update selection
-            scope.selected = (d === scope.selected) ? null : d;
-            scope.$apply();
+            scope.$apply(() => {
+              // Unselect state if already selected, else update selection
+              let selectedState = (d.metadata.abbreviation === scope.selected) ? null : d.metadata.abbreviation;
+              scope.$emit('selectedState', selectedState);
+            });
 
             d3.event.stopPropagation();
           })
@@ -121,8 +123,6 @@ export default class USMap {
           .attr('class', 'state-labels')
           .attr('x', d => path.centroid(d)[0])
           .attr('y', d => path.centroid(d)[1]);
-
-      scope.selected = stateFeatures.filter(f => scope.selected && f.metadata.name === scope.selected.metadata.name)[0];
     };
     update(statesGroup);
 
@@ -134,12 +134,14 @@ export default class USMap {
       update(statesGroup);
     });
 
-    scope.$watch('selected', selected => {
-      // console.log('selected');
+    let updateSelection = (selected) => {
+      // console.log('selected', selected);
       let translate, scale;
 
       if (selected) {
-        let [leftTop, rightBottom] = path.bounds(selected);
+        let stateFeature = stateFeatures.filter(f => f.metadata.abbreviation === selected)[0];
+
+        let [leftTop, rightBottom] = path.bounds(stateFeature);
         let [left, top] = leftTop;
         let [right, bottom] = rightBottom;
         let dx = right - left;
@@ -156,15 +158,20 @@ export default class USMap {
         statesGroup.classed('selected', false);
       }
 
-      states.classed('selected', selected && (s => s.metadata === selected.metadata));
-      stateLabels.classed('selected', selected && (l => l.metadata === selected.metadata));
+      states.classed('selected', selected && (s => s.metadata.abbreviation === selected));
+      stateLabels.classed('selected', selected && (l => l.metadata.abbreviation === selected));
 
       map.transition()
         .duration(750)
         .style('stroke-width', 1.5 / scale + 'px')
         .attr('transform', `translate(${translate}) scale(${scale})`);
+    };
+    scope.$watch('selected', selected => {
+      updateSelection(selected);
     });
-    scope.clearSelection = () => scope.selected = null;
+    updateSelection(scope.selected);
+
+    scope.clearSelection = () => scope.$emit('selectedState', null);
   }
 
   static directiveFactory() {
