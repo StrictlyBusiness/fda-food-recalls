@@ -97,7 +97,6 @@ export default class MapController {
   }
 
   selectMonth(month) {
-    console.log('month');
     return this.$state.go('home.map', {
       month: month
     });
