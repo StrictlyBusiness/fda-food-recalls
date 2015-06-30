@@ -38,10 +38,10 @@
 
 <us-map recalls-by-state="ctrl.recallsByState" selected="selected"></us-map>
 
-<div class="container-fluid" ng-if="selected">
-  <h1>{{ selected.metadata.recalls.length }} food product recalls originating from {{ selected.metadata.name }}</h1>
+<div class="container-fluid recalls-summary" ng-if="selected">
+  <span class="value">{{ selected.metadata.recalls.length }}</span> recalls affecting <span class="value">{{ selected.metadata.productCount }}</span> products originating from <span class="value">{{ selected.metadata.name }}</span>
 </div>
 
 <div class="row">
-<recalls-list recalls="selected.metadata.recalls"></recalls-list>
+  <recalls-list recalls="selected.metadata.recalls"></recalls-list>
 </div>

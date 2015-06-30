@@ -27,3 +27,16 @@ body {
   cursor: pointer;
   color: $link-color;
 }
+
+.recalls-summary {
+  font-size: 1.5em;
+  text-align: center;
+  color: rgba(0,0,0,.5);
+  margin: 20px;
+
+  .value {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: rgba(0,0,0,1);
+  }
+}
