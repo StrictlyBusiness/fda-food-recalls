@@ -7,16 +7,25 @@
       <a href class="navbar-brand" ui-sref="home.map">FDA Food Recalls</a>
     </div>
 
-    <!-- Hidden if the user is not logged in -->
-    <div class="navbar-collapse collapse">
-      <ul class="nav navbar-nav navbar-right">
-        <li><a href ui-sref="home.map"><i class="fa fa-fw fa-map-marker"></i> Map</a></li>
-        <!-- <li><a href ui-sref="home.listing"><i class="fa fa-fw fa-list"></i> Listing</a></li> -->
-      </ul>
+    <p class="navbar-text"></p>
 
+  </div>
+</div>
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-xs-12">
+      <p>
+        This is a tool for reviewing FDA recalls on food products based on producing and
+        distribution states on a month by month basis. The tool was created as a
+        response to 18F's RFQ 4QTFHS150004.
+      </p>
+      <p>
+        Use the criteria below to filter the results displayed on the map of the
+        United States. Click on a state to review the recalls affecting that state.
+      </p>
     </div>
   </div>
-
 </div>
 
 <ui-view></ui-view>

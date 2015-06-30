@@ -14,7 +14,9 @@ export default function routes($stateProvider) {
       // Default parameters in case query string isn't set
       params: {
         month: '' + moment().month(),
-        year: '' + moment().year()
+        year: '' + moment().year(),
+        classification: null,
+        status: null
       },
       resolve: {
         startDate: ['$stateParams',
