@@ -11,6 +11,8 @@ export default class MapController {
   constructor(recalls, $state, $stateParams, API_INFO) {
 
     this.recalls = recalls;
+    this.productCount = recalls.reduce((prev, recall) => prev += recall.products.length, 0);
+
     // Create map keyed by state abbreviation (ex. 'WV')
     this.recallsByState = states.reduce((prev, item) => {
         if (!(item.abbr in prev)) {
