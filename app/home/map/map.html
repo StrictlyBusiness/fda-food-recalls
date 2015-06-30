@@ -1,25 +1,40 @@
-<div class="text-center">
-  <div class="btn-group" role="group">
-    <button ng-repeat="month in ctrl.months"
-      ng-disabled="!ctrl.isValidMonth(month)"
-      class="btn"
-      ng-class="{ 'btn-default': !ctrl.isMonthSelected(month), 'btn-primary': ctrl.isMonthSelected(month) }"
-      ng-click="ctrl.selectMonth(month)">
-      {{ month.name }}
-    </button>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-xs-6 col-sm-3 col-md-2">
+      <div class="form-group">
+        <label for="selectMonth">Month</label>
+        <select class="form-control" id="selectMonth" ng-model="ctrl.criteria.month"
+          ng-options="month.month as month.name for month in ctrl.months"
+          ng-change="ctrl.selectMonth(ctrl.criteria.month)"></select>
+      </div>
+    </div>
+    <div class="col-xs-6 col-sm-3 col-md-2">
+      <div class="form-group">
+        <label for="selectYear">Year</label>
+        <select class="form-control" id="selectYear" ng-model="ctrl.criteria.year"
+          ng-options="year for year in ctrl.years"
+          ng-change="ctrl.selectYear(ctrl.criteria.year)"></select>
+      </div>
+    </div>
+    <div class="col-xs-6 col-sm-3 col-md-2">
+      <div class="form-group">
+        <label for="selectClassification">Classification</label>
+        <select class="form-control" id="selectClassification" ng-model="ctrl.criteria.classification"
+          ng-options="classification for classification in ctrl.classifications"
+          ng-change="ctrl.selectClassification(ctrl.criteria.classification)"></select>
+      </div>
+    </div>
+    <div class="col-xs-6 col-sm-3 col-md-2">
+      <div class="form-group">
+        <label for="selectStatus">Status</label>
+        <select class="form-control" id="selectStatus" ng-model="ctrl.criteria.status"
+          ng-options="status for status in ctrl.statuses"
+          ng-change="ctrl.selectStatus(ctrl.criteria.status)"></select>
+      </div>
+    </div>
   </div>
 </div>
-<div class="text-center">
-  <div class="btn-group" role="group">
-    <button ng-repeat="year in ctrl.years"
-      ng-disabled="!ctrl.isValidYear(year)"
-      class="btn"
-      ng-class="{ 'btn-default': !ctrl.isYearSelected(year), 'btn-primary': ctrl.isYearSelected(year) }"
-      ng-click="ctrl.selectYear(year)">
-      {{ year }}
-    </button>
-  </div>
-</div>
+
 
 <us-map recalls-by-state="ctrl.recallsByState" selected="selected"></us-map>
 

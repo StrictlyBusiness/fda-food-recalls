@@ -1,6 +1,8 @@
 import moment from 'moment';
 
 import states from 'app/data/states.json!';
+import recallClassificationsDataset from 'app/data/recall-classifications.json!';
+import recallStatusesDataset from 'app/data/recall-statuses.json!';
 
 export default class MapController {
 
@@ -40,9 +42,11 @@ export default class MapController {
     this.$state = $state;
     this.API_INFO = API_INFO;
 
-    this.selectedPeriod = {
+    this.criteria = {
       month: parseInt($stateParams.month, 10),
-      year: parseInt($stateParams.year, 10)
+      year: parseInt($stateParams.year, 10),
+      classification: $stateParams.classification,
+      status: $stateParams.status
     };
 
     // Build a structure for the momths
@@ -61,37 +65,65 @@ export default class MapController {
       this.years.push(year);
     }
 
+    // Build a structure for the classifications
+    this.classifications = Object.keys(recallClassificationsDataset);
+
+    // Build a structure for the statuses
+    this.statuses = Object.keys(recallStatusesDataset);
+
   }
 
   selectMonth(month) {
     return this.$state.go('home.map', {
       month: month.month,
-      year: this.selectedPeriod.year
+      year: this.criteria.year,
+      classification: this.criteria.classification,
+      status: this.criteria.status
     });
   }
 
   selectYear(year) {
     return this.$state.go('home.map', {
-      month: this.selectedPeriod.month,
-      year: year
+      month: this.criteria.month,
+      year: year,
+      classification: this.criteria.classification,
+      status: this.criteria.status
+    });
+  }
+
+  selectClassification(classification) {
+    return this.$state.go('home.map', {
+      month: this.criteria.month,
+      year: this.criteria.year,
+      classification: classification,
+      status: this.criteria.status
+    });
+  }
+
+  selectStatus(status) {
+    return this.$state.go('home.map', {
+      month: this.criteria.month,
+      year: this.criteria.year,
+      classification: this.criteria.classification,
+      status: status
     });
   }
 
   isMonthSelected(month) {
-    return month.month === this.selectedPeriod.month;
+    return month.month === this.criteria.month;
   }
 
   isYearSelected(year) {
-    return year === this.selectedPeriod.year;
+    return year === this.criteria.year;
   }
 
   isValidMonth(month) {
-    let period = moment({ year: this.selectedPeriod.year, month: month.month - 1, day: 1 });
+    let period = moment({ year: this.criteria.year, month: month.month - 1, day: 1 });
     return period.isBetween(this.API_INFO.dataset.periodStart, this.API_INFO.dataset.periodEnd);
   }
 
   isValidYear(year) {
-    let period = moment({ year: year, month: this.selectedPeriod.month - 1, day: 1 });
+    let period = moment({ year: year, month: this.criteria.month - 1, day: 1 });
     return period.isAfter(this.API_INFO.dataset.periodStart)
       && period.isBefore(this.API_INFO.dataset.periodEnd);
   }

@@ -7,7 +7,7 @@ export default function routes($stateProvider) {
 
   return $stateProvider
     .state('home.map', {
-      url: '/map?month&year',
+      url: '/map?month&year&classification&status',
       template: mapTemplate,
       controller: mapController,
       controllerAs: 'ctrl',
