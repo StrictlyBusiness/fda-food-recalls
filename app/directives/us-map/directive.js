@@ -34,11 +34,8 @@ export default class USMap {
     let width = svgElement.viewBox.baseVal.width;
     let height = svgElement.viewBox.baseVal.height;
 
-    let svg = d3.select(svgElement);
-
-    svg.append('rect')
-        .attr('class', 'background')
-        .on('click', d => scope.$apply(() => scope.selected = null));
+    let svg = d3.select(svgElement)
+      .on('click', d => scope.$apply(() => scope.selected = null));
 
     let map = svg.append('g');
 
@@ -95,6 +92,8 @@ export default class USMap {
             // Unselect state if already selected, else update selection
             scope.selected = (d === scope.selected) ? null : d;
             scope.$apply();
+
+            d3.event.stopPropagation();
           })
           .on('mouseover', function(d) {
             d3.select(tooltipElement)
