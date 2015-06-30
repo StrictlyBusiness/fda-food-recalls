@@ -1,5 +1,6 @@
 <div class="container-fluid">
   <div class="row">
+    
     <div class="col-xs-6 col-sm-3 col-md-2">
       <div class="form-group">
         <label for="selectMonth">Month</label>
@@ -8,6 +9,7 @@
           ng-change="ctrl.selectMonth(ctrl.criteria.month)"></select>
       </div>
     </div>
+
     <div class="col-xs-6 col-sm-3 col-md-2">
       <div class="form-group">
         <label for="selectYear">Year</label>
@@ -16,6 +18,7 @@
           ng-change="ctrl.selectYear(ctrl.criteria.year)"></select>
       </div>
     </div>
+
     <div class="col-xs-6 col-sm-3 col-md-2">
       <div class="form-group">
         <label for="selectClassification">Classification</label>
@@ -24,6 +27,7 @@
           ng-change="ctrl.selectClassification(ctrl.criteria.classification)"></select>
       </div>
     </div>
+
     <div class="col-xs-6 col-sm-3 col-md-2">
       <div class="form-group">
         <label for="selectStatus">Status</label>
@@ -32,10 +36,21 @@
           ng-change="ctrl.selectStatus(ctrl.criteria.status)"></select>
       </div>
     </div>
+
+    <div class="col-xs-12 col-sm-4">
+      <div class="form-group">
+        <label>Count</label>
+        <div class="btn-group" style="width: 100%">
+          <div class="btn btn-default" ng-click="ctrl.countBy = 'recalls'" ng-class="{active: ctrl.countBy === 'recalls'}">Recalls</div>
+          <div class="btn btn-default" ng-click="ctrl.countBy = 'products'" ng-class="{active: ctrl.countBy === 'products'}">Recalled Products</div>
+        </div>
+      </div>
+    </div>
+
   </div>
 </div>
 
-<us-map recalls-by-state="ctrl.recallsByState" selected="selected"></us-map>
+<us-map recalls-by-state="ctrl.recallsByState" count-by="ctrl.countBy" selected="selected"></us-map>
 
 <div class="container-fluid recalls-summary" ng-if="selected">
   <span class="value">{{ selected.metadata.recalls.length }}</span>

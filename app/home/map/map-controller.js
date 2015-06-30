@@ -12,6 +12,7 @@ export default class MapController {
 
     this.recalls = recalls;
     this.productCount = recalls.reduce((prev, recall) => prev += recall.products.length, 0);
+    this.countBy = 'recalls';
 
     // Create map keyed by state abbreviation (ex. 'WV')
     this.recallsByState = states.reduce((prev, item) => {

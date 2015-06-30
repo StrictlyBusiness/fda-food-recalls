@@ -15,6 +15,7 @@ export default class USMap {
     this.template = template;
     this.scope = {
       recallsByState: '=',
+      countBy: '=',
       selected: '='
     };
   }
@@ -64,11 +65,8 @@ export default class USMap {
       .enter().append('path')
         .attr('class', 'state')
         .attr('d', path)
-        .style('fill', d => {
-          let value = d.metadata.recalls.length / 10;
-          return d3.interpolate('#FFEB3B', '#F44336')(value);
-        })
-        .on('click', d => {
+        .style('fill', colorState) // eslint-disable-line no-use-before-define
+         .on('click', d => {
           // Unselect state if already selected, else update selection
           scope.selected = (d === scope.selected) ? null : d;
           scope.$apply();
@@ -140,6 +138,19 @@ export default class USMap {
         .duration(750)
         .style('stroke-width', 1.5 / scale + 'px')
         .attr('transform', `translate(${translate}) scale(${scale})`);
+    });
+
+    function colorState(d) {
+      let value;
+      if (scope.countBy === 'products') {
+        value = d.metadata.productCount / 100;
+      } else {
+        value = d.metadata.recalls.length / 10;
+      }
+      return d3.interpolate('#FFEB3B', '#F44336')(value);
+    }
+    scope.$watch('countBy', countBy => {
+      states.style('fill', colorState);
     });
 
   }
