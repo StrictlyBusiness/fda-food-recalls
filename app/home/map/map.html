@@ -9,7 +9,6 @@
           ng-change="ctrl.selectMonth(ctrl.criteria.month)"></select>
       </div>
     </div>
-
     <div class="col-xs-6 col-sm-3">
       <div class="form-group">
         <label for="selectYear">Year</label>
@@ -18,7 +17,6 @@
           ng-change="ctrl.selectYear(ctrl.criteria.year)"></select>
       </div>
     </div>
-
     <div class="col-xs-6 col-sm-3">
       <div class="form-group">
         <label for="selectClassification">Classification</label>
@@ -27,13 +25,25 @@
           ng-change="ctrl.selectClassification(ctrl.criteria.classification)"></select>
       </div>
     </div>
-
     <div class="col-xs-6 col-sm-3">
       <div class="form-group">
         <label for="selectStatus">Status</label>
         <select class="form-control" id="selectStatus" ng-model="ctrl.criteria.status"
           ng-options="status for status in ctrl.statuses"
           ng-change="ctrl.selectStatus(ctrl.criteria.status)"></select>
+      </div>
+    </div>
+
+    <div class="col-xs-12 col-sm-6">
+      <div class="form-group">
+        <label for="selectCompany">Company</label>
+        <input type="text" class="form-control" id="selectCompany" ng-model="ctrl.criteria.company" />
+      </div>
+    </div>
+    <div class="col-xs-12 col-sm-6">
+      <div class="form-group">
+        <label for="selectProduct">Product</label>
+        <input type="text" class="form-control" id="selectProduct" ng-model="ctrl.criteria.product" />
       </div>
     </div>
 
@@ -46,7 +56,6 @@
         </div>
       </div>
     </div>
-
     <div class="col-xs-12 col-sm-6">
       <div class="form-group">
         <label>Count by</label>
