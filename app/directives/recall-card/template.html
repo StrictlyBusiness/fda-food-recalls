@@ -26,7 +26,7 @@
         </small>
       </h4>
       <ul class="list-unstyled">
-        <li ng-repeat="product in recall.products | limitTo:productsToDisplay" ng-init="showProductDetails = false">
+        <li ng-repeat="product in recall.products | limitTo:productsToDisplay" ng-init="showProductDetails = false" class="products">
           <div>
             <span class="clickable" ng-click="showProductDetails = !showProductDetails">
               <i ng-if="!showProductDetails" class="fa fa-fw fa-chevron-right" title="Show additional details for this product"></i>
