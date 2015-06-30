@@ -6,42 +6,19 @@ import recallStatusesDataset from 'app/data/recall-statuses.json!';
 
 export default class MapController {
 
-  static get $inject() { return ['recalls', '$state', '$stateParams', 'API_INFO']; }
+  static get $inject() { return ['recalls', '$state', '$stateParams', '$scope', 'API_INFO']; }
 
-  constructor(recalls, $state, $stateParams, API_INFO) {
+  constructor(recalls, $state, $stateParams, $scope, API_INFO) {
 
     this.recalls = recalls;
     this.productCount = recalls.reduce((prev, recall) => prev += recall.products.length, 0);
+    this.groupBy = 'origination';
     this.countBy = 'recalls';
 
-    // Create map keyed by state abbreviation (ex. 'WV')
-    this.recallsByState = states.reduce((prev, item) => {
-        if (!(item.abbr in prev)) {
-          prev[item.abbr] = {
-              abbreviation: item.abbr,
-              name: item.name,
-              recalls: [],
-              productCount: 0
-          };
-        }
-        return prev;
-    }, {});
-
-    // Add recalls to each state (or "unknown" state)
-    recalls.forEach(r => {
-      let stateName = r.state || 'unknown';
-      if (stateName in this.recallsByState) {
-        this.recallsByState[stateName].recalls.push(r);
-        this.recallsByState[stateName].productCount += r.products.length;
-      } else {
-        this.recallsByState[stateName] = {
-          name: 'name',
-          abbreviation: 'unknown',
-          recalls: [r],
-          productCount: r.products.length
-        };
-      }
+    $scope.$watch(() => this.groupBy, (groupBy) => {
+      this.recallsByState = this.getRecallsByState(this.recalls, groupBy);
     });
+    this.recallsByState = this.getRecallsByState(this.recalls, this.groupBy);
 
     this.$state = $state;
     this.API_INFO = API_INFO;
@@ -75,6 +52,48 @@ export default class MapController {
     // Build a structure for the statuses
     this.statuses = Object.keys(recallStatusesDataset);
 
+  }
+
+  getRecallsByState(recalls, groupBy) {
+    // Create map keyed by state abbreviation (ex. 'WV')
+    let recallsByState = states.reduce((prev, item) => {
+        if (!(item.abbr in prev)) {
+          prev[item.abbr] = {
+              abbreviation: item.abbr,
+              name: item.name,
+              recalls: [],
+              productCount: 0
+          };
+        }
+        return prev;
+    }, {});
+
+     let addRecallToState = (stateAbbr, recall) => {
+      if (stateAbbr in recallsByState) {
+        recallsByState[stateAbbr].recalls.push(recall);
+        recallsByState[stateAbbr].productCount += recall.products.length;
+      } else {
+        recallsByState[stateAbbr] = {
+          name: 'name',
+          abbreviation: 'unknown',
+          recalls: [recall],
+          productCount: recall.products.length
+        };
+      }
+    };
+
+    // Add recalls to each state (or "unknown" state)
+    recalls.forEach(r => {
+      if (groupBy === 'origination') {
+        addRecallToState(r.state || 'unknown', r);
+      } else {
+        // console.log('recalls', recalls);
+        // console.log('r.states', r.states);
+        r.distribution_states.forEach(s => addRecallToState(s, r));
+      }
+    });
+
+    return recallsByState;
   }
 
   selectMonth(month) {

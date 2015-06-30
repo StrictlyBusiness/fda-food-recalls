@@ -1,6 +1,6 @@
 <div class="container-fluid">
   <div class="row">
-    
+
     <div class="col-xs-6 col-sm-3 col-md-2">
       <div class="form-group">
         <label for="selectMonth">Month</label>
@@ -37,9 +37,22 @@
       </div>
     </div>
 
+  </div>
+  <div class="row">
+
     <div class="col-xs-12 col-sm-4">
       <div class="form-group">
-        <label>Count</label>
+        <label>Group by</label>
+        <div class="btn-group" style="width: 100%">
+          <div class="btn btn-default" ng-click="ctrl.groupBy = 'origination'" ng-class="{active: ctrl.groupBy === 'origination'}">Originated from</div>
+          <div class="btn btn-default" ng-click="ctrl.groupBy = 'distribution'" ng-class="{active: ctrl.groupBy === 'distribution'}">Distributed to</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-xs-12 col-sm-4">
+      <div class="form-group">
+        <label>Count by</label>
         <div class="btn-group" style="width: 100%">
           <div class="btn btn-default" ng-click="ctrl.countBy = 'recalls'" ng-class="{active: ctrl.countBy === 'recalls'}">Recalls</div>
           <div class="btn btn-default" ng-click="ctrl.countBy = 'products'" ng-class="{active: ctrl.countBy === 'products'}">Recalled Products</div>
@@ -58,7 +71,10 @@
   affecting
   <span class="value">{{ selected.metadata.productCount }}</span>
   <ng-pluralize count="selected.metadata.productCount" when="{'0': 'products', '1': 'product', 'other': 'products'}"></ng-pluralize>
-  originating from
+
+  <span ng-if="ctrl.groupBy === 'origination'">originating from</span>
+  <span ng-if="ctrl.groupBy === 'distribution'">distributed to</span>
+
   <span class="value">{{ selected.metadata.name }}</span>
 </div>
 
