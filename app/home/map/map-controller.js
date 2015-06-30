@@ -97,37 +97,26 @@ export default class MapController {
   }
 
   selectMonth(month) {
+    console.log('month');
     return this.$state.go('home.map', {
-      month: month.month,
-      year: this.criteria.year,
-      classification: this.criteria.classification,
-      status: this.criteria.status
+      month: month
     });
   }
 
   selectYear(year) {
     return this.$state.go('home.map', {
-      month: this.criteria.month,
-      year: year,
-      classification: this.criteria.classification,
-      status: this.criteria.status
+      year: year
     });
   }
 
   selectClassification(classification) {
     return this.$state.go('home.map', {
-      month: this.criteria.month,
-      year: this.criteria.year,
-      classification: classification,
-      status: this.criteria.status
+      classification: classification
     });
   }
 
   selectStatus(status) {
     return this.$state.go('home.map', {
-      month: this.criteria.month,
-      year: this.criteria.year,
-      classification: this.criteria.classification,
       status: status
     });
   }
