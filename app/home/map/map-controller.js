@@ -17,6 +17,8 @@ export default class MapController {
       month: parseInt($stateParams.month, 10),
       year: parseInt($stateParams.year, 10),
       classification: $stateParams.classification,
+      company: $stateParams.company,
+      product: $stateParams.product,
       status: $stateParams.status,
       groupBy: $stateParams.groupBy,
       countBy: $stateParams.countBy,
@@ -24,7 +26,7 @@ export default class MapController {
     };
 
     $scope.$watch(() => this.criteria.groupBy, (groupBy) => {
-      this.recallsByState = this.getRecallsByState(this.recalls, groupBy);
+      this.recallsByState = this.getRecallsByState(this.recalls, this.criteria.groupBy);
       this.selectedState = this.recallsByState[this.criteria.selectedState];
     });
     this.recallsByState = this.getRecallsByState(this.recalls, this.criteria.groupBy);
@@ -63,6 +65,51 @@ export default class MapController {
     this.statuses = Object.keys(recallStatusesDataset);
   }
 
+  getFilteredRecalls(recalls, criteria) {
+    let results = recalls.reduce((prev, item) => {
+      if (this.isFilterMatch(item, criteria)) {
+        prev.push(item);
+      }
+      return prev;
+    }, []);
+
+    return results;
+  }
+
+  isFilterMatch(recall, criteria) {
+    if (criteria.classification) {
+      if (!recall.classification || recall.classification !== criteria.classification) {
+        return false;
+      }
+    }
+    if (criteria.status) {
+      if (!recall.status || recall.status !== criteria.status) {
+        return false;
+      }
+    }
+    if (criteria.company) {
+      let lowerCaseCompany = criteria.company.toLowerCase();
+      if (!recall.recalling_firm || recall.recalling_firm.toLowerCase().indexOf(lowerCaseCompany) === -1) {
+        return false;
+      }
+    }
+    if (criteria.product) {
+      let lowerCaseProduct = criteria.product.toLowerCase();
+      if (!recall.products) {
+        // There are no products in the list so it can't match
+        return false;
+      }
+      // See if any of the product texts match
+      let match = recall.products.reduce((prev, item) => {
+          return prev || (item.product_description.toLowerCase().indexOf(lowerCaseProduct) !== -1);
+      }, false);
+      if (!match) {
+        return false;
+      }
+    }
+    return true;
+  }
+
   getRecallsByState(recalls, groupBy) {
     // Create map keyed by state abbreviation (ex. 'WV')
     let recallsByState = states.reduce((prev, item) => {
@@ -77,7 +124,7 @@ export default class MapController {
         return prev;
     }, {});
 
-     let addRecallToState = (stateAbbr, recall) => {
+    let addRecallToState = (stateAbbr, recall) => {
       if (stateAbbr in recallsByState) {
         recallsByState[stateAbbr].recalls.push(recall);
         recallsByState[stateAbbr].productCount += recall.products.length;
@@ -91,8 +138,11 @@ export default class MapController {
       }
     };
 
+    // Filter the recalls by the criteria
+    let filteredRecalls = this.getFilteredRecalls(recalls, this.criteria);
+
     // Add recalls to each state (or "unknown" state)
-    recalls.forEach(r => {
+    filteredRecalls.forEach(r => {
       if (groupBy === 'origination') {
         addRecallToState(r.state || 'unknown', r);
       } else {

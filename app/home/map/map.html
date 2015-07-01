@@ -22,7 +22,7 @@
         <label for="selectClassification">Classification</label>
         <select class="form-control" id="selectClassification" ng-model="ctrl.criteria.classification"
           ng-options="classification for classification in ctrl.classifications"
-          ng-change="ctrl.setFilter('classification', ctrl.criteria.classification)"></select>
+          ng-change="ctrl.setFilter('classification', ctrl.criteria.classification)"><option /></select>
       </div>
     </div>
     <div class="col-xs-6 col-sm-3">
@@ -30,7 +30,7 @@
         <label for="selectStatus">Status</label>
         <select class="form-control" id="selectStatus" ng-model="ctrl.criteria.status"
           ng-options="status for status in ctrl.statuses"
-          ng-change="ctrl.setFilter('status', ctrl.criteria.status)"></select>
+          ng-change="ctrl.setFilter('status', ctrl.criteria.status)"><option /></select>
       </div>
     </div>
 
