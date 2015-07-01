@@ -82,9 +82,9 @@ export default class USMap {
           .style('fill', d => {
             let value;
             if (scope.countBy === 'products') {
-              value = d.metadata.productCount / 100;
+              value = Math.min(d.metadata.productCount / 100, 1);
             } else {
-              value = d.metadata.recalls.length / 10;
+              value = Math.min(d.metadata.recalls.length / 10, 1);
             }
             return d3.interpolate('#FFEB3B', '#F44336')(value);
           })
