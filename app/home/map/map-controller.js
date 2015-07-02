@@ -25,10 +25,13 @@ export default class MapController {
       selectedState: $stateParams.state
     };
 
-    $scope.$watch(() => this.criteria.groupBy, (groupBy) => {
-      this.recallsByState = this.getRecallsByState(this.recalls, this.criteria.groupBy);
+    $scope.$watch(() => this.criteria, () => {
+      this.filteredRecalls = this.getFilteredRecalls(this.recalls, this.criteria);
+      this.productCount = this.filteredRecalls.reduce((prev, recall) => prev += recall.products.length, 0);
+
+      this.recallsByState = this.getRecallsByState(this.filteredRecalls, this.criteria.groupBy);
       this.selectedState = this.recallsByState[this.criteria.selectedState];
-    });
+    }, true);
     this.recallsByState = this.getRecallsByState(this.recalls, this.criteria.groupBy);
 
     let ctrl = this; // Need as $scope.$on does not bind to correct context even with an arrow function
@@ -138,11 +141,8 @@ export default class MapController {
       }
     };
 
-    // Filter the recalls by the criteria
-    let filteredRecalls = this.getFilteredRecalls(recalls, this.criteria);
-
     // Add recalls to each state (or "unknown" state)
-    filteredRecalls.forEach(r => {
+    recalls.forEach(r => {
       if (groupBy === 'origination') {
         addRecallToState(r.state || 'unknown', r);
       } else {
