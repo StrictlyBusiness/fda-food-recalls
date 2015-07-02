@@ -34,7 +34,7 @@ export default function routes($stateProvider) {
     })
     .state('home.map', {
       parent: 'home.mapData',
-      url: '?classification&status&company&product&groupBy&countBy&state',
+      url: '?classification&status&company&product&reason&groupBy&countBy&state',
       template: mapTemplate,
       controller: mapController,
       controllerAs: 'ctrl',

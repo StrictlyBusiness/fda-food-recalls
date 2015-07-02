@@ -19,6 +19,7 @@ export default class MapController {
       classification: $stateParams.classification,
       company: $stateParams.company,
       product: $stateParams.product,
+      reason: $stateParams.reason,
       status: $stateParams.status,
       groupBy: $stateParams.groupBy,
       countBy: $stateParams.countBy,
@@ -85,17 +86,27 @@ export default class MapController {
         return false;
       }
     }
+
     if (criteria.status) {
       if (!recall.status || recall.status !== criteria.status) {
         return false;
       }
     }
+
     if (criteria.company) {
       let lowerCaseCompany = criteria.company.toLowerCase();
       if (!recall.recalling_firm || recall.recalling_firm.toLowerCase().indexOf(lowerCaseCompany) === -1) {
         return false;
       }
     }
+
+    if (criteria.reason) {
+      let lowerCaseReason = criteria.reason.toLowerCase();
+      if (!recall.reason_for_recall || recall.reason_for_recall.toLowerCase().indexOf(lowerCaseReason) === -1) {
+        return false;
+      }
+    }
+
     if (criteria.product) {
       let lowerCaseProduct = criteria.product.toLowerCase();
       if (!recall.products) {
@@ -103,12 +114,11 @@ export default class MapController {
         return false;
       }
       // See if any of the product texts match
-      let match = recall.products.reduce((prev, item) => {
-          return prev || (item.product_description.toLowerCase().indexOf(lowerCaseProduct) !== -1);
-      }, false);
+      let match = recall.products.some(p => p.product_description.toLowerCase().indexOf(lowerCaseProduct) !== -1);
       if (!match) {
         return false;
       }
+
     }
     return true;
   }
