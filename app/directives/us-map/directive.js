@@ -86,7 +86,8 @@ export default class USMap {
             } else {
               value = Math.min(d.metadata.recalls.length / 10, 1);
             }
-            return d3.interpolate('#FFEB3B', '#F44336')(value);
+
+            return (value === 0) ? '#FFFFFF' : d3.interpolate('#FFF59D', '#F44336')(value);
           })
           .on('click', d => {
             scope.$apply(() => {
