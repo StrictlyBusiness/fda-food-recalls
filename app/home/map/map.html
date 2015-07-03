@@ -125,7 +125,7 @@
 
 <div class="container-fluid recalls-summary" ng-if="ctrl.selectedState">
   <span class="value">{{ ctrl.selectedState.recalls.length }}</span>
-  <ng-pluralize count="selected.filteredRecalls.length" when="{'0': 'recalls', '1': 'recall', 'other': 'recalls'}"></ng-pluralize>
+  <ng-pluralize count="ctrl.selectedState.recalls.length" when="{'0': 'recalls', '1': 'recall', 'other': 'recalls'}"></ng-pluralize>
   affecting
   <span class="value">{{ ctrl.selectedState.productCount }}</span>
   <ng-pluralize count="ctrl.selectedState.productCount" when="{'0': 'products', '1': 'product', 'other': 'products'}"></ng-pluralize>
