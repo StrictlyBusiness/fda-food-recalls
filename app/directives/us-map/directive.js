@@ -117,13 +117,66 @@ export default class USMap {
                 .transition().duration(200).style('opacity', 0);
           });
 
+      let smallStates = ['VT', 'NH', 'MA', 'RI', 'CT', 'NJ', 'DE', 'MD', 'DC'];
+      let smallStateLabelStartCoodinates = projection([-67.707617, 42.722131]);
       stateLabels = statesGroup.selectAll('text')
           .data(stateFeatures)
         .enter().append('svg:text')
           .text(d => d.metadata.abbreviation)
           .attr('class', 'state-labels')
-          .attr('x', d => path.centroid(d)[0])
-          .attr('y', d => path.centroid(d)[1]);
+          .each(function(d) {
+            let label = d3.select(this);
+
+            let xCenter = path.centroid(d)[0];
+            let yCenter = path.centroid(d)[1];
+
+            let xOffset = 0;
+            let yOffset = 5;
+            switch(d.metadata.abbreviation) {
+              case 'FL':
+              case 'KY':
+                xOffset = 8;
+                break;
+              case 'HI':
+                xOffset = -15;
+                break;
+              case 'LA':
+                xOffset = -9;
+                break;
+              case 'MI':
+                xOffset = 8;
+                yOffset = 18;
+                break;
+              case 'NY':
+                xOffset = 1;
+                break;
+              default:
+                xOffset = 0;
+            }
+
+            let x = xCenter + xOffset;
+            let y = yCenter + yOffset;
+
+            // Place labels for smaller states stacked to the right and draw line to state center
+            if (smallStates.some(s => s === d.metadata.abbreviation)) {
+              x = smallStateLabelStartCoodinates[0];
+
+              let yStart = smallStateLabelStartCoodinates[1];
+              let smallStateIndex = smallStates.indexOf(d.metadata.abbreviation);
+              y = yStart + (smallStateIndex * (4 + 12));
+
+              statesGroup.append('line')
+                .attr('x1', x - 10)
+                .attr('y1', y - 5)
+                .attr('x2', xCenter)
+                .attr('y2', yCenter)
+                .style('stroke', '#999')
+                .style('stroke-width', 1);
+            }
+
+            label.attr('x', x);
+            label.attr('y', y);
+          });
     };
     update(statesGroup);
 
