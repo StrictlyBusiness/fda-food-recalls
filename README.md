@@ -43,7 +43,7 @@ Mark Miller is the Project Manager of this effort. He was responsibility identif
 - Open browser to `http://localhost:8000`
 
 ## Testing
-###Local tests
+### Local tests
 - `npm test`
   - Run all linters and run unit tests with Chrome
 - `gulp test:unit`
@@ -53,7 +53,7 @@ Mark Miller is the Project Manager of this effort. He was responsibility identif
 - `gulp test:unit --browsers=PhantomJS`
   - Run unit tests with PhantomJS
 
-###Sauce Labs
+### Sauce Labs
 `SAUCE_USERNAME` and `SAUCE_ACCESS_KEY` environment variables must be set
 - `CI=true gulp test:unit`
   - Run all Sauce Lab configured browsers (same as Travis CI)
