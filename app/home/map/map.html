@@ -1,10 +1,10 @@
 <div class="container-fluid">
   <div class="row">
 
-    <div class="col-xs-6 col-sm-3">
+    <div class="col-xs-6 col-sm-2 col-md-2">
       <div class="form-group">
         <label for="selectMonth">Month
-          <i class="fa fa-eye"
+          <i class="fa fa-info-circle"
             tooltip-html-unsafe="{{ ctrl.getFilterDescription('month') }}"
             tooltip-placement="right"></i>
         </label>
@@ -13,10 +13,10 @@
           ng-change="ctrl.setFilter('month', ctrl.criteria.month, true)"></select>
       </div>
     </div>
-    <div class="col-xs-6 col-sm-3">
+    <div class="col-xs-6 col-sm-2 col-md-2">
       <div class="form-group">
         <label for="selectYear">Year
-          <i class="fa fa-eye"
+          <i class="fa fa-info-circle"
             tooltip-html-unsafe="{{ ctrl.getFilterDescription('year') }}"
             tooltip-placement="right"></i>
         </label>
@@ -25,10 +25,11 @@
           ng-change="ctrl.setFilter('year', ctrl.criteria.year, true)"></select>
       </div>
     </div>
-    <div class="col-xs-6 col-sm-3">
+
+    <div class="col-xs-6 col-sm-4" ng-if="ctrl.isFilterVisible">
       <div class="form-group">
         <label for="selectClassification">Classification
-          <i class="fa fa-eye"
+          <i class="fa fa-info-circle"
             tooltip-html-unsafe="{{ ctrl.getFilterDescription('classification') }}"
             tooltip-placement="right"></i>
         </label>
@@ -37,10 +38,10 @@
           ng-change="ctrl.setFilter('classification', ctrl.criteria.classification)"><option /></select>
       </div>
     </div>
-    <div class="col-xs-6 col-sm-3">
+    <div class="col-xs-6 col-sm-4" ng-if="ctrl.isFilterVisible">
       <div class="form-group">
         <label for="selectStatus">Status
-          <i class="fa fa-eye"
+          <i class="fa fa-info-circle"
             tooltip-html-unsafe="{{ ctrl.getFilterDescription('status') }}"
             tooltip-placement="right"></i>
         </label>
@@ -50,10 +51,10 @@
       </div>
     </div>
 
-    <div class="col-xs-12 col-sm-4">
+    <div class="col-xs-12 col-sm-4" ng-if="ctrl.isFilterVisible">
       <div class="form-group">
         <label for="selectCompany">Company
-          <i class="fa fa-eye"
+          <i class="fa fa-info-circle"
             tooltip-html-unsafe="{{ ctrl.getFilterDescription('company') }}"
             tooltip-placement="right"></i>
         </label>
@@ -63,10 +64,10 @@
                ng-change="ctrl.setFilter('company', ctrl.criteria.company)" />
       </div>
     </div>
-    <div class="col-xs-12 col-sm-4">
+    <div class="col-xs-12 col-sm-4" ng-if="ctrl.isFilterVisible">
       <div class="form-group">
         <label for="selectProduct">Product
-          <i class="fa fa-eye"
+          <i class="fa fa-info-circle"
             tooltip-html-unsafe="{{ ctrl.getFilterDescription('product') }}"
             tooltip-placement="right"></i>
         </label>
@@ -76,10 +77,10 @@
                ng-change="ctrl.setFilter('product', ctrl.criteria.product)" />
       </div>
     </div>
-    <div class="col-xs-12 col-sm-4">
+    <div class="col-xs-12 col-sm-4" ng-if="ctrl.isFilterVisible">
       <div class="form-group">
         <label for="selectReason">Reason
-          <i class="fa fa-eye"
+          <i class="fa fa-info-circle"
             tooltip-html-unsafe="{{ ctrl.getFilterDescription('reason') }}"
             tooltip-placement="right"></i>
         </label>
@@ -90,33 +91,42 @@
       </div>
     </div>
 
-    <div class="col-xs-12 col-sm-6">
+    <div class="col-xs-12 col-sm-4">
       <div class="form-group">
         <label>Group by
-          <i class="fa fa-eye"
+          <i class="fa fa-info-circle"
             tooltip-html-unsafe="{{ ctrl.getFilterDescription('groupBy') }}"
             tooltip-placement="right"></i>
         </label>
         <div class="btn-group" style="width: 100%">
-          <div class="btn btn-default" ng-click="ctrl.setFilter('groupBy', 'origination')" ng-class="{ active: ctrl.isFilterActive('groupBy', 'origination')  }">Originated from</div>
-          <div class="btn btn-default" ng-click="ctrl.setFilter('groupBy', 'distribution')" ng-class="{ active: ctrl.isFilterActive('groupBy', 'distribution') }">Distributed to</div>
+          <div class="btn btn-default" ng-click="ctrl.setFilter('groupBy', 'origination')" ng-class="{ active: ctrl.isFilterActive('groupBy', 'origination')  }">Originated</div>
+          <div class="btn btn-default" ng-click="ctrl.setFilter('groupBy', 'distribution')" ng-class="{ active: ctrl.isFilterActive('groupBy', 'distribution') }">Distributed</div>
         </div>
       </div>
     </div>
-    <div class="col-xs-12 col-sm-6">
+    <div class="col-xs-12 col-sm-4">
       <div class="form-group">
         <label>Count by
-          <i class="fa fa-eye"
+          <i class="fa fa-info-circle"
             tooltip-html-unsafe="{{ ctrl.getFilterDescription('countBy') }}"
             tooltip-placement="right"></i>
         </label>
         <div class="btn-group" style="width: 100%">
           <div class="btn btn-default" ng-click="ctrl.setFilter('countBy', 'recalls')" ng-class="{ active: ctrl.isFilterActive('countBy', 'recalls') }">Recalls</div>
-          <div class="btn btn-default" ng-click="ctrl.setFilter('countBy', 'products')"  ng-class="{ active: ctrl.isFilterActive('countBy', 'products')  }">Recalled Products</div>
+          <div class="btn btn-default" ng-click="ctrl.setFilter('countBy', 'products')"  ng-class="{ active: ctrl.isFilterActive('countBy', 'products')  }">Products</div>
         </div>
       </div>
     </div>
-
+  </div>
+  <div class="row">
+    <div class="col-xs-12">
+      <div ng-if="!ctrl.isFilterVisible">
+        Additional filters are available. Click <a href class="alert-link" ng-click="ctrl.isFilterVisible = true;">here</a> to display them.
+      </div>
+      <div ng-if="ctrl.isFilterVisible">
+        Click <a href class="alert-link" ng-click="ctrl.isFilterVisible = false;">here</a> to hide additional filters.
+      </div>
+    </div>
   </div>
 </div>
 

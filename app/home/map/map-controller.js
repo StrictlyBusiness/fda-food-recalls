@@ -17,6 +17,8 @@ export default class MapController {
     this.recalls = recalls;
     this.productCount = recalls.reduce((prev, recall) => prev += recall.products.length, 0);
 
+    this.filtersVisible = false;
+
     this.criteria = {
       month: parseInt($stateParams.month, 10),
       year: parseInt($stateParams.year, 10),
@@ -68,6 +70,14 @@ export default class MapController {
 
     // Build a structure for the statuses
     this.statuses = Object.keys(recallStatusesDataset);
+  }
+
+  set isFilterVisible(visible) {
+    this.filtersVisible = visible;
+  }
+
+  get isFilterVisible() {
+    return this.filtersVisible;
   }
 
   // For each filter on the view, return the filter description based
