@@ -121,7 +121,17 @@
   <div class="row">
     <div class="col-xs-12">
       <div ng-if="!ctrl.isFilterVisible">
-        Additional filters are available. Click <a href class="alert-link" ng-click="ctrl.isFilterVisible = true;">here</a> to display them.
+        <p>
+          Displaying all recalls
+          <span ng-if="ctrl.criteria.classification"> classified as <strong>{{ ctrl.criteria.classification }}</strong>,</span>
+          <span ng-if="ctrl.criteria.status"> in a status of <strong>{{ ctrl.criteria.status }}</strong>,</span>
+          <span ng-if="ctrl.criteria.company"> with a company name containing <strong>{{ ctrl.criteria.company }}</strong>,</span>
+          <span ng-if="ctrl.criteria.product"> with a product name containing <strong>{{ ctrl.criteria.product }}</strong>,</span>
+          <span ng-if="ctrl.criteria.reason"> with a reason containing <strong>{{ ctrl.criteria.reason }}</strong>,</span>
+          for the month of <strong>{{ ctrl.criteria.month + 1 }}/{{ ctrl.criteria.year }}</strong>
+          <span ng-if="ctrl.criteria.selectedState"> in <strong>{{ ctrl.criteria.selectedState }}</strong></span>
+        </p>
+        Click <a href class="alert-link" ng-click="ctrl.isFilterVisible = true;">here</a> to view hidden filters.
       </div>
       <div ng-if="ctrl.isFilterVisible">
         Click <a href class="alert-link" ng-click="ctrl.isFilterVisible = false;">here</a> to hide additional filters.
