@@ -2,23 +2,23 @@ import angular from 'angular';
 
 export default class HomeController {
 
-  static get $inject() { return ['$scope', 'localStorage']; }
+  static get $inject() { return ['$scope', 'localStorageService']; }
 
-  constructor($scope, localStorage) {
+  constructor($scope, localStorageService) {
     this.$scope = $scope;
-    this.localStorage = localStorage;
+    this.localStorageService = localStorageService;
   }
 
   get isIntroDisplayed() {
     if (angular.isUndefined(this.introDisplayed)) {
-      this.introDisplayed = this.localStorage.get('introDisplayed', true);
+      this.introDisplayed = this.localStorageService.get('introDisplayed', true);
     }
     return this.introDisplayed;
   }
 
   set isIntroDisplayed(visible) {
     this.introDisplayed = visible;
-    this.localStorage.set('introDisplayed', this.introDisplayed);
+    this.localStorageService.set('introDisplayed', this.introDisplayed);
   }
 
 }
