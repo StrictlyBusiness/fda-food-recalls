@@ -22,8 +22,8 @@ Lists in the Trello board organize the following:
 -	Features included in each release
 -	Project Management (RFQ Submission details)
 
-# Project Lead
-Mark Miller was assigned the Project Manager of this effort and given the responsibility of ensuring that the resources necessary to complete the work were given the time away from other project to do so. Althouth the schedule was extended by the customer, we attempted to complete it using the budget we had established.  Resources were made available as needed to ensure the implementation would reflect accurately our capabilities.    The remainder of the technical team was self formed based on recommendations of the technical lead/architect.  Inadditional to the Technical Architect, SBCS used both front and backend web developers, and a Dev Ops Engineer.  Attachment C shows the breakdown of hours allowcated to each role.  The hours for the Project Manager as well as the "Customers" are not included in Attachment C as these roles are not specifically called out for Pool 2.  Mr. Miller spent 42 hours on this effort as the PM and the "customers" spent a total of 54 labor hours, reviewing, testing and in meetings.
+# Project Lead & Team
+Mark Miller is the Project Manager of this effort. He was responsibility identifying the resources necessary to complete the work.  Staff was made available as needed to ensure the implementation would accurately reflect our capabilities.    The remainder of the team was self formed based on recommendations of the technical architect.  Inadditional to the Technical Architect, SBCS used front and backend web developers, and a Dev Ops Engineer.  Attachment C shows the breakdown of hours allowcated to each role.  The hours for Project Manager and the "Customers" are not included in Attachment C for Pool 2.  Mr. Miller spent 42 hours on this effort as the PM and the "customers" spent a total of 54 labor hours, reviewing, testing and meeting.
 
 
 
