@@ -19,6 +19,10 @@ export default class MapController {
 
     this.filtersVisible = false;
 
+    // These options are used to controll how quickly a search is performed when
+    // a user stops typing in the text filter fields on the form.
+    this.debounceOptions = { debounce: { default: 500, blur: 0 }};
+
     this.criteria = {
       month: parseInt($stateParams.month, 10),
       year: parseInt($stateParams.year, 10),
@@ -72,10 +76,10 @@ export default class MapController {
     this.statuses = Object.keys(recallStatusesDataset);
   }
 
+  // Property to control whether the extra filter fields are visible
   set isFilterVisible(visible) {
     this.filtersVisible = visible;
   }
-
   get isFilterVisible() {
     return this.filtersVisible;
   }

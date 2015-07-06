@@ -60,7 +60,7 @@
         </label>
         <input type="text" class="form-control" id="selectCompany"
                ng-model="ctrl.criteria.company"
-               ng-model-options="{ debounce: { 'default': 500, 'blur': 0 }}"
+               ng-model-options="ctrl.debounceOptions"
                ng-change="ctrl.setFilter('company', ctrl.criteria.company)" />
       </div>
     </div>
@@ -73,7 +73,7 @@
         </label>
         <input type="text" class="form-control" id="selectProduct"
                ng-model="ctrl.criteria.product"
-               ng-model-options="{ debounce: { 'default': 500, 'blur': 0 }}"
+               ng-model-options="ctrl.debounceOptions"
                ng-change="ctrl.setFilter('product', ctrl.criteria.product)" />
       </div>
     </div>
@@ -86,7 +86,7 @@
         </label>
         <input type="text" class="form-control" id="selectReason"
                ng-model="ctrl.criteria.reason"
-               ng-model-options="{ debounce: { 'default': 500, 'blur': 0 }}"
+               ng-model-options="ctrl.debounceOptions"
                ng-change="ctrl.setFilter('reason', ctrl.criteria.reason)" />
       </div>
     </div>
