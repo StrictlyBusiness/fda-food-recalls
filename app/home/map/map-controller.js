@@ -3,6 +3,7 @@ import moment from 'moment';
 import states from 'app/data/states.json!';
 import recallClassificationsDataset from 'app/data/recall-classifications.json!';
 import recallStatusesDataset from 'app/data/recall-statuses.json!';
+import filterDescriptions from 'app/home/map/filter-descriptions.json!';
 
 export default class MapController {
 
@@ -10,6 +11,9 @@ export default class MapController {
 
   constructor(recalls, $state, $stateParams, $scope, API_INFO) {
 
+    this.$state = $state;
+    this.API_INFO = API_INFO;
+    this.filterDescriptions = filterDescriptions;
     this.recalls = recalls;
     this.productCount = recalls.reduce((prev, recall) => prev += recall.products.length, 0);
 
@@ -43,9 +47,6 @@ export default class MapController {
       $state.go('.', {state: selectedStateAbbr});
     });
 
-    this.$state = $state;
-    this.API_INFO = API_INFO;
-
     // Build a structure for the momths
     this.months = [];
     for(let month = 0; month < 12; month++) {
@@ -67,6 +68,12 @@ export default class MapController {
 
     // Build a structure for the statuses
     this.statuses = Object.keys(recallStatusesDataset);
+  }
+
+  // For each filter on the view, return the filter description based
+  // on the filter's name. This text is displayed in a tooltip.
+  getFilterDescription(filterName) {
+    return filterDescriptions[filterName];
   }
 
   getFilteredRecalls(recalls, criteria) {
