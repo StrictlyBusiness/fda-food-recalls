@@ -19,11 +19,25 @@ Lists in the Trello board organize the following:
 -	Features in each release
 -	Project Management
 
-# Project Lead & Team
-Mark Miller is the Project Manager of this effort. He was responsibility identifying the resources necessary to complete the work.  Staff was made available as needed to ensure the implementation would accurately reflect our capabilities.    The remainder of the team was self formed based on recommendations of the technical architect.  Inadditional to the Technical Architect, SBCS used front and backend web developers, and a Dev Ops Engineer.  Attachment C shows the breakdown of hours allowcated to each role.  The hours for Project Manager and the "Customers" are not included in Attachment C for Pool 2.  Mr. Miller spent 42 hours on this effort as the PM and the "customers" spent a total of 54 labor hours, reviewing, testing and meeting.
+# Project Manager (PM) and Team
+Mark Miller was the PM of this effort. He was responsibility identifying the resources necessary to complete the work.  The remainder of the team was self formed based on recommendations of the Technical Architect(TA).  Inadditional to the TA, front and backend web developers, and a Dev Ops Engineer were used.  Attachment C shows the breakdown of hours allowcated to each role.  The hours for PM and the "Customers" are not included in Attachment C for Pool 2.  Mr. Miller spent 42 hours on this effort as the PM and the "customers" spent a total of 54 labor hours, reviewing, testing and meeting.
 
+## Open-Source Technologies Used
 
+- JavaScript
+- Sean.....
+- 
+##Deployment of Prototype
+- SEAN
 
+## Unit Tests
+- Sean - location of unit tests
+- 
+## Continous Integration
+- Sean
+- 
+## Configuration Management
+GitHub was used for CM - the branch structure used across the team was kept simple, a master branch and a develpment branch
 # FDA Food Recalls [![Build Status](https://travis-ci.org/StrictlyBusiness/fda-food-recalls.svg?branch=develop)](https://travis-ci.org/StrictlyBusiness/fda-food-recalls)
 
 [![Sauce Test Status](https://saucelabs.com/browser-matrix/techniq.svg)](https://saucelabs.com/u/techniq)
