@@ -28,9 +28,10 @@ export default class USMap {
     let path = d3.geo.path()
         .projection(projection);
 
-    let svgElement = element[0].querySelector('svg');
     let tooltipElement = element[0].querySelector('.tooltip');
+    let tooltip = d3.select(tooltipElement);
 
+    let svgElement = element[0].querySelector('svg');
     let width = svgElement.viewBox.baseVal.width;
     let height = svgElement.viewBox.baseVal.height;
 
@@ -99,22 +100,27 @@ export default class USMap {
             d3.event.stopPropagation();
           })
           .on('mouseover', function(d) {
-            d3.select(tooltipElement)
-                .html(`
-                  <div class="name">${d.metadata.name}</div>
-                  <div>Recalls: ${d.metadata.recalls.length}</div>
-                  <div>Recalled Products: ${d.metadata.productCount }</div>
-                `)
-                .transition().duration(200).style('opacity', 1);
+            tooltip
+              .html(`
+                <div class="name">${d.metadata.name}</div>
+                <div>Recalls: ${d.metadata.recalls.length}</div>
+                <div>Recalled Products: ${d.metadata.productCount }</div>
+              `)
+              .transition().duration(200)
+              .style('opacity', 1)
+              .style('display', 'block');
           })
           .on('mousemove', function(d) {
-            d3.select(tooltipElement)
+            tooltip
               .style('left', `${d3.event.pageX + 30}px`)
               .style('top', `${d3.event.pageY - 30}px`);
           })
           .on('mouseout', function(d) {
-              d3.select(tooltipElement)
-                .transition().duration(200).style('opacity', 0);
+            tooltip
+              .transition().duration(200)
+              .style('opacity', 0)
+              .transition()
+              .style('display', 'none');
           });
 
       let smallStates = ['VT', 'NH', 'MA', 'RI', 'CT', 'NJ', 'DE', 'MD', 'DC'];
