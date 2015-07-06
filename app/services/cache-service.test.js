@@ -1,9 +1,9 @@
-import 'angular';
+import angular from 'angular';
 import 'angular-mocks';
 
 import services from './module';
 
-describe('cacheService', () => {
+describe('CacheService', () => {
 
   // Initialize some data
   let cacheService = null;
