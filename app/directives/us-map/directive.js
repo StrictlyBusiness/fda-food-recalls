@@ -204,6 +204,7 @@ export default class USMap {
         let y = (top + bottom) / 2;
 
         scale = 0.8 / Math.max(dx / width, dy / height);
+        scale = Math.min(scale, 3); // Restrict zooming to a maximum of 3x (for smaller states)
         translate = [width / 2 - scale * x, height / 2 - scale * y];
         statesGroup.classed('selected', true);
       } else {
