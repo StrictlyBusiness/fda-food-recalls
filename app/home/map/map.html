@@ -91,7 +91,7 @@
       </div>
     </div>
 
-    <div class="col-xs-12 col-sm-4">
+    <div class="col-xs-6 col-sm-4">
       <div class="form-group">
         <label>Group by
           <i class="fa fa-info-circle"
@@ -99,12 +99,12 @@
             tooltip-placement="right"></i>
         </label>
         <div class="btn-group" style="width: 100%">
-          <div class="btn btn-default" ng-click="ctrl.setFilter('groupBy', 'origination')" ng-class="{ active: ctrl.isFilterActive('groupBy', 'origination')  }">Originated</div>
+          <div class="btn btn-default" ng-click="ctrl.setFilter('groupBy', 'origination')" ng-class="{ active: ctrl.isFilterActive('groupBy', 'origination')  }">Origin</div>
           <div class="btn btn-default" ng-click="ctrl.setFilter('groupBy', 'distribution')" ng-class="{ active: ctrl.isFilterActive('groupBy', 'distribution') }">Distributed</div>
         </div>
       </div>
     </div>
-    <div class="col-xs-12 col-sm-4">
+    <div class="col-xs-6 col-sm-4">
       <div class="form-group">
         <label>Count by
           <i class="fa fa-info-circle"
@@ -128,7 +128,7 @@
           <span ng-if="ctrl.criteria.company"> with a company name containing <strong>{{ ctrl.criteria.company }}</strong>,</span>
           <span ng-if="ctrl.criteria.product"> with a product name containing <strong>{{ ctrl.criteria.product }}</strong>,</span>
           <span ng-if="ctrl.criteria.reason"> with a reason containing <strong>{{ ctrl.criteria.reason }}</strong>,</span>
-          for the month of <strong>{{ ctrl.criteria.month + 1 }}/{{ ctrl.criteria.year }}</strong>
+          for the month of <strong>{{ ctrl.criteria.month }}/{{ ctrl.criteria.year }}</strong>
           <span ng-if="ctrl.criteria.selectedState"> in <strong>{{ ctrl.criteria.selectedState }}</strong></span>
         </p>
         Click <a href class="alert-link" ng-click="ctrl.isFilterVisible = true;">here</a> to view hidden filters.
