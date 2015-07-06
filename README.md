@@ -1,4 +1,4 @@
-##SBCS Process
+#a. SBCS Process
 SBCS uses an iterative development process.  The overall guiding principles of our process are:
 -	Frequent releases   
 -	Customer Priorities
@@ -19,25 +19,63 @@ Lists in the Trello board organize the following:
 -	Features in each release
 -	Project Management
 
-# Project Manager (PM) and Team
+#b. Project Manager (PM) and Team
 Mark Miller was the PM of this effort. He was responsibility identifying the resources necessary to complete the work.  The remainder of the team was self formed based on recommendations of the Technical Architect(TA).  Inadditional to the TA, front and backend web developers, and a Dev Ops Engineer were used.  Attachment C shows the breakdown of hours allowcated to each role.  The hours for PM and the "Customers" are not included in Attachment C for Pool 2.  Mr. Miller spent 42 hours on this effort as the PM and the "customers" spent a total of 54 labor hours, reviewing, testing and meeting.
 
-## Open-Source Technologies Used
+#c. Open-Source Technologies Used
 
 - JavaScript
 - Sean.....
 - 
-##Deployment of Prototype
-- SEAN
+#d. Deployment of Prototype
+## Deploying
+Travis CI is configured to automatically deploy to Github Pages ([gh-pages](tree/gh-pages) branch) on all success commits to the `master` branch.  Travis CI will use the environment variable `GH_TOKEN` to push to Github Pages (configured as a secure environment variable).
 
-## Unit Tests
+If you would like to deploy directly from your local build, you can run `gulp deploy`.  You must be using SSH keys for git/Github authentication.
+
+#e. Unit Tests
 - Sean - location of unit tests
 - 
-## Continous Integration
+#f.  Continous Integration
 - Sean
 - 
-## Configuration Management
-GitHub was used for CM - the branch structure used across the team was kept simple, a master branch and a develpment branch
+#g. Configuration Management
+GitHub was used for CM - the branch structure used across the team was kept simple, a master and develpment branch for developers and deployment branch(GH-pages)  
+
+#h. Continous Monitoring
+Security risks were minimized by making it a data search/filtering applicaiton.  No FDA data is updated by this site.  Google Analytics was added to monitor activity on the site.  GitHub also monitors the hosting facility for denial of service type attacks.
+SEAN
+
+#i. Deployment in Docker Containers
+## Docker
+
+### Setup
+- Install Docker Engine ([Mac](https://docs.docker.com/machine/install-machine/) / [Windows](https://docs.docker.com/installation/windows/))
+  - Follow instructions to install Boot2Docker, which includes VirtualBox, Docker Client, Git, and the boot2docker Linux ISO
+- Install [Docker Machine](https://docs.docker.com/machine/install-machine/) (optional)
+  - Create `dev` machine: `docker-machie create -d virtualbox dev`
+
+### Run from Docker Registry
+An automated build repository is [available](https://registry.hub.docker.com/u/strictlybusiness/fda-food-recalls/)
+- `docker run -p 8000:8000 strictlybusiness/fda-food-recalls`
+- Open browser to `http://$(docker-machine ip dev):8000` or replace `$(docker-machine ip dev)` with your docker virtual machine's IP if not using docker-machine
+
+### Build and run manually
+- `docker build -t fda-food-recalls .`
+- `docker run -p 8000:8000 fda-food-recalls`
+- Open browser to `http://$(docker-machine ip dev):8000` or replace `$(docker-machine ip dev)` with your docker virtual machine's IP if not using docker-machine
+
+### Build and run using `docker-compose`
+- Install [Docker Compose](https://docs.docker.com/compose/install/)
+- Run `docker-compose up` from project root to build and run
+- Open browser to `http://$(docker-machine ip dev):8000` or replace `$(docker-machine ip dev)` with your docker virtual machine's IP if not using docker-machine
+
+
+
+
+#j. Iterative Approach
+The compressed schedule of this effor had the team releasing updated every 1-3 days, customers were notified when new build completed and performed continous user testing.  Daily stand up meetings were held to gather customer feedback and adjust the priorities of the backlog.
+
 # FDA Food Recalls [![Build Status](https://travis-ci.org/StrictlyBusiness/fda-food-recalls.svg?branch=develop)](https://travis-ci.org/StrictlyBusiness/fda-food-recalls)
 
 [![Sauce Test Status](https://saucelabs.com/browser-matrix/techniq.svg)](https://saucelabs.com/u/techniq)
@@ -73,35 +111,7 @@ GitHub was used for CM - the branch structure used across the team was kept simp
   - Run units tests with IE9 on Sauce Labs
   - See `sauceLabsLaunchers` variable in [`karma.conf.js`]('karma'conf.js') for all available Sauce Labs configured browsers
 
-## Docker
-
-### Setup
-- Install Docker Engine ([Mac](https://docs.docker.com/machine/install-machine/) / [Windows](https://docs.docker.com/installation/windows/))
-  - Follow instructions to install Boot2Docker, which includes VirtualBox, Docker Client, Git, and the boot2docker Linux ISO
-- Install [Docker Machine](https://docs.docker.com/machine/install-machine/) (optional)
-  - Create `dev` machine: `docker-machie create -d virtualbox dev`
-
-### Run from Docker Registry
-An automated build repository is [available](https://registry.hub.docker.com/u/strictlybusiness/fda-food-recalls/)
-- `docker run -p 8000:8000 strictlybusiness/fda-food-recalls`
-- Open browser to `http://$(docker-machine ip dev):8000` or replace `$(docker-machine ip dev)` with your docker virtual machine's IP if not using docker-machine
-
-### Build and run manually
-- `docker build -t fda-food-recalls .`
-- `docker run -p 8000:8000 fda-food-recalls`
-- Open browser to `http://$(docker-machine ip dev):8000` or replace `$(docker-machine ip dev)` with your docker virtual machine's IP if not using docker-machine
-
-### Build and run using `docker-compose`
-- Install [Docker Compose](https://docs.docker.com/compose/install/)
-- Run `docker-compose up` from project root to build and run
-- Open browser to `http://$(docker-machine ip dev):8000` or replace `$(docker-machine ip dev)` with your docker virtual machine's IP if not using docker-machine
 
 
 
-## Deploying
-Travis CI is configured to automatically deploy to Github Pages ([gh-pages](tree/gh-pages) branch) on all success commits to the `master` branch.  Travis CI will use the environment variable `GH_TOKEN` to push to Github Pages (configured as a secure environment variable).
 
-If you would like to deploy directly from your local build, you can run `gulp deploy`.  You must be using SSH keys for git/Github authentication.
-
-## Iterative Approach
-The compressed schedule of this effor had the team releasing updated every 1-3 days, customers were notified when new build completed and performed continous user testing.  Daily stand up meetings were held to gather customer feedback and adjust the priorities of the backlog.
