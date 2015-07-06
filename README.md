@@ -2,8 +2,8 @@
 SBCS uses an iterative development process.  The overall guiding principles of our process are:
 -	Frequent releases   
 -	Customer Priorities
--	Transparent development process
--	Continuous integration and testing
+-	Transparentency
+-	Continuous integration
 -	Self forming teams 
 -	Desired functionality 
 
