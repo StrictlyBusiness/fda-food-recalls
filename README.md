@@ -1,3 +1,9 @@
+# FDA Food Recalls [![Build Status](https://travis-ci.org/StrictlyBusiness/fda-food-recalls.svg?branch=develop)](https://travis-ci.org/StrictlyBusiness/fda-food-recalls)
+
+[![Sauce Test Status](https://saucelabs.com/browser-matrix/techniq.svg)](https://saucelabs.com/u/techniq)
+
+The working prototype is available at http://strictlybusiness.github.io/fda-food-recalls.
+
 #a. SBCS Process
 SBCS uses an iterative development process.  The overall guiding principles of our process are:
 -	Frequent releases
@@ -88,10 +94,6 @@ An automated build repository is [available](https://registry.hub.docker.com/u/s
 
 #j. Iterative Approach
 The compressed schedule of this effort had the team releasing updated every 1-3 days, customers were notified when new build completed and performed continuous user testing.  Daily stand up meetings were held to gather customer feedback and adjust the priorities of the backlog.
-
-# FDA Food Recalls [![Build Status](https://travis-ci.org/StrictlyBusiness/fda-food-recalls.svg?branch=develop)](https://travis-ci.org/StrictlyBusiness/fda-food-recalls)
-
-[![Sauce Test Status](https://saucelabs.com/browser-matrix/techniq.svg)](https://saucelabs.com/u/techniq)
 
 ## Development
 - Install [Node](https://nodejs.org/)
