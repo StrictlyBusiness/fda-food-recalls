@@ -78,5 +78,5 @@ To run locally in a docker container, follow these instructions:
 
 Additional installation options and commands are available. See the [INSTRUCTIONS.md](INSTRUCTIONS.md) file for details.
 
-## L. License
+## License
 This prototype is licensed under the MIT license available [here](LICENSE).
