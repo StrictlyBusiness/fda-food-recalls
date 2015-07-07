@@ -6,9 +6,10 @@ The working prototype is available at http://strictlybusiness.github.io/fda-food
 
 # Description
 The following sections describe the process and disclose the required evidence laid out in
-Attachment E.
+Attachment E. This section and the lettered sections below are considered the description
+which is limited to 750 words maximum.
 
-## a. SBCS Process
+## A. SBCS Process
 SBCS uses an iterative development process.  The overall guiding principles of our process are:
 -	Frequent releases
 -	Customer priorities
@@ -29,11 +30,11 @@ Lists in the Trello board organize the following:
 -	Features in each release
 -	Project Management
 
-## b. Project Manager (PM) and Team
+## B. Project Manager (PM) and Team
 Mark Miller was the PM of this effort. He was responsibility identifying the resources necessary to complete the work.  The remainder of the team was self formed based on recommendations of the Technical Architect (TA).  In additional to the TA, front and backend web developers, and a Dev Ops Engineer were used.  Attachment C shows the breakdown of hours allocated to each role.  The hours for PM and the "Customers" are not included in Attachment C for Pool 2.  Mr. Miller spent 42 hours on this effort as the PM and the "customers" spent a total of 54 labor hours, reviewing, testing and meeting.
 
-## c. Open-Source Technologies Used
-There were many open-source technologies used in our develop such as:
+## C. Open-Source Technologies Used
+There were many open-source technologies used in our develop, including:
 
 Build
 - [Node.js 0.12.5](https://nodejs.org/)
@@ -56,28 +57,25 @@ Test
 - [Karma 0.12.37](http://karma-runner.github.io/0.12/index.html)
 - [Mocha 2.2.5](http://mochajs.org/)
 
-## d. Deployment of Prototype
-## Deploying
-Travis CI is configured to automatically deploy to Github Pages ([gh-pages](tree/gh-pages) branch) on all successful commits to the `master` branch.  Travis CI will use the environment variable `GH_TOKEN` to push to Github Pages (configured as a secure environment variable).
+## D. Deployment of Prototype
+Travis CI (https://travis-ci.org/StrictlyBusiness/fda-food-recalls) is configured to automatically deploy to Github Pages ([gh-pages](tree/gh-pages) branch) on all successful commits to the `master` branch. This results in the prototype being deployed to http://strictlybusiness.github.io/fda-food-recalls on a successful build of the `master` branch.
 
-If you would like to deploy directly from your local build, you can run `gulp deploy`. You must be using SSH keys for git/Github authentication.
-
-## e. Unit Tests
+## E. Unit Tests
 Unit tests were developed for key classes. They are executed as part of the build process. Test classes end with the extension \*.test.js and are in the same folder as the class being tested (\*.js extension).
 
 If you have the prototype installed locally, you can run the tests using `npm test`.
 
-## f. Continuous Integration
+## F. Continuous Integration
 - Sean
 -
-## g. Configuration Management
+## G. Configuration Management
 GitHub was used for CM - the branch structure used across the team was kept simple, a master and development branch for developers and a deployment branch (gh-pages)  
 
-## h. Continuous Monitoring
+## H. Continuous Monitoring
 Security risks were minimized by making it a data search/filtering application.  No FDA data is updated by this site.  Google Analytics was added to monitor activity on the site. GitHub also monitors the hosting facility for denial of service type attacks.
 SEAN
 
-## i. Deployment in Docker Containers
+## I. Deployment in Docker Containers
 ## Docker
 
 ### Setup
@@ -101,10 +99,10 @@ An automated build repository is [available](https://registry.hub.docker.com/u/s
 - Run `docker-compose up` from project root to build and run
 - Open browser to `http://$(docker-machine ip dev):8000` or replace `$(docker-machine ip dev)` with your docker virtual machine's IP if not using docker-machine
 
-## j. Iterative Approach
+## J. Iterative Approach
 The compressed schedule of this effort had the team releasing updated every 1-3 days, customers were notified when new build completed and performed continuous user testing.  Daily stand up meetings were held to gather customer feedback and adjust the priorities of the backlog.
 
-## k. Installation
+## K. Installation
 Use the following instructions to install the prototype locally:
 
 - Install [Node](https://nodejs.org/)
@@ -124,7 +122,7 @@ To run locally in a docker container, follow these instructions:
 - `docker run -p 8000:8000 strictlybusiness/fda-food-recalls`
 - Open browser to `http://$(docker-machine ip dev):8000` or replace `$(docker-machine ip dev)` with your docker virtual machine's IP if not using docker-machine
 
-## l. License
+## L. License
 This prototype is licensed under the MIT license available [here](LICENSE).
 
 ## Development
