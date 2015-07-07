@@ -57,7 +57,7 @@ Test
 - [Karma 0.12.37](http://karma-runner.github.io/0.12/index.html)
 - [Mocha 2.2.5](http://mochajs.org/)
 
-## D. Deployment of Prototype
+## D. Deployment
 Travis CI (https://travis-ci.org/StrictlyBusiness/fda-food-recalls) is configured to automatically deploy to Github Pages ([gh-pages](tree/gh-pages) branch) on all successful commits to the `master` branch. This results in the prototype being deployed to http://strictlybusiness.github.io/fda-food-recalls on a successful build of the `master` branch.
 
 ## E. Unit Tests
