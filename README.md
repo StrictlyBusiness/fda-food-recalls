@@ -105,6 +105,14 @@ An automated build repository is [available](https://registry.hub.docker.com/u/s
 The compressed schedule of this effort had the team releasing updated every 1-3 days, customers were notified when new build completed and performed continuous user testing.  Daily stand up meetings were held to gather customer feedback and adjust the priorities of the backlog.
 
 ## k. Installing the Prototype
+Use the following instructions to install the prototype locally:
+
+- Install [Node](https://nodejs.org/)
+- `npm install`
+  - Install all npm and jspm dependencies
+- `npm start`
+  - Starts BrowserSync and serves the production (concatenated/minified) assets
+- Open browser to `http://localhost:8000`
 
 ## l. Prototype License
 This prototype is licensed under the MIT license available [here](LICENSE).
