@@ -14,9 +14,9 @@ SBCS uses an iterative development process.  The overall guiding principles of o
 -	Desired functionality
 
 SBCS employees acted as “customers” to define the functionality and perform user testing.  
-The release schedule was reduced from 1-3 week cycles to 1-3 day(s).   Customers were notified with each build and performed continuous user testing. On-going feedback gathered in daily stand up meetings.
+The release schedule was reduced from 1-3 week cycles to 1-3 day(s). Customers were notified with each build and performed continuous user testing. On-going feedback gathered in daily stand up meetings.
 
-Online backlog etc was maintained in Trello, used to manage lists of cards.  Our Trello board was exported to JSON and stored in the project repository. The actual Trello board is viewable at https://trello.com/b/4s6rYtpy .
+Our backlog, active tasks, and completed tasks were maintained in Trello.  Our Trello board was exported to JSON and stored in the project repository. The Trello board is publicly viewable at https://trello.com/b/4s6rYtpy .
 
 Lists in the Trello board organize the following:
 -	Backlog
@@ -29,7 +29,7 @@ Lists in the Trello board organize the following:
 Mark Miller was the PM of this effort. He was responsibility identifying the resources necessary to complete the work.  The remainder of the team was self formed based on recommendations of the Technical Architect (TA).  In additional to the TA, front and backend web developers, and a Dev Ops Engineer were used.  Attachment C shows the breakdown of hours allocated to each role.  The hours for PM and the "Customers" are not included in Attachment C for Pool 2.  Mr. Miller spent 42 hours on this effort as the PM and the "customers" spent a total of 54 labor hours, reviewing, testing and meeting.
 
 #c. Open-Source Technologies Used
-There were many open-source technologies in our develop such as:
+There were many open-source technologies used in our develop such as:
 
 Build
 - [Node.js 0.12.5](https://nodejs.org/)
@@ -59,8 +59,10 @@ Travis CI is configured to automatically deploy to Github Pages ([gh-pages](tree
 If you would like to deploy directly from your local build, you can run `gulp deploy`. You must be using SSH keys for git/Github authentication.
 
 #e. Unit Tests
-- Sean - location of unit tests
--
+Unit tests were developed for key classes. They are executed as part of the build process. Test classes end with the extension \*.test.js and are in the same folder as the class being tested (\*.js extension).
+
+If you have the prototype installed locally, you can run the tests using `npm test`.
+
 #f.  Continuous Integration
 - Sean
 -
