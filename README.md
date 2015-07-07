@@ -2,38 +2,19 @@
 
 [![Sauce Test Status](https://saucelabs.com/browser-matrix/techniq.svg)](https://saucelabs.com/u/techniq)
 
-The working prototype is available at http://strictlybusiness.github.io/fda-food-recalls.
+The working prototype is available at https://strictlybusiness.github.io/fda-food-recalls.
 
-# Description
-The following sections describe the process and disclose the required evidence laid out in
-Attachment E. This section and the lettered sections below are considered the description
-which is limited to 750 words maximum.
+# Overview
+This project was created as a response to 18f's RFQ 4QTFHS150004. The prototype allows users on a month by month basis to review food recalls and graphically view the origin and distribution of these recalled products. It also provides basic filtering and allows users to view the details for each recall at the bottom of the page.
 
-## A. SBCS Process
-SBCS uses an iterative development process.  The overall guiding principles of our process are:
--	Frequent releases
--	Customer priorities
--	Transparency
--	Continuous integration
--	Self forming teams
--	Desired functionality
+# Development Process
+Mark Miller was assigned responsibility for this project as the Project Manager (PM). The remainder of the team was self formed based on recommendations of the Technical Architect. A Frontend Web Developer, Backend Web Developer, and a DevOps Engineer were also utilized. Attachment C shows the breakdown of hours allocated to each role. The hours for PM and the "customers" (other SBCS employees not directly involved with development) are not included in Attachment C.  Mr. Miller spent 42 hours on this effort as the PM and the "customers" spent a total of 54 labor hours, reviewing, testing and meeting.
 
-SBCS employees acted as “customers” to define the functionality and perform user testing.  
-The release schedule was reduced from 1-3 week cycles to 1-3 day(s). Customers were notified with each build and performed continuous user testing. On-going feedback gathered in daily stand up meetings.
+At [SBCS](http://www.sbcs.com), we approach each project in an iterative fashion. This iterative process involves working with the customers (in this case other SBCS employees) to identify and prioritize tasks, execute the tasks, and then review the finished results with the customers.
 
-Our backlog, active tasks, and completed tasks were maintained in Trello.  Our Trello board was exported to JSON and stored in the project repository. The Trello board is publicly viewable at https://trello.com/b/4s6rYtpy .
+Our team used a Trello board (available at https://trello.com/b/4s6rYtpy) to define, assign, and organize tasks. It was also used to identify issues and track other project related information. The board served as the central discussion point in our daily stand-up meetings. The team had to maintain their normal workload while working on this project so communication was critical. Our Trello board was exported to [JSON](docs/trello.json) and stored in the project repository along with several screen shots in the `docs/screenshots/trello` folder.
 
-Lists in the Trello board organize the following:
--	Backlog
--	Issues
--	Feedback
--	Features in each release
--	Project Management
-
-## B. Project Manager (PM) and Team
-Mark Miller was the PM of this effort. He was responsibility identifying the resources necessary to complete the work.  The remainder of the team was self formed based on recommendations of the Technical Architect (TA).  In additional to the TA, front and backend web developers, and a Dev Ops Engineer were used.  Attachment C shows the breakdown of hours allocated to each role.  The hours for PM and the "Customers" are not included in Attachment C for Pool 2.  Mr. Miller spent 42 hours on this effort as the PM and the "customers" spent a total of 54 labor hours, reviewing, testing and meeting.
-
-## C. Open-Source Technologies Used
+## Open-Source Technologies Used
 There were many open-source technologies used in our develop, including:
 
 Build
@@ -57,55 +38,28 @@ Test
 - [Karma 0.12.37](http://karma-runner.github.io/0.12/index.html)
 - [Mocha 2.2.5](http://mochajs.org/)
 
-## D. Deployment
-Travis CI (https://travis-ci.org/StrictlyBusiness/fda-food-recalls) is configured to automatically deploy to GitHub Pages (`gh-pages` branch) on all successful commits to the `master` branch. This results in the prototype being deployed to http://strictlybusiness.github.io/fda-food-recalls on a successful build of the `master` branch.
-
-## E. Unit Tests
-Unit tests were developed for key classes. They are executed as part of the build process. Test classes end with the extension \*.test.js and are in the same folder as the class being tested (\*.js extension).
+## Unit Tests
+Unit tests were developed for key classes. They are executed as part of the build process. Test classes end with the extension `\*.test.js` and are in the same folder as the class being tested (`\*.js` extension).
 
 If you have the prototype installed locally, you can run the tests using `npm test`.
 
-## F. Continuous Integration
-- Sean
--
-## G. Configuration Management
-GitHub was used for configuration management. The team used [GitFlow](http://nvie.com/posts/a-successful-git-branching-model/) as the core branching strategy. A special branch called `gh-pages` was used for the GitHub Pages, where the public demo is [available](http://strictlybusiness.github.io/fda-food-recalls).
+## Configuration Management
+GitHub was used for configuration management. The team used [GitFlow](http://nvie.com/posts/a-successful-git-branching-model/) as the core branching strategy. A special branch called `gh-pages` was used for the GitHub Pages, where the public demo is [available](https://strictlybusiness.github.io/fda-food-recalls).
 
-## H. Continuous Monitoring
-Security risks were minimized by making it a data search/filtering application.  No FDA data is updated by this site.  Google Analytics was added to monitor activity on the site. GitHub also monitors the hosting facility for denial of service type attacks.
-SEAN
+## Continuous Integration
+Tests are run automatically after all commits to GitHub via a webhook to Travis CI and are run against the following browsers: Chrome (latest), Firefox (latest), IE9-11, and mobile Safari 7.1 and 8.2 on both an iPhone and iPad simulators using SauceLabs hosted browsers (open source license).
 
-## I. Deployment in Docker Containers
-## Docker
+## Continuous Deployment
+During active development, Travis CI (https://travis-ci.org/StrictlyBusiness/fda-food-recalls) was configured to automatically deploy to GitHub Pages (`gh-pages` branch) on all successful commits to the `develop` branch. This results in the prototype being deployed to https://strictlybusiness.github.io/fda-food-recalls where changes could be immediately reviewed and feedback provided. Now that the prototype is complete, this has been changed to trigger on the `master` branch for official releases.
 
-### Setup
-- Install Docker Engine ([Mac](https://docs.docker.com/machine/install-machine/) / [Windows](https://docs.docker.com/installation/windows/))
-  - Follow instructions to install Boot2Docker, which includes VirtualBox, Docker Client, Git, and the boot2docker Linux ISO
-- Install [Docker Machine](https://docs.docker.com/machine/install-machine/) (optional)
-  - Create `dev` machine: `docker-machie create -d virtualbox dev`
+## Continuous Monitoring
+Security risks were minimized by making it a data search/filtering application. No FDA data is updated by this site. Google Analytics was added to monitor activity on the site (see [index.html](index.html#L54)). GitHub also [monitors](https://status.github.com) the hosting facility for denial of service type attacks.
 
-### Run from Docker Registry
-An automated build repository is [available](https://registry.hub.docker.com/u/strictlybusiness/fda-food-recalls/)
-- `docker run -p 8000:8000 strictlybusiness/fda-food-recalls`
-- Open browser to `http://$(docker-machine ip dev):8000` or replace `$(docker-machine ip dev)` with your docker virtual machine's IP if not using docker-machine
-
-### Build and run manually
-- `docker build -t fda-food-recalls .`
-- `docker run -p 8000:8000 fda-food-recalls`
-- Open browser to `http://$(docker-machine ip dev):8000` or replace `$(docker-machine ip dev)` with your docker virtual machine's IP if not using docker-machine
-
-### Build and run using `docker-compose`
-- Install [Docker Compose](https://docs.docker.com/compose/install/)
-- Run `docker-compose up` from project root to build and run
-- Open browser to `http://$(docker-machine ip dev):8000` or replace `$(docker-machine ip dev)` with your docker virtual machine's IP if not using docker-machine
-
-## J. Iterative Approach
-The compressed schedule of this effort had the team releasing updated every 1-3 days, customers were notified when new build completed and performed continuous user testing.  Daily stand up meetings were held to gather customer feedback and adjust the priorities of the backlog.
-
-## K. Installation
+## Installation
 Use the following instructions to install the prototype locally:
 
 - Install [Node](https://nodejs.org/)
+- Checkout the source from https://github.com/StrictlyBusiness/fda-food-recalls
 - `npm install`
   - Install all npm and jspm dependencies
 - `npm start`
@@ -122,36 +76,7 @@ To run locally in a docker container, follow these instructions:
 - `docker run -p 8000:8000 strictlybusiness/fda-food-recalls`
 - Open browser to `http://$(docker-machine ip dev):8000` or replace `$(docker-machine ip dev)` with your docker virtual machine's IP if not using docker-machine
 
-## L. License
+Additional installation options and commands are available. See the [INSTRUCTIONS.md](INSTRUCTIONS.md) file for details.
+
+## License
 This prototype is licensed under the MIT license available [here](LICENSE).
-
-## Development
-- Install [Node](https://nodejs.org/)
-- `npm install`
-  - Install all npm and jspm dependencies
-- `npm run develop` (or `gulp serve`)
-  - Starts BrowserSync and continuously monitors for changes and inject the styles or reload the browser
-  - `gulp serve` requires  gulp to be installed globally (`npm install -g gulp`)
-- `npm start`
-  - Starts BrowserSync and serves the production (concatenated/minified) assets
-- Open browser to `http://localhost:8000`
-
-## Testing
-### Local tests
-- `npm test`
-  - Run all linters and run unit tests with Chrome
-- `gulp test:unit`
-  - Run unit tests with Chrome
-- `gulp test:unit --watch`
-  - Continuously run unit tests with Chrome
-- `gulp test:unit --browsers=PhantomJS`
-  - Run unit tests with PhantomJS
-
-### Sauce Labs
-`SAUCE_USERNAME` and `SAUCE_ACCESS_KEY` environment variables must be set
-- `CI=true gulp test:unit`
-  - Run all Sauce Lab configured browsers (same as Travis CI)
-  - Under Windows, you'll need to set the environment variable manually `set CI=true`
-- `gulp test:unit --browsers=sl_ie_9 --reporters=saucelabs`
-  - Run units tests with IE9 on Sauce Labs
-  - See `sauceLabsLaunchers` variable in [`karma.conf.js`]('karma'conf.js') for all available Sauce Labs configured browsers

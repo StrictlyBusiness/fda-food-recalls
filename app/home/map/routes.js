@@ -12,7 +12,7 @@ export default function routes($stateProvider) {
       template: '<ui-view></ui-view>',
       // Default parameters in case query string isn't set
       params: {
-        month: '' + moment().month(),
+        month: '1', // January
         year: '' + moment().year()
       },
       resolve: {
