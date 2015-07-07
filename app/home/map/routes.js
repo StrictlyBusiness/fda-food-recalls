@@ -6,11 +6,10 @@ import mapController from './map-controller';
 export default function routes($stateProvider) {
 
   return $stateProvider
-    .state('home.map', {
-      url: '/map?month&year&classification&status',
-      template: mapTemplate,
-      controller: mapController,
-      controllerAs: 'ctrl',
+    .state('home.mapData', {
+      abstract: true,
+      url: '/map?month&year',
+      template: '<ui-view></ui-view>',
       // Default parameters in case query string isn't set
       params: {
         month: '' + moment().month(),
@@ -32,7 +31,24 @@ export default function routes($stateProvider) {
           }
         ]
       }
-    });
+    })
+    .state('home.map', {
+      parent: 'home.mapData',
+      url: '?classification&status&company&product&reason&groupBy&countBy&state',
+      template: mapTemplate,
+      controller: mapController,
+      controllerAs: 'ctrl',
+      // Default parameters in case query string isn't set
+      params: {
+        classification: null,
+        status: null,
+        groupBy: 'origination',
+        countBy: 'recalls',
+        state: null
+      },
+      reloadOnSearch: false
+    })
+    ;
 }
 
 routes.$inject = ['$stateProvider'];

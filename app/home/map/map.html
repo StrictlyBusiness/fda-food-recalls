@@ -1,92 +1,167 @@
 <div class="container-fluid">
   <div class="row">
 
-    <div class="col-xs-6 col-sm-3 col-md-2">
+    <div class="col-xs-6 col-sm-2 col-md-2">
       <div class="form-group">
-        <label for="selectMonth">Month</label>
+        <label for="selectMonth">Month
+          <i class="fa fa-info-circle"
+            tooltip-html-unsafe="{{ ctrl.getFilterDescription('month') }}"
+            tooltip-placement="right"></i>
+        </label>
         <select class="form-control" id="selectMonth" ng-model="ctrl.criteria.month"
           ng-options="month.month as month.name for month in ctrl.months"
-          ng-change="ctrl.selectMonth(ctrl.criteria.month)"></select>
+          ng-change="ctrl.setFilter('month', ctrl.criteria.month, true)"></select>
       </div>
     </div>
-
-    <div class="col-xs-6 col-sm-3 col-md-2">
+    <div class="col-xs-6 col-sm-2 col-md-2">
       <div class="form-group">
-        <label for="selectYear">Year</label>
+        <label for="selectYear">Year
+          <i class="fa fa-info-circle"
+            tooltip-html-unsafe="{{ ctrl.getFilterDescription('year') }}"
+            tooltip-placement="right"></i>
+        </label>
         <select class="form-control" id="selectYear" ng-model="ctrl.criteria.year"
           ng-options="year for year in ctrl.years"
-          ng-change="ctrl.selectYear(ctrl.criteria.year)"></select>
+          ng-change="ctrl.setFilter('year', ctrl.criteria.year, true)"></select>
       </div>
     </div>
 
-    <div class="col-xs-6 col-sm-3 col-md-2">
+    <div class="col-xs-6 col-sm-4" ng-if="ctrl.isFilterVisible">
       <div class="form-group">
-        <label for="selectClassification">Classification</label>
+        <label for="selectClassification">Classification
+          <i class="fa fa-info-circle"
+            tooltip-html-unsafe="{{ ctrl.getFilterDescription('classification') }}"
+            tooltip-placement="right"></i>
+        </label>
         <select class="form-control" id="selectClassification" ng-model="ctrl.criteria.classification"
           ng-options="classification for classification in ctrl.classifications"
-          ng-change="ctrl.selectClassification(ctrl.criteria.classification)"></select>
+          ng-change="ctrl.setFilter('classification', ctrl.criteria.classification)"><option /></select>
       </div>
     </div>
-
-    <div class="col-xs-6 col-sm-3 col-md-2">
+    <div class="col-xs-6 col-sm-4" ng-if="ctrl.isFilterVisible">
       <div class="form-group">
-        <label for="selectStatus">Status</label>
+        <label for="selectStatus">Status
+          <i class="fa fa-info-circle"
+            tooltip-html-unsafe="{{ ctrl.getFilterDescription('status') }}"
+            tooltip-placement="right"></i>
+        </label>
         <select class="form-control" id="selectStatus" ng-model="ctrl.criteria.status"
           ng-options="status for status in ctrl.statuses"
-          ng-change="ctrl.selectStatus(ctrl.criteria.status)"></select>
+          ng-change="ctrl.setFilter('status', ctrl.criteria.status)"><option /></select>
       </div>
     </div>
 
+    <div class="col-xs-12 col-sm-4" ng-if="ctrl.isFilterVisible">
+      <div class="form-group">
+        <label for="selectCompany">Company
+          <i class="fa fa-info-circle"
+            tooltip-html-unsafe="{{ ctrl.getFilterDescription('company') }}"
+            tooltip-placement="right"></i>
+        </label>
+        <input type="text" class="form-control" id="selectCompany"
+               ng-model="ctrl.criteria.company"
+               ng-model-options="ctrl.debounceOptions"
+               ng-change="ctrl.setFilter('company', ctrl.criteria.company)" />
+      </div>
+    </div>
+    <div class="col-xs-12 col-sm-4" ng-if="ctrl.isFilterVisible">
+      <div class="form-group">
+        <label for="selectProduct">Product
+          <i class="fa fa-info-circle"
+            tooltip-html-unsafe="{{ ctrl.getFilterDescription('product') }}"
+            tooltip-placement="right"></i>
+        </label>
+        <input type="text" class="form-control" id="selectProduct"
+               ng-model="ctrl.criteria.product"
+               ng-model-options="ctrl.debounceOptions"
+               ng-change="ctrl.setFilter('product', ctrl.criteria.product)" />
+      </div>
+    </div>
+    <div class="col-xs-12 col-sm-4" ng-if="ctrl.isFilterVisible">
+      <div class="form-group">
+        <label for="selectReason">Reason
+          <i class="fa fa-info-circle"
+            tooltip-html-unsafe="{{ ctrl.getFilterDescription('reason') }}"
+            tooltip-placement="right"></i>
+        </label>
+        <input type="text" class="form-control" id="selectReason"
+               ng-model="ctrl.criteria.reason"
+               ng-model-options="ctrl.debounceOptions"
+               ng-change="ctrl.setFilter('reason', ctrl.criteria.reason)" />
+      </div>
+    </div>
+
+    <div class="col-xs-6 col-sm-4 col-md-3">
+      <div class="form-group">
+        <label>Group by
+          <i class="fa fa-info-circle"
+            tooltip-html-unsafe="{{ ctrl.getFilterDescription('groupBy') }}"
+            tooltip-placement="right"></i>
+        </label>
+        <div class="btn-group" style="width: 100%">
+          <div class="btn btn-default" ng-click="ctrl.setFilter('groupBy', 'origination')" ng-class="{ active: ctrl.isFilterActive('groupBy', 'origination')  }">Origin</div>
+          <div class="btn btn-default" ng-click="ctrl.setFilter('groupBy', 'distribution')" ng-class="{ active: ctrl.isFilterActive('groupBy', 'distribution') }">Distributed</div>
+        </div>
+      </div>
+    </div>
+    <div class="col-xs-6 col-sm-4 col-md-3">
+      <div class="form-group">
+        <label>Count by
+          <i class="fa fa-info-circle"
+            tooltip-html-unsafe="{{ ctrl.getFilterDescription('countBy') }}"
+            tooltip-placement="right"></i>
+        </label>
+        <div class="btn-group" style="width: 100%">
+          <div class="btn btn-default" ng-click="ctrl.setFilter('countBy', 'recalls')" ng-class="{ active: ctrl.isFilterActive('countBy', 'recalls') }">Recalls</div>
+          <div class="btn btn-default" ng-click="ctrl.setFilter('countBy', 'products')"  ng-class="{ active: ctrl.isFilterActive('countBy', 'products')  }">Products</div>
+        </div>
+      </div>
+    </div>
   </div>
   <div class="row">
-
-    <div class="col-xs-12 col-sm-4">
-      <div class="form-group">
-        <label>Group by</label>
-        <div class="btn-group" style="width: 100%">
-          <div class="btn btn-default" ng-click="ctrl.groupBy = 'origination'" ng-class="{active: ctrl.groupBy === 'origination'}">Originated from</div>
-          <div class="btn btn-default" ng-click="ctrl.groupBy = 'distribution'" ng-class="{active: ctrl.groupBy === 'distribution'}">Distributed to</div>
-        </div>
+    <div class="col-xs-12">
+      <div ng-if="!ctrl.isFilterVisible">
+        <p>
+          Displaying all recalls
+          <span ng-if="ctrl.criteria.classification"> classified as <strong>{{ ctrl.criteria.classification }}</strong>,</span>
+          <span ng-if="ctrl.criteria.status"> in a status of <strong>{{ ctrl.criteria.status }}</strong>,</span>
+          <span ng-if="ctrl.criteria.company"> with a company name containing <strong>{{ ctrl.criteria.company }}</strong>,</span>
+          <span ng-if="ctrl.criteria.product"> with a product name containing <strong>{{ ctrl.criteria.product }}</strong>,</span>
+          <span ng-if="ctrl.criteria.reason"> with a reason containing <strong>{{ ctrl.criteria.reason }}</strong>,</span>
+          for the month of <strong>{{ ctrl.criteria.month }}/{{ ctrl.criteria.year }}</strong>
+          <span ng-if="ctrl.criteria.selectedState"> in <strong>{{ ctrl.criteria.selectedState }}</strong></span>
+        </p>
+        Click <a href class="alert-link" ng-click="ctrl.isFilterVisible = true;">here</a> to view hidden filters.
+      </div>
+      <div ng-if="ctrl.isFilterVisible">
+        Click <a href class="alert-link" ng-click="ctrl.isFilterVisible = false;">here</a> to hide additional filters.
       </div>
     </div>
-
-    <div class="col-xs-12 col-sm-4">
-      <div class="form-group">
-        <label>Count by</label>
-        <div class="btn-group" style="width: 100%">
-          <div class="btn btn-default" ng-click="ctrl.countBy = 'recalls'" ng-class="{active: ctrl.countBy === 'recalls'}">Recalls</div>
-          <div class="btn btn-default" ng-click="ctrl.countBy = 'products'" ng-class="{active: ctrl.countBy === 'products'}">Recalled Products</div>
-        </div>
-      </div>
-    </div>
-
   </div>
 </div>
 
-<us-map recalls-by-state="ctrl.recallsByState" count-by="ctrl.countBy" selected="selected"></us-map>
+<us-map recalls-by-state="ctrl.recallsByState" selected="ctrl.criteria.selectedState" count-by="ctrl.criteria.countBy"></us-map>
+<!-- Selected: {{ ctrl.selectedState }} -->
 
-<div class="container-fluid recalls-summary" ng-if="selected">
-  <span class="value">{{ selected.metadata.recalls.length }}</span>
-  <ng-pluralize count="selected.metadata.recalls.length" when="{'0': 'recalls', '1': 'recall', 'other': 'recalls'}"></ng-pluralize>
+<div class="container-fluid recalls-summary" ng-if="ctrl.selectedState">
+  <span class="value">{{ ctrl.selectedState.recalls.length }}</span>
+  <ng-pluralize count="ctrl.selectedState.recalls.length" when="{'0': 'recalls', '1': 'recall', 'other': 'recalls'}"></ng-pluralize>
   affecting
-  <span class="value">{{ selected.metadata.productCount }}</span>
-  <ng-pluralize count="selected.metadata.productCount" when="{'0': 'products', '1': 'product', 'other': 'products'}"></ng-pluralize>
+  <span class="value">{{ ctrl.selectedState.productCount }}</span>
+  <ng-pluralize count="ctrl.selectedState.productCount" when="{'0': 'products', '1': 'product', 'other': 'products'}"></ng-pluralize>
 
-  <span ng-if="ctrl.groupBy === 'origination'">originating from</span>
-  <span ng-if="ctrl.groupBy === 'distribution'">distributed to</span>
+  <span ng-if="ctrl.isFilterActive('groupBy', 'origination')">originating from</span>
+  <span ng-if="ctrl.isFilterActive('groupBy', 'distribution')">distributed to</span>
 
-  <span class="value">{{ selected.metadata.name }}</span>
+  <span class="value">{{ ctrl.selectedState.name }}</span>
 </div>
 
-<div class="container-fluid recalls-summary" ng-if="!selected">
-  <span class="value">{{ ctrl.recalls.length }}</span>
-  <ng-pluralize count="ctrl.recalls.length" when="{'0': 'recalls', '1': 'recall', 'other': 'recalls'}"></ng-pluralize>
+<div class="container-fluid recalls-summary" ng-if="!ctrl.selectedState">
+  <span class="value">{{ ctrl.filteredRecalls.length }}</span>
+  <ng-pluralize count="ctrl.filteredRecalls.length" when="{'0': 'recalls', '1': 'recall', 'other': 'recalls'}"></ng-pluralize>
   affecting
   <span class="value">{{ ctrl.productCount }}</span>
   <ng-pluralize count="ctrl.productCount" when="{'0': 'products', '1': 'product', 'other': 'products'}"></ng-pluralize>
-
 </div>
 
-<div class="row">
-  <recalls-list recalls="selected.metadata.recalls || ctrl.recalls"></recalls-list>
-</div>
+<recalls-list recalls="ctrl.selectedState.recalls || ctrl.filteredRecalls"></recalls-list>

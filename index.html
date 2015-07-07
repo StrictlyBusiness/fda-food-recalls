@@ -16,7 +16,27 @@
 </head>
 
 <body>
-    <ui-view></ui-view>
+    <ui-view>
+
+      <div id="top-nav" class="navbar navbar-inverse navbar-static-top">
+
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <a href class="navbar-brand" ui-sref="home.map">FDA Food Recalls</a>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-xs-12">
+            <div class="alert alert-info">Loading...</div>
+          </div>
+        </div>
+      </div>
+      
+    </ui-view>
 
     <!-- build:js(.) scripts/main.min.js -->
     <!-- inject:build:js --><!-- endinject -->

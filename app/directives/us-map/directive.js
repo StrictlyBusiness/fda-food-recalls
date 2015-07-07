@@ -28,17 +28,15 @@ export default class USMap {
     let path = d3.geo.path()
         .projection(projection);
 
-    let svgElement = element[0].querySelector('svg');
     let tooltipElement = element[0].querySelector('.tooltip');
+    let tooltip = d3.select(tooltipElement);
 
+    let svgElement = element[0].querySelector('svg');
     let width = svgElement.viewBox.baseVal.width;
     let height = svgElement.viewBox.baseVal.height;
 
-    let svg = d3.select(svgElement);
-
-    svg.append('rect')
-        .attr('class', 'background')
-        .on('click', d => scope.$apply(() => scope.selected = null));
+    let svg = d3.select(svgElement)
+      .on('click', d => scope.$apply(() => scope.$emit('selectedState', null)));
 
     let map = svg.append('g');
 
@@ -58,10 +56,10 @@ export default class USMap {
     let statesNamesById = d3.tsv.parse(usStateNames);
     let states = null;
     let stateLabels = null;
+    let stateFeatures = topojson.feature(us, us.objects.states).features;
 
     let update = (stateGroups) => {
       // console.log('update');
-      let stateFeatures = topojson.feature(us, us.objects.states).features;
 
       // Omit any states that do not fit on the projection (ex. Puerto Rico and Virgin Islands)
       stateFeatures = stateFeatures.filter(f => (path.centroid(f)[0]));
@@ -85,45 +83,106 @@ export default class USMap {
           .style('fill', d => {
             let value;
             if (scope.countBy === 'products') {
-              value = d.metadata.productCount / 100;
+              value = Math.min(d.metadata.productCount / 100, 1);
             } else {
-              value = d.metadata.recalls.length / 10;
+              value = Math.min(d.metadata.recalls.length / 10, 1);
             }
-            return d3.interpolate('#FFEB3B', '#F44336')(value);
+
+            return (value === 0) ? '#FFFFFF' : d3.interpolate('#FFF59D', '#F44336')(value);
           })
           .on('click', d => {
-            // Unselect state if already selected, else update selection
-            scope.selected = (d === scope.selected) ? null : d;
-            scope.$apply();
+            scope.$apply(() => {
+              // Unselect state if already selected, else update selection
+              let selectedState = (d.metadata.abbreviation === scope.selected) ? null : d.metadata.abbreviation;
+              scope.$emit('selectedState', selectedState);
+            });
+
+            d3.event.stopPropagation();
           })
           .on('mouseover', function(d) {
-            d3.select(tooltipElement)
-                .html(`
-                  <div class="name">${d.metadata.name}</div>
-                  <div>Recalls: ${d.metadata.recalls.length}</div>
-                  <div>Recalled Products: ${d.metadata.productCount }</div>
-                `)
-                .transition().duration(200).style('opacity', 1);
+            tooltip
+              .html(`
+                <div class="name">${d.metadata.name}</div>
+                <div>Recalls: ${d.metadata.recalls.length}</div>
+                <div>Recalled Products: ${d.metadata.productCount }</div>
+              `)
+              .transition().duration(200)
+              .style('opacity', 1)
+              .style('display', 'block');
           })
           .on('mousemove', function(d) {
-            d3.select(tooltipElement)
+            tooltip
               .style('left', `${d3.event.pageX + 30}px`)
               .style('top', `${d3.event.pageY - 30}px`);
           })
           .on('mouseout', function(d) {
-              d3.select(tooltipElement)
-                .transition().duration(200).style('opacity', 0);
+            tooltip
+              .transition().duration(200)
+              .style('opacity', 0)
+              .transition()
+              .style('display', 'none');
           });
 
+      let smallStates = ['VT', 'NH', 'MA', 'RI', 'CT', 'NJ', 'DE', 'MD', 'DC'];
+      let smallStateLabelStartCoodinates = projection([-67.707617, 42.722131]);
       stateLabels = statesGroup.selectAll('text')
           .data(stateFeatures)
         .enter().append('svg:text')
           .text(d => d.metadata.abbreviation)
           .attr('class', 'state-labels')
-          .attr('x', d => path.centroid(d)[0])
-          .attr('y', d => path.centroid(d)[1]);
+          .each(function(d) {
+            let label = d3.select(this);
 
-      scope.selected = stateFeatures.filter(f => scope.selected && f.metadata.name === scope.selected.metadata.name)[0];
+            let xCenter = path.centroid(d)[0];
+            let yCenter = path.centroid(d)[1];
+
+            let xOffset = 0;
+            let yOffset = 5;
+            switch(d.metadata.abbreviation) {
+              case 'FL':
+              case 'KY':
+                xOffset = 8;
+                break;
+              case 'HI':
+                xOffset = -15;
+                break;
+              case 'LA':
+                xOffset = -9;
+                break;
+              case 'MI':
+                xOffset = 8;
+                yOffset = 18;
+                break;
+              case 'NY':
+                xOffset = 1;
+                break;
+              default:
+                xOffset = 0;
+            }
+
+            let x = xCenter + xOffset;
+            let y = yCenter + yOffset;
+
+            // Place labels for smaller states stacked to the right and draw line to state center
+            if (smallStates.some(s => s === d.metadata.abbreviation)) {
+              x = smallStateLabelStartCoodinates[0];
+
+              let yStart = smallStateLabelStartCoodinates[1];
+              let smallStateIndex = smallStates.indexOf(d.metadata.abbreviation);
+              y = yStart + (smallStateIndex * (4 + 12));
+
+              statesGroup.append('line')
+                .attr('x1', x - 10)
+                .attr('y1', y - 5)
+                .attr('x2', xCenter)
+                .attr('y2', yCenter)
+                .style('stroke', '#999')
+                .style('stroke-width', 1);
+            }
+
+            label.attr('x', x);
+            label.attr('y', y);
+          });
     };
     update(statesGroup);
 
@@ -135,12 +194,14 @@ export default class USMap {
       update(statesGroup);
     });
 
-    scope.$watch('selected', selected => {
-      // console.log('selected');
+    let updateSelection = (selected) => {
+      // console.log('selected', selected);
       let translate, scale;
 
       if (selected) {
-        let [leftTop, rightBottom] = path.bounds(selected);
+        let stateFeature = stateFeatures.filter(f => f.metadata.abbreviation === selected)[0];
+
+        let [leftTop, rightBottom] = path.bounds(stateFeature);
         let [left, top] = leftTop;
         let [right, bottom] = rightBottom;
         let dx = right - left;
@@ -149,6 +210,7 @@ export default class USMap {
         let y = (top + bottom) / 2;
 
         scale = 0.8 / Math.max(dx / width, dy / height);
+        scale = Math.min(scale, 3); // Restrict zooming to a maximum of 3x (for smaller states)
         translate = [width / 2 - scale * x, height / 2 - scale * y];
         statesGroup.classed('selected', true);
       } else {
@@ -157,15 +219,20 @@ export default class USMap {
         statesGroup.classed('selected', false);
       }
 
-      states.classed('selected', selected && (s => s.metadata === selected.metadata));
-      stateLabels.classed('selected', selected && (l => l.metadata === selected.metadata));
+      states.classed('selected', selected && (s => s.metadata.abbreviation === selected));
+      stateLabels.classed('selected', selected && (l => l.metadata.abbreviation === selected));
 
       map.transition()
         .duration(750)
         .style('stroke-width', 1.5 / scale + 'px')
         .attr('transform', `translate(${translate}) scale(${scale})`);
+    };
+    scope.$watch('selected', selected => {
+      updateSelection(selected);
     });
-    scope.clearSelection = () => scope.selected = null;
+    updateSelection(scope.selected);
+
+    scope.clearSelection = () => scope.$emit('selectedState', null);
   }
 
   static directiveFactory() {

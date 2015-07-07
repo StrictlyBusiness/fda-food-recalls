@@ -1,5 +1,4 @@
-
-import 'angular';
+import angular from 'angular';
 import 'angular-mocks';
 
 import services from './module';

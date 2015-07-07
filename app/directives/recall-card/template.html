@@ -7,9 +7,11 @@
       </h4>
       <div>
         <span class="label label-{{ getClassificationStyle(recall.classification) }}"
-          tooltip-html-unsafe="{{ getClassificationDescription(recall.classification) }}">{{ recall.classification }}</span>
+          tooltip-html-unsafe="{{ getClassificationDescription(recall.classification) }}"
+          tooltip-placement="right">{{ recall.classification }}</span>
         <span class="label label-{{ getStatusStyle(recall.status) }}"
-          tooltip-html-unsafe="{{ getStatusDescription(recall.status) }}">{{ recall.status }}</span>
+          tooltip-html-unsafe="{{ getStatusDescription(recall.status) }}"
+          tooltip-placement="right">{{ recall.status }}</span>
       </div>
     </div>
 

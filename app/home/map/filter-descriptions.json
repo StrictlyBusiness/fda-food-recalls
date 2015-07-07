@@ -1,0 +1,11 @@
+{
+  "month": "Select the month of recalls you would like to review. Data is available from June 2012 up to the most recent import (quarterly).",
+  "year": "Select the year of recalls you would like to review. Data is available from June 2012 up to the most recent import (quarterly).",
+  "classification": "Numerical designation (I, II, or III) that is assigned by FDA to a particular product recall that indicates the relative degree of health hazard. Class I is the most severe.",
+  "status": "The current status of the recall.",
+  "company": "The company that initiates a recall or, in the case of an FDA requested recall or FDA mandated recall, the company that has primary responsibility for the manufacture and (or) marketing of the product to be recalled.",
+  "product": "A brief description of the product being recalled.",
+  "reason": "The reason describes how the product is defective and violates the FD&C Act or related statutes.",
+  "groupBy": "Base the color coding in the map below based on either the compnay's state (Origin) or the states where the product was distributed (Distributed).",
+  "countBy": "Base the color scale in the map below on either the number of recalls (Recalls) or the number of products recalled (Products).",
+}

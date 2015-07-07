@@ -51,7 +51,7 @@ export default class FoodRecallService {
         },
         (error) => {
           if (error.status === 404) {
-            return this.processStatesForRecalls([]);
+            return [];
           }
           return Promise.reject(error);
         });
