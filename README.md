@@ -58,7 +58,7 @@ Test
 - [Mocha 2.2.5](http://mochajs.org/)
 
 ## D. Deployment
-Travis CI (https://travis-ci.org/StrictlyBusiness/fda-food-recalls) is configured to automatically deploy to Github Pages ([gh-pages](tree/gh-pages) branch) on all successful commits to the `master` branch. This results in the prototype being deployed to http://strictlybusiness.github.io/fda-food-recalls on a successful build of the `master` branch.
+Travis CI (https://travis-ci.org/StrictlyBusiness/fda-food-recalls) is configured to automatically deploy to GitHub Pages (`gh-pages` branch) on all successful commits to the `master` branch. This results in the prototype being deployed to http://strictlybusiness.github.io/fda-food-recalls on a successful build of the `master` branch.
 
 ## E. Unit Tests
 Unit tests were developed for key classes. They are executed as part of the build process. Test classes end with the extension \*.test.js and are in the same folder as the class being tested (\*.js extension).
@@ -69,7 +69,7 @@ If you have the prototype installed locally, you can run the tests using `npm te
 - Sean
 -
 ## G. Configuration Management
-GitHub was used for CM - the branch structure used across the team was kept simple, a master and development branch for developers and a deployment branch (gh-pages)  
+GitHub was used for configuration management. The team used [GitFlow](http://nvie.com/posts/a-successful-git-branching-model/) as the core branching strategy. A special branch called `gh-pages` was used for the GitHub Pages, where the public demo is [available](http://strictlybusiness.github.io/fda-food-recalls).
 
 ## H. Continuous Monitoring
 Security risks were minimized by making it a data search/filtering application.  No FDA data is updated by this site.  Google Analytics was added to monitor activity on the site. GitHub also monitors the hosting facility for denial of service type attacks.
