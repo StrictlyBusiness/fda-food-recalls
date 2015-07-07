@@ -66,14 +66,15 @@ Unit tests were developed for key classes. They are executed as part of the buil
 If you have the prototype installed locally, you can run the tests using `npm test`.
 
 ## F. Continuous Integration
-- Sean
--
+Tests are ran automatically after all commits to Github via a webhook to Travis CI and are ran against the following browsers: Chrome (latest), Firefox (latest), IE9-11, and mobile Safari 7.1 and 8.2 on both an iPhone and iPad simulators using SauceLabs hosted browsers (open source licnese).
+
+A developer can also continuously run the tests locally by running `gulp test:unit --watch`
+
 ## G. Configuration Management
 GitHub was used for configuration management. The team used [GitFlow](http://nvie.com/posts/a-successful-git-branching-model/) as the core branching strategy. A special branch called `gh-pages` was used for the GitHub Pages, where the public demo is [available](http://strictlybusiness.github.io/fda-food-recalls).
 
 ## H. Continuous Monitoring
 Security risks were minimized by making it a data search/filtering application.  No FDA data is updated by this site.  Google Analytics was added to monitor activity on the site. GitHub also monitors the hosting facility for denial of service type attacks.
-SEAN
 
 ## I. Deployment in Docker Containers
 ## Docker
