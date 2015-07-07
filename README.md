@@ -29,11 +29,14 @@ Lists in the Trello board organize the following:
 Mark Miller was the PM of this effort. He was responsibility identifying the resources necessary to complete the work.  The remainder of the team was self formed based on recommendations of the Technical Architect (TA).  In additional to the TA, front and backend web developers, and a Dev Ops Engineer were used.  Attachment C shows the breakdown of hours allocated to each role.  The hours for PM and the "Customers" are not included in Attachment C for Pool 2.  Mr. Miller spent 42 hours on this effort as the PM and the "customers" spent a total of 54 labor hours, reviewing, testing and meeting.
 
 #c. Open-Source Technologies Used
+There were many open-source technologies in our develop such as:
 
 Build
+- [Node.js 0.12.5](https://nodejs.org/)
+- [Docker 1.7.0](https://www.docker.com/)
+- [Gulp 3.9.0](http://gulpjs.com/)
 - [JSPM 0.15.7](http://jspm.io/)
 - [Babel 5.1.13](https://babeljs.io/)
-- [Gulp 3.9.0](http://gulpjs.com/)
 
 Client Frameworks
 - [AngularJS 1.4.1](https://angularjs.org/)
