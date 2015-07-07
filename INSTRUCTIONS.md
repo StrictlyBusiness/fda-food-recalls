@@ -1,18 +1,45 @@
 # Instructions and Usage
+This document provides additional details on installing and using the prototype.
 
-## Development
+## Installing Locally
 - Install [Node](https://nodejs.org/)
+- Checkout the source from https://github.com/StrictlyBusiness/fda-food-recalls
 - `npm install`
   - Install all npm and jspm dependencies
 - `npm run develop` (or `gulp serve`)
   - Starts BrowserSync and continuously monitors for changes and inject the styles or reload the browser
-  - `gulp serve` requires  gulp to be installed globally (`npm install -g gulp`)
+  - `gulp serve` requires gulp to be installed globally (`npm install -g gulp`)
 - `npm start`
   - Starts BrowserSync and serves the production (concatenated/minified) assets
 - Open browser to `http://localhost:8000`
 
+## Using Docker
+You can also run the prototype in a Docker container. The instructions below detail the process to setup Docker, run from the Docker Registry image, and how to build and run the docker container locally.
+
+### Setup
+- Install Docker Engine ([Mac](https://docs.docker.com/machine/install-machine/) / [Windows](https://docs.docker.com/installation/windows/))
+  - Follow instructions to install Boot2Docker, which includes VirtualBox, Docker Client, Git, and the boot2docker Linux ISO
+- Install [Docker Machine](https://docs.docker.com/machine/install-machine/) (optional)
+  - Create `dev` machine: `docker-machine create -d virtualbox dev`
+
+### Run from Docker Registry
+An automated build repository is [available](https://registry.hub.docker.com/u/strictlybusiness/fda-food-recalls/)
+- `docker run -p 8000:8000 strictlybusiness/fda-food-recalls`
+- Open browser to `http://$(docker-machine ip dev):8000` or replace `$(docker-machine ip dev)` with your docker virtual machine's IP if not using docker-machine
+
+### Build and run manually
+- `docker build -t fda-food-recalls .`
+- `docker run -p 8000:8000 fda-food-recalls`
+- Open browser to `http://$(docker-machine ip dev):8000` or replace `$(docker-machine ip dev)` with your docker virtual machine's IP if not using docker-machine
+
+### Build and run using `docker-compose`
+- Install [Docker Compose](https://docs.docker.com/compose/install/)
+- Run `docker-compose up` from project root to build and run
+- Open browser to `http://$(docker-machine ip dev):8000` or replace `$(docker-machine ip dev)` with your docker virtual machine's IP if not using docker-machine
+
 ## Testing
-### Local tests
+If you install the prototype locally, you can also run the linters/tests. Here are the available commands:
+
 - `npm test`
   - Run all linters and run unit tests with Chrome
 - `gulp test:unit`
@@ -21,29 +48,6 @@
   - Continuously run unit tests with Chrome
 - `gulp test:unit --browsers=PhantomJS`
   - Run unit tests with PhantomJS
-
-  ## Docker
-
-  ### Setup
-  - Install Docker Engine ([Mac](https://docs.docker.com/machine/install-machine/) / [Windows](https://docs.docker.com/installation/windows/))
-    - Follow instructions to install Boot2Docker, which includes VirtualBox, Docker Client, Git, and the boot2docker Linux ISO
-  - Install [Docker Machine](https://docs.docker.com/machine/install-machine/) (optional)
-    - Create `dev` machine: `docker-machie create -d virtualbox dev`
-
-  ### Run from Docker Registry
-  An automated build repository is [available](https://registry.hub.docker.com/u/strictlybusiness/fda-food-recalls/)
-  - `docker run -p 8000:8000 strictlybusiness/fda-food-recalls`
-  - Open browser to `http://$(docker-machine ip dev):8000` or replace `$(docker-machine ip dev)` with your docker virtual machine's IP if not using docker-machine
-
-  ### Build and run manually
-  - `docker build -t fda-food-recalls .`
-  - `docker run -p 8000:8000 fda-food-recalls`
-  - Open browser to `http://$(docker-machine ip dev):8000` or replace `$(docker-machine ip dev)` with your docker virtual machine's IP if not using docker-machine
-
-  ### Build and run using `docker-compose`
-  - Install [Docker Compose](https://docs.docker.com/compose/install/)
-  - Run `docker-compose up` from project root to build and run
-  - Open browser to `http://$(docker-machine ip dev):8000` or replace `$(docker-machine ip dev)` with your docker virtual machine's IP if not using docker-machine
 
 ### Sauce Labs
 `SAUCE_USERNAME` and `SAUCE_ACCESS_KEY` environment variables must be set
