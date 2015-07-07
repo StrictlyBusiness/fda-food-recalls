@@ -119,7 +119,7 @@ To run locally in a docker container, follow these instructions:
 - Install Docker Engine ([Mac](https://docs.docker.com/machine/install-machine/) / [Windows](https://docs.docker.com/installation/windows/))
   - Follow instructions to install Boot2Docker, which includes VirtualBox, Docker Client, Git, and the boot2docker Linux ISO
 - Install [Docker Machine](https://docs.docker.com/machine/install-machine/) (optional)
-  - Create `dev` machine: `docker-machie create -d virtualbox dev`
+  - Create `dev` machine: `docker-machine create -d virtualbox dev`
 - An automated build repository is [available](https://registry.hub.docker.com/u/strictlybusiness/fda-food-recalls/)
 - `docker run -p 8000:8000 strictlybusiness/fda-food-recalls`
 - Open browser to `http://$(docker-machine ip dev):8000` or replace `$(docker-machine ip dev)` with your docker virtual machine's IP if not using docker-machine
