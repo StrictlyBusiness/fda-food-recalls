@@ -1,6 +1,6 @@
 {
   "name": "fda-food-recalls",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "FDA Food Recalls",
   "main": "index.js",
   "scripts": {
