@@ -20,7 +20,7 @@ before_install:
   - jspm config registries.github.auth $JSPM_AUTH
 
 after_success:
-  - test $TRAVIS_PULL_REQUEST == "false" && test $TRAVIS_BRANCH == "develop" && gulp deploy
+  - test $TRAVIS_PULL_REQUEST == "false" && test $TRAVIS_BRANCH == "master" && gulp deploy
 
 addons:
   sauce_connect: true
